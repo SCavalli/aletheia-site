@@ -110,9 +110,15 @@
   .step p{ color:var(--muted); font-size:15px; }
 
   .who h2{ font-size:clamp(26px,3.8vw,44px); max-width:900px; }
-  .tags{ margin-top:34px; display:flex; flex-wrap:wrap; gap:13px; }
+  .who-group{ margin-top:40px; }
+  .who-label{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; margin-bottom:16px; }
+  .who-label.law{ color:#fff; } .who-label.law .b{ background:linear-gradient(120deg,var(--v1),var(--v2)); color:#fff; font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; }
+  .who-label.risk{ color:var(--muted); } .who-label.risk .b{ background:rgba(255,255,255,.06); border:1px solid var(--bd); color:var(--muted); font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; }
+  .who-label .hint{ color:var(--muted2); font-weight:400; font-size:14px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:13px; }
   .tag{ background:var(--card); border:1px solid var(--bd); border-radius:30px; padding:11px 22px; font-size:15px; color:#fff; font-weight:600; transition:transform .25s, border-color .25s; }
   .tag:hover{ transform:scale(1.05); border-color:var(--c1); }
+  .tag.hot{ border-color:rgba(109,94,252,.55); background:linear-gradient(135deg,rgba(109,94,252,.14),rgba(34,211,238,.08)); }
 
   .offer h2{ font-size:clamp(28px,4vw,48px); margin-bottom:50px; }
   .stack{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
@@ -123,7 +129,7 @@
   .item p{ color:var(--muted); font-size:15px; }
 
   .pricing h2{ font-size:clamp(28px,4vw,48px); margin-bottom:54px; text-align:center; }
-  .plans{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:880px; margin:0 auto; }
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1060px; margin:0 auto; }
   .plan{ background:var(--card); border:1px solid var(--bd); border-radius:22px; padding:44px 38px; transition:transform .3s, box-shadow .3s; }
   .plan:hover{ transform:translateY(-8px); box-shadow:0 24px 60px rgba(0,0,0,.45); }
   .plan.featured{ border:1px solid rgba(109,94,252,.6); position:relative; box-shadow:0 0 60px rgba(109,94,252,.14); }
@@ -269,9 +275,31 @@
   <div class="wrap">
     <span class="eyebrow reveal">Для кого</span>
     <h2 class="reveal d1">Если утечка документа стоит вам клиента, штрафа или статьи — это для вас.</h2>
-    <div class="tags reveal d2">
-      <span class="tag">Юристы и адвокаты</span><span class="tag">Нотариусы</span><span class="tag">Бухгалтеры и аудиторы</span>
-      <span class="tag">Клиники и психологи</span><span class="tag">Бизнес с коммерческой тайной</span>
+
+    <div class="who-group reveal d2">
+      <div class="who-label law"><span class="b">Обязаны по закону</span> <span class="hint">— им зарубежное облако запрещено (152-ФЗ, 187-ФЗ о КИИ, гостайна)</span></div>
+      <div class="tags">
+        <span class="tag hot">Госорганы и госконтракты</span>
+        <span class="tag hot">Банки и финансовые организации</span>
+        <span class="tag hot">Объекты КИИ (энергетика, транспорт, связь)</span>
+        <span class="tag hot">Оборонка и ВПК</span>
+        <span class="tag hot">Медицина (спецкатегория ПД)</span>
+        <span class="tag hot">Госкорпорации и импортозамещение</span>
+      </div>
+    </div>
+
+    <div class="who-group reveal d3">
+      <div class="who-label risk"><span class="b">Критично по риску</span> <span class="hint">— утечка = потеря клиента, штраф, репутация</span></div>
+      <div class="tags">
+        <span class="tag">Юристы и адвокаты</span>
+        <span class="tag">Нотариусы</span>
+        <span class="tag">Бухгалтеры и аудиторы</span>
+        <span class="tag">Психологи и психотерапевты</span>
+        <span class="tag">Страховые компании</span>
+        <span class="tag">Патентные поверенные и R&D</span>
+        <span class="tag">M&A, due diligence, инвестфонды</span>
+        <span class="tag">HR и кадровые агентства</span>
+      </div>
     </div>
   </div>
 </section>
@@ -298,6 +326,7 @@
     <div class="plans">
       <div class="plan reveal"><div class="name">РЕЗИДЕНТ Базовый</div><div class="price">от 290 000 ₽</div><div class="mo">под ключ + 15 000 ₽/мес сопровождение</div><p>До 10 сотрудников. Анализ документов, своя база знаний, мультидоступ.</p></div>
       <div class="plan featured reveal d1"><div class="name">РЕЗИДЕНТ Бизнес</div><div class="price">от 590 000 ₽</div><div class="mo">под ключ + 30 000 ₽/мес</div><p>Большой архив, интеграции, приоритетная поддержка, расширенная модель.</p></div>
+      <div class="plan reveal d2"><div class="name">РЕЗИДЕНТ Сейф</div><div class="price">от 800 000 ₽</div><div class="mo">под ключ + сопровождение индивидуально</div><p>Полный air-gap, выезд инженера, отдельный защищённый контур. Под гостайну, КИИ и госконтракты, где нужен максимальный уровень изоляции.</p></div>
     </div>
   </div>
 </section>
