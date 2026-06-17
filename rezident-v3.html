@@ -156,8 +156,56 @@
 
   footer{ border-top:1px solid var(--bd); padding:46px 0; text-align:center; color:var(--muted2); font-size:14px; }
 
+  /* модалка с формой заявки */
+  .modal{ position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:20px;
+    background:rgba(4,4,12,.72); backdrop-filter:blur(6px); }
+  .modal.open{ display:flex; animation:fade .25s ease; }
+  @keyframes fade{ from{ opacity:0 } to{ opacity:1 } }
+  .modal-card{ width:100%; max-width:440px; background:#0d0d1c; border:1px solid var(--bd); border-radius:22px; padding:36px 32px; position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.6); animation:pop .3s cubic-bezier(.2,.9,.3,1.2); }
+  @keyframes pop{ from{ transform:translateY(20px) scale(.96); opacity:0 } to{ transform:none; opacity:1 } }
+  .modal-card h3{ font-size:26px; }
+  .modal-card .sub{ color:var(--muted); font-size:15px; margin-top:8px; margin-bottom:24px; }
+  .modal-card .close{ position:absolute; top:18px; right:20px; background:none; border:none; color:var(--muted2); font-size:26px; cursor:pointer; line-height:1; transition:color .2s; }
+  .modal-card .close:hover{ color:#fff; }
+  .field{ margin-bottom:14px; }
+  .field input{ width:100%; padding:14px 16px; border-radius:11px; border:1px solid var(--bd); background:rgba(255,255,255,.04); color:#fff; font-size:15px; font-family:inherit; transition:border-color .2s; }
+  .field input::placeholder{ color:var(--muted2); }
+  .field input:focus{ outline:none; border-color:var(--v1); }
+  .field input.err{ border-color:#ef4444; }
+  .modal-card .btn{ width:100%; justify-content:center; margin-top:6px; }
+  .modal-card .priv{ color:var(--muted2); font-size:12px; text-align:center; margin-top:14px; }
+  .modal-ok{ text-align:center; padding:14px 0; }
+  .modal-ok .ic{ width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--v1),var(--c1)); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:30px; }
+  .modal-ok h3{ margin-bottom:8px; } .modal-ok p{ color:var(--muted); font-size:15px; }
+
   @media(prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } .blob{ animation:none; } * { scroll-behavior:auto; } }
-  @media(max-width:760px){ .pains,.stack,.plans,.grid{ grid-template-columns:1fr; } .steps{ grid-template-columns:1fr; } .stats .row{ grid-template-columns:repeat(2,1fr); gap:34px 16px; } section{ padding:84px 0; } }
+  @media(max-width:760px){
+    .pains,.stack,.plans,.grid{ grid-template-columns:1fr; }
+    .steps{ grid-template-columns:1fr; }
+    .stats .row{ grid-template-columns:repeat(2,1fr); gap:30px 14px; }
+    section{ padding:72px 0; }
+    .wrap{ padding:0 18px; }
+    header{ padding:14px 0; } header.scrolled{ padding:10px 0; }
+    header .btn{ padding:11px 18px; font-size:14px; }
+    .logo{ font-size:18px; } .logo .mark{ width:26px; height:26px; }
+    .hero{ padding:120px 0 70px; min-height:auto; }
+    .hero h1{ font-size:clamp(30px,8vw,42px); }
+    .hero .lead{ font-size:17px; }
+    .hero .cta-row{ flex-direction:column; align-items:stretch; }
+    .hero .cta-row .btn{ justify-content:center; }
+    .trustbar{ gap:14px 22px; margin-top:38px; }
+    .stat .num{ font-size:34px; }
+    .feat{ gap:14px; } .feat .ico{ flex-basis:46px; width:46px; height:46px; }
+    .who-label{ flex-wrap:wrap; } .who-label .hint{ flex-basis:100%; }
+    .plan{ padding:34px 26px; }
+    .modal-card{ padding:30px 22px; }
+  }
+  @media(max-width:420px){
+    .hero h1{ font-size:clamp(26px,8.5vw,34px); }
+    h2{ font-size:26px !important; }
+    .trustbar{ flex-direction:column; gap:12px; }
+  }
 </style>
 </head>
 <body>
@@ -166,7 +214,7 @@
 <header id="hdr">
   <div class="wrap bar">
     <div class="logo"><span class="mark"></span>РЕЗИДЕНТ</div>
-    <a href="#cta" class="btn">Записаться на демо</a>
+    <a href="#" class="btn js-demo">Записаться на демо</a>
   </div>
 </header>
 
@@ -177,7 +225,7 @@
     <h1 class="reveal d1">Загрузите самый секретный документ. AI разберёт его за минуты. <span class="grad-text">Наружу не уйдёт ничего.</span></h1>
     <p class="lead reveal d2">РЕЗИДЕНТ работает в вашем офисе и анализирует договоры, дела и отчёты без интернета, без VPN, без облака. Документ не покидает устройство. Физически.</p>
     <div class="cta-row reveal d3">
-      <a href="#cta" class="btn">Записаться на демо</a>
+      <a href="#" class="btn js-demo">Записаться на демо</a>
       <a href="#how" class="btn btn-ghost">Как это работает</a>
     </div>
     <div class="trustbar reveal d4">
@@ -349,12 +397,38 @@
   <div class="wrap">
     <h2 class="reveal">Выйдите из <span class="grad-text">чужого облака</span></h2>
     <p class="lead reveal d1">Покажем живое демо на вашем документе. Бесплатно, 15 минут, без обязательств. Принесёте файл — при вас отрежем интернет, при вас получите анализ. Дальше решаете сами.</p>
-    <a href="#" class="btn reveal d2">Записаться на демо</a>
+    <a href="#" class="btn js-demo reveal d2">Записаться на демо</a>
     <div class="micro reveal d2">Ответим в течение дня. Демо ни к чему не обязывает.</div>
   </div>
 </section>
 
 <footer>ALETHEIA · РЕЗИДЕНТ · Приватный AI для бизнеса · 2026</footer>
+
+<!-- МОДАЛКА ЗАЯВКИ -->
+<div class="modal" id="demoModal">
+  <div class="modal-card">
+    <button class="close" id="modalClose" aria-label="Закрыть">&times;</button>
+    <div id="modalForm">
+      <h3>Записаться на демо</h3>
+      <p class="sub">Покажем разбор на вашем документе. Бесплатно, 15 минут. Оставьте контакты — свяжемся в течение дня.</p>
+      <form id="demoForm" action="https://formsubmit.co/ajax/s7652070@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Заявка на демо РЕЗИДЕНТ">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="field"><input type="text" name="Имя" placeholder="Ваше имя" required></div>
+        <div class="field"><input type="email" name="Email" placeholder="Email" required></div>
+        <div class="field"><input type="tel" name="Телефон" placeholder="Телефон" required></div>
+        <button type="submit" class="btn" id="demoSubmit">Отправить заявку</button>
+        <div class="priv">Нажимая кнопку, вы соглашаетесь на обработку данных. Мы не передаём их третьим лицам.</div>
+      </form>
+    </div>
+    <div class="modal-ok" id="modalOk" style="display:none">
+      <div class="ic">✓</div>
+      <h3>Заявка отправлена</h3>
+      <p>Спасибо! Свяжемся с вами в течение дня и договоримся о демо.</p>
+    </div>
+  </div>
+</div>
 
 <script>
   const hdr=document.getElementById('hdr');
@@ -363,6 +437,34 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const cio=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(!e.isIntersecting) return; const el=e.target; const to=+el.dataset.count; const pre=el.dataset.prefix||''; const suf=el.dataset.suffix||''; let cur=0; const step=Math.max(1,Math.ceil(to/40)); const t=setInterval(()=>{ cur+=step; if(cur>=to){cur=to;clearInterval(t);} el.textContent=pre+cur+suf; },28); cio.unobserve(el); }); }, {threshold:.5});
   document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+  // модалка заявки
+  const modal=document.getElementById('demoModal');
+  const openModal=(e)=>{ if(e) e.preventDefault(); modal.classList.add('open'); document.body.style.overflow='hidden'; };
+  const closeModal=()=>{ modal.classList.remove('open'); document.body.style.overflow=''; };
+  document.querySelectorAll('.js-demo').forEach(b=>b.addEventListener('click', openModal));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+  addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+  // отправка формы (formsubmit ajax → email Сергею, без бэкенда)
+  const form=document.getElementById('demoForm');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn=document.getElementById('demoSubmit');
+    let ok=true;
+    form.querySelectorAll('input[required]').forEach(i=>{ if(!i.value.trim()){ i.classList.add('err'); ok=false; } else i.classList.remove('err'); });
+    if(!ok) return;
+    btn.textContent='Отправляем…'; btn.style.opacity=.7;
+    try{
+      const res=await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
+      if(res.ok){ document.getElementById('modalForm').style.display='none'; document.getElementById('modalOk').style.display='block'; }
+      else throw new Error('fail');
+    }catch(err){
+      btn.textContent='Отправить заявку'; btn.style.opacity=1;
+      alert('Не удалось отправить. Напишите нам напрямую или попробуйте ещё раз.');
+    }
+  });
 </script>
 </body>
 </html>
