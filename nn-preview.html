@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALETHEIA — превью живой нейросети</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root{
+    --bg:#070710; --ink:#f2f4fb; --muted:#aab1c9;
+    --v1:#6d5efc; --v2:#a855f7; --c1:#22d3ee;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+  /* холст нейросети на весь экран */
+  #nn{position:fixed;inset:0;z-index:0;display:block}
+  /* линза за текстом: затемняет центр под текст, по краям сеть видна ярко */
+  .veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+    radial-gradient(72% 52% at 50% 46%, rgba(7,7,16,.74), rgba(7,7,16,.32) 58%, transparent 82%);}
+  .grain{position:fixed;inset:0;z-index:2;opacity:.04;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .stage{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+  .pill{display:inline-block;text-align:center;max-width:92vw;padding:8px 17px;border:1px solid rgba(255,255,255,.12);border-radius:30px;
+    font-size:13.5px;color:var(--muted);background:rgba(255,255,255,.04);backdrop-filter:blur(8px);margin-bottom:28px;letter-spacing:.3px;line-height:1.5}
+  .pill .dot{display:inline-block;vertical-align:middle;width:8px;height:8px;border-radius:50%;background:var(--c1);box-shadow:0 0 12px var(--c1);margin-right:9px;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  h1{font-size:clamp(34px,7vw,80px);line-height:1.03;letter-spacing:-2px;font-weight:800;max-width:16ch;text-shadow:0 2px 40px rgba(7,7,16,.6)}
+  h1 .grad{background:linear-gradient(100deg,var(--v1),var(--v2) 45%,var(--c1));-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.sub{font-size:clamp(16px,2.3vw,21px);color:#c7cde0;max-width:600px;margin-top:26px;line-height:1.55;text-shadow:0 1px 20px rgba(7,7,16,.7)}
+  @media(max-width:600px){
+    h1{font-size:clamp(29px,8vw,42px);letter-spacing:-1px;max-width:none;overflow-wrap:break-word}
+    .pill{font-size:10.5px;padding:7px 13px;letter-spacing:.2px;max-width:90vw;line-height:1.5}
+    p.sub{font-size:15.5px;margin-top:20px}
+    .row{gap:10px;margin-top:30px} .btn{padding:13px 20px;font-size:14.5px}
+  }
+  .row{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(120deg,var(--v1),var(--v2));color:#fff;font-weight:600;
+    padding:14px 26px;border-radius:14px;font-size:15.5px;box-shadow:0 8px 34px rgba(109,94,252,.45);text-decoration:none;border:none;cursor:pointer}
+  .btn.ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+  .hint{position:fixed;bottom:18px;left:0;right:0;z-index:3;text-align:center;color:var(--muted);font-size:13px;opacity:.7}
+</style>
+</head>
+<body>
+<canvas id="nn"></canvas>
+<div class="veil"></div>
+<div class="grain"></div>
+
+<div class="stage">
+  <div class="pill"><span class="dot"></span> AI-АГЕНТСТВО ПОЛНОГО ЦИКЛА · СЕТИ АГЕНТОВ ПОД КЛЮЧ</div>
+  <h1>Мы строим <span class="grad">сети AI-агентов</span>, которые ведут ваш бизнес</h1>
+  <p class="sub">ALETHEIA внедряет искусственный интеллект и связывает агентов в живую систему — каждый отвечает за свой участок, вместе они работают на результат 24/7.</p>
+  <div class="row">
+    <a href="#" class="btn">Собрать сеть агентов</a>
+    <a href="#" class="btn ghost">Смотреть направления →</a>
+  </div>
+</div>
+<div class="hint">наведи курсор / коснись — сеть оживает</div>
+
+<script>
+const cv=document.getElementById('nn'), ctx=cv.getContext('2d');
+let W,H,DPR,nodes=[],pulses=[],mouse={x:-9999,y:-9999,active:false};
+const V1=[109,94,252], V2=[168,85,247], C1=[34,211,238];
+function mix(a,b,t){return [Math.round(a[0]+(b[0]-a[0])*t),Math.round(a[1]+(b[1]-a[1])*t),Math.round(a[2]+(b[2]-a[2])*t)];}
+function rgba(c,a){return `rgba(${c[0]},${c[1]},${c[2]},${a})`;}
+
+function resize(){
+  DPR=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
+  cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  build();
+}
+function build(){
+  // плотность узлов под размер экрана
+  const count=Math.round(Math.min(86, Math.max(34, (W*H)/16000)));
+  nodes=[];
+  for(let i=0;i<count;i++){
+    const hub=Math.random()<0.16; // "агенты-хабы" — крупнее и ярче
+    nodes.push({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*0.22, vy:(Math.random()-.5)*0.22,
+      r:hub?(2.6+Math.random()*1.8):(1.1+Math.random()*1.2),
+      hub, col:Math.random()<.5?C1:(Math.random()<.5?V1:V2),
+      ph:Math.random()*Math.PI*2
+    });
+  }
+}
+const LINK=150; // дистанция связи
+function step(t){
+  ctx.clearRect(0,0,W,H);
+  // движение узлов
+  for(const n of nodes){
+    n.x+=n.vx; n.y+=n.vy;
+    if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
+    // лёгкое притяжение к курсору
+    if(mouse.active){
+      const dx=mouse.x-n.x, dy=mouse.y-n.y, d=Math.hypot(dx,dy);
+      if(d<180){ n.x+=dx/d*0.6; n.y+=dy/d*0.6; }
+    }
+  }
+  // связи
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i], b=nodes[j];
+      const dx=a.x-b.x, dy=a.y-b.y, d=Math.hypot(dx,dy);
+      if(d<LINK){
+        const al=(1-d/LINK);
+        const c=mix(a.col,b.col,.5);
+        ctx.strokeStyle=rgba(c, al*0.55);
+        ctx.lineWidth=al*1.3+0.3;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+    // связь с курсором
+    if(mouse.active){
+      const a=nodes[i], dx=a.x-mouse.x, dy=a.y-mouse.y, d=Math.hypot(dx,dy);
+      if(d<200){
+        ctx.strokeStyle=rgba(C1,(1-d/200)*0.55); ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+      }
+    }
+  }
+  // узлы (с пульсацией свечения)
+  for(const n of nodes){
+    const glow=0.65+0.35*Math.sin(t*0.0016+n.ph);
+    const rr=n.r;
+    // мягкое гало
+    ctx.beginPath(); ctx.arc(n.x,n.y,rr+(n.hub?6:3),0,7);
+    ctx.fillStyle=rgba(n.col, (n.hub?0.22:0.13)*glow); ctx.fill();
+    ctx.beginPath(); ctx.arc(n.x,n.y,rr+(n.hub?2.6:1.3),0,7);
+    ctx.fillStyle=rgba(n.col, (n.hub?0.30:0.18)*glow); ctx.fill();
+    // ядро
+    ctx.beginPath(); ctx.arc(n.x,n.y,rr,0,7);
+    ctx.fillStyle=rgba(n.hub?[255,255,255]:n.col, (n.hub?1:0.85)*glow); ctx.fill();
+  }
+  // импульсы данных по связям
+  if(Math.random()<0.07 && nodes.length>2){
+    const a=nodes[(Math.random()*nodes.length)|0];
+    // ближайший сосед
+    let best=null,bd=1e9;
+    for(const b of nodes){ if(b===a)continue; const d=Math.hypot(a.x-b.x,a.y-b.y); if(d<LINK&&d<bd){bd=d;best=b;} }
+    if(best) pulses.push({a,b:best,t:0,sp:0.012+Math.random()*0.02,col:Math.random()<.5?C1:V2});
+  }
+  for(let k=pulses.length-1;k>=0;k--){
+    const p=pulses[k]; p.t+=p.sp;
+    if(p.t>=1){ pulses.splice(k,1); continue; }
+    const x=p.a.x+(p.b.x-p.a.x)*p.t, y=p.a.y+(p.b.y-p.a.y)*p.t;
+    ctx.beginPath(); ctx.arc(x,y,5.5,0,7); ctx.fillStyle=rgba(p.col,.12); ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,2.1,0,7); ctx.fillStyle=rgba(p.col,.95); ctx.fill();
+  }
+  requestAnimationFrame(step);
+}
+addEventListener('resize',resize);
+addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=true;});
+addEventListener('mouseleave',()=>{mouse.active=false;mouse.x=mouse.y=-9999;});
+addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mouse.x=t.clientX;mouse.y=t.clientY;mouse.active=true;}},{passive:true});
+addEventListener('touchend',()=>{mouse.active=false;});
+resize(); requestAnimationFrame(step);
+</script>
+</body>
+</html>
