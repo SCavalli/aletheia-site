@@ -195,3 +195,16 @@ footer .fl{margin-top:8px;color:#5a607a}
    border:1px solid var(--bd);color:var(--ink);font-size:14.5px;font-weight:600;transition:.2s}
 .spoke:hover{border-color:rgba(34,211,238,.5);transform:translateY(-2px)}
 .spoke .sd{width:7px;height:7px;border-radius:50%;background:var(--c1);box-shadow:0 0 10px var(--c1)}
+
+/* строка-крючок под hero */
+.hook{margin-top:22px;font-size:clamp(15px,2vw,18px);color:var(--c1);font-weight:600;letter-spacing:.2px}
+/* dogfooding — соц-доказательство */
+.proofbox{position:relative;border-radius:26px;padding:48px 40px;overflow:hidden;text-align:center;
+   background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(109,94,252,.14));border:1px solid var(--bd)}
+.proofbox .eyebrow{color:var(--c1);font-weight:700;letter-spacing:2px;font-size:13px;text-transform:uppercase;margin-bottom:14px}
+.proofbox h2{font-size:clamp(24px,3.6vw,38px);font-weight:800;letter-spacing:-.5px;margin-bottom:16px;line-height:1.12}
+.proofbox p{color:var(--muted);max-width:680px;margin:0 auto;font-size:18px;line-height:1.55}
+.proofbox p b{color:var(--ink);font-weight:600}
+/* блок AI-аудита (трипвайер) внутри CTA */
+.audit-note{margin:0 auto 26px;max-width:600px;color:var(--muted);font-size:16.5px;line-height:1.55}
+.audit-note b{color:var(--c1)}
