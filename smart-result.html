@@ -65,7 +65,11 @@
   nav.links a:hover{ color:var(--ink); }
 
   /* hero */
-  .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; }
+  .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; position:relative; isolation:isolate; }
+  .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center right/cover no-repeat; opacity:.85; }
+  .hero .herobg::after{ content:""; position:absolute; inset:0; background:
+    linear-gradient(90deg,#0A0B0F 18%,rgba(10,11,15,.55) 48%,rgba(10,11,15,.2) 100%),
+    linear-gradient(180deg,rgba(10,11,15,.4),transparent 30%,rgba(10,11,15,.6)); }
   .hero .pill{ display:inline-flex; align-items:center; gap:11px; color:var(--muted); font-size:13px; letter-spacing:1px; border:1px solid var(--line); padding:9px 18px; border-radius:30px; background:rgba(255,255,255,.02); margin-bottom:34px; }
   .hero .pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px var(--gold); }
   .hero h1{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(46px,7.5vw,94px); line-height:1.02; letter-spacing:-.5px; max-width:14ch; }
@@ -178,7 +182,8 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="aurora"><i class="a1"></i><i class="a2"></i><span class="beam"></span></div>
+  <div class="herobg"></div>
+  <div class="aurora"><span class="beam"></span></div>
   <div class="wrap">
     <span class="pill rv"><span class="dot"></span> ЮРИДИЧЕСКИЙ КОНСАЛТИНГ ДЛЯ БИЗНЕСА · МОСКВА · СОЧИ</span>
     <h1 class="serif rv d1">Право, измеримое <span class="sheen">результатом.</span></h1>
