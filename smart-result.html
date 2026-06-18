@@ -66,10 +66,10 @@
 
   /* hero */
   .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; position:relative; isolation:isolate; }
-  .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center right/cover no-repeat; opacity:1; }
+  .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center/cover no-repeat; }
   .hero .herobg::after{ content:""; position:absolute; inset:0; background:
-    linear-gradient(90deg,#0A0B0F 26%,rgba(10,11,15,.78) 44%,rgba(10,11,15,.12) 66%,transparent 100%),
-    linear-gradient(180deg,rgba(10,11,15,.35),transparent 28%,rgba(10,11,15,.55)); }
+    linear-gradient(90deg,#0A0B0F 0%,rgba(10,11,15,.7) 24%,rgba(10,11,15,.15) 52%,transparent 72%),
+    linear-gradient(180deg,rgba(10,11,15,.25),transparent 22%,rgba(10,11,15,.4)); }
   .hero .float-side{ display:none; }
   .hero .pill{ display:inline-flex; align-items:center; gap:11px; color:var(--muted); font-size:13px; letter-spacing:1px; border:1px solid var(--line); padding:9px 18px; border-radius:30px; background:rgba(255,255,255,.02); margin-bottom:34px; }
   .hero .pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px var(--gold); }
