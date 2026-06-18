@@ -14,10 +14,8 @@
   }
   html{ scroll-behavior:smooth; }
   body{ background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.62; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  body::before{ content:""; position:fixed; inset:0; z-index:-2; background:
-    radial-gradient(50% 42% at 80% -5%, rgba(201,168,106,.12), transparent 68%),
-    radial-gradient(40% 40% at -8% 55%, rgba(201,168,106,.05), transparent 70%),
-    linear-gradient(180deg,#0A0B0F,#0C0D12); }
+  body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; background:
+    radial-gradient(50% 42% at 80% -5%, rgba(201,168,106,.10), transparent 68%); }
   /* кинематографичное зерно + виньетка (люкс) */
   body::after{ content:""; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 1.1s steps(3) infinite; }
@@ -65,7 +63,7 @@
   nav.links a:hover{ color:var(--ink); }
 
   /* hero */
-  .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; position:relative; isolation:isolate; }
+  .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; position:relative; isolation:isolate; overflow:hidden; }
   .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center/cover no-repeat; overflow:hidden;
     animation:heroBreath 22s ease-in-out infinite; transform-origin:70% 50%; }
   .hero .herovid{ position:absolute; inset:0; z-index:-1; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.4s ease; }
@@ -161,15 +159,21 @@
 
   footer{ border-top:1px solid var(--line); padding:44px 0; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-weight:300; }
 
-  /* ===== СКВОЗНАЯ ЛЮКС-АТМОСФЕРА: золото дышит по всей странице, не только в герое ===== */
+  /* ===== ЖИВОЙ ЗОЛОТОЙ ФОН ВСЕГО САЙТА: лучи бегут под всеми секциями до самого футера ===== */
+  .sitefx{ position:fixed; inset:0; z-index:-3; overflow:hidden; pointer-events:none; background:#0A0B0F; }
+  .sitefx .ray{ position:absolute; top:-30%; height:160%; width:240px; mix-blend-mode:screen; transform:rotate(15deg); filter:blur(30px);
+    background:linear-gradient(180deg,transparent,rgba(201,168,106,.20) 35%,rgba(232,214,168,.12) 55%,transparent); }
+  .sitefx .ray.r1{ left:6%;  width:230px; animation:raysweep 14s ease-in-out infinite; }
+  .sitefx .ray.r2{ left:30%; width:150px; animation:raysweep 18s ease-in-out infinite 2s; opacity:.85; }
+  .sitefx .ray.r3{ left:58%; width:320px; animation:raysweep 22s ease-in-out infinite 1s; }
+  .sitefx .ray.r4{ left:82%; width:180px; animation:raysweep 16s ease-in-out infinite 3s; opacity:.75; }
+  @keyframes raysweep{ 0%,100%{ transform:translateX(-70px) rotate(15deg); opacity:.45 } 50%{ transform:translateX(90px) rotate(15deg); opacity:1 } }
+  .sitefx .orb{ position:absolute; border-radius:50%; filter:blur(70px); mix-blend-mode:screen; }
+  .sitefx .orb.o1{ width:520px; height:520px; top:3%;  right:-9%; background:radial-gradient(circle,rgba(201,168,106,.22),transparent 64%); animation:drift 24s ease-in-out infinite; }
+  .sitefx .orb.o2{ width:440px; height:440px; top:46%; left:-11%; background:radial-gradient(circle,rgba(201,168,106,.16),transparent 64%); animation:drift 30s ease-in-out infinite reverse; }
+  .sitefx .orb.o3{ width:480px; height:480px; bottom:0;  right:4%;  background:radial-gradient(circle,rgba(201,168,106,.18),transparent 64%); animation:drift 27s ease-in-out infinite; }
+  /* лёгкая золотая дымка по краям секций поверх живого фона (добавляет глубину) */
   section:not(.hero){ overflow:hidden; }
-  /* распределённые золотые свечения за секциями — мягкий свет следует за скроллом */
-  section:not(.hero)::before{ content:""; position:absolute; width:720px; height:720px; border-radius:50%; z-index:0; pointer-events:none;
-    background:radial-gradient(circle,rgba(201,168,106,.09),transparent 66%); filter:blur(36px); top:-160px; right:-220px;
-    animation:pool 16s ease-in-out infinite; }
-  section:not(.hero):nth-of-type(even)::before{ right:auto; left:-240px; top:auto; bottom:-180px;
-    background:radial-gradient(circle,rgba(201,168,106,.07),transparent 66%); animation-duration:20s; }
-  @keyframes pool{ 0%,100%{ transform:translate(0,0) scale(1); opacity:.85 } 50%{ transform:translate(34px,26px) scale(1.12); opacity:1 } }
   section:not(.hero) .wrap{ position:relative; z-index:1; }
   /* тонкий золотой разделитель сверху каждой секции */
   section:not(.hero)::after{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
@@ -187,16 +191,45 @@
   @media(max-width:980px){ .float-side{ display:none } .hero h1{ max-width:none } .appr-grid,.about-grid{ grid-template-columns:1fr; gap:40px } }
   @media(max-width:760px){
     nav.links{ display:none }
-    section{ padding:84px 0 }
-    .grid3,.cases,.quotes,.metrics,.offices,.contacts{ grid-template-columns:1fr }
-    .metric{ border-right:none; border-bottom:1px solid var(--line) }
-    .hero{ padding:130px 0 60px; min-height:auto }
-    .hero .cta{ flex-direction:column; align-items:stretch }
-    .cta-final{ padding:60px 24px }
+    header .btn{ display:none }              /* CTA в шапке распирал вьюпорт → текст резало справа */
+    header{ padding:18px 0 } header.scr{ padding:12px 0 }
+    .wrap{ padding:0 20px }
+    .mark{ width:38px; height:38px; font-size:15px } .logo .nm{ font-size:17px } .logo .tg{ font-size:9px; letter-spacing:2px }
+    section{ padding:74px 0 }
+    .grid3,.cases,.quotes,.metrics,.offices,.contacts{ grid-template-columns:1fr; gap:14px }
+    .grid3,.cases,.quotes{ margin-top:38px }
+    .metric{ border-right:none; border-bottom:1px solid var(--line); padding:24px 4px 4px }
+    /* герой: текст не вылезает + золото видно (сдвиг фокуса фона на золотую сторону) */
+    .hero{ padding:118px 0 56px; min-height:auto }
+    .hero h1{ font-size:clamp(31px,8.2vw,44px); max-width:none; line-height:1.07; word-break:normal; hyphens:manual; overflow-wrap:break-word }
+    .hero p.lead{ font-size:16px; margin-top:22px }
+    .hero .pill{ font-size:11px; padding:8px 14px; letter-spacing:.5px; margin-bottom:24px }
+    .hero .herobg{ background-position:74% center; animation-duration:26s }
+    .hero .herovid{ object-position:74% center }
+    .hero .heroveil{ background:
+      linear-gradient(180deg,rgba(10,11,15,.55) 0%,rgba(10,11,15,.2) 30%,rgba(10,11,15,.35) 62%,rgba(10,11,15,.82) 100%); }
+    .hero .cta{ flex-direction:column; align-items:stretch; margin-top:34px }
+    .hero .metrics{ margin-top:48px }
+    h2{ font-size:clamp(27px,7.4vw,36px) }
+    .sec-sub{ font-size:16px }
+    .proof{ padding:34px 26px } .proof .big{ font-size:56px }
+    .appr-grid,.about-grid{ gap:34px } .steps{ margin-top:26px }
+    .case .res{ font-size:30px } .scard{ padding:30px 26px } .case,.quote{ padding:30px 26px }
+    .cta-final{ padding:54px 22px } .cta-final h2{ font-size:clamp(26px,7vw,34px) }
+    .contacts{ gap:22px; margin-top:38px }
+    /* свечения секций мягче на мобиле чтобы не перегружать */
+    section:not(.hero)::before{ width:420px; height:420px; filter:blur(28px) }
+  }
+  @media(max-width:380px){
+    .hero h1{ font-size:30px } .wrap{ padding:0 16px }
   }
 </style>
 </head>
 <body>
+<div class="sitefx">
+  <span class="ray r1"></span><span class="ray r2"></span><span class="ray r3"></span><span class="ray r4"></span>
+  <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+</div>
 <div class="vignette"></div>
 
 <header id="hdr">
