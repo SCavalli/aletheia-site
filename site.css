@@ -13,8 +13,13 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 /* живой градиентный фон */
-.bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+.bg-fx{position:fixed;inset:0;z-index:-3;overflow:hidden;background:
    radial-gradient(60% 50% at 50% 0%, #14122e 0%, transparent 70%), var(--bg)}
+/* холст живой нейросети — фон всего сайта */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none}
+/* линза за героем для читаемости (только верх экрана) */
+.hero-veil{position:fixed;top:0;left:0;right:0;height:100vh;z-index:-1;pointer-events:none;background:
+   radial-gradient(70% 48% at 50% 38%, rgba(7,7,16,.62), rgba(7,7,16,.2) 60%, transparent 84%)}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:float 18s ease-in-out infinite}
 .blob.b1{width:520px;height:520px;background:#5b4bd9;top:-120px;left:-80px}
 .blob.b2{width:480px;height:480px;background:#9333ea;top:140px;right:-120px;animation-delay:-6s}
@@ -165,3 +170,28 @@ footer .fl{margin-top:8px;color:#5a607a}
 .qa{border:1px solid var(--bd);border-radius:16px;padding:24px 26px;margin-bottom:14px;background:var(--card)}
 .qa h4{font-size:18px;font-weight:700;margin-bottom:10px}
 .qa p{color:var(--muted);font-size:16px;line-height:1.55}
+
+/* ===== РАЗДЕЛ AI-АГЕНТЫ / СЕТИ АГЕНТОВ ===== */
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
+@media(max-width:900px){.agrid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.agrid{grid-template-columns:1fr}}
+.acard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px;transition:transform .25s,border-color .25s,background .25s;overflow:hidden}
+.acard:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.45);background:rgba(255,255,255,.06)}
+.acard .ai{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;
+   background:linear-gradient(135deg,rgba(109,94,252,.25),rgba(34,211,238,.18));border:1px solid var(--bd);margin-bottom:16px}
+.acard h4{font-size:18.5px;font-weight:700;margin-bottom:8px}
+.acard p{color:var(--muted);font-size:15px;line-height:1.5}
+/* «сеть под ключ» — выделенный блок с мини-схемой */
+.netbox{position:relative;border-radius:26px;padding:48px 38px;overflow:hidden;text-align:center;
+   background:linear-gradient(135deg,rgba(109,94,252,.18),rgba(34,211,238,.10));border:1px solid var(--bd)}
+.netbox h3{font-size:clamp(23px,3.4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:14px}
+.netbox>p{color:var(--muted);max-width:640px;margin:0 auto 32px;font-size:17.5px;line-height:1.55}
+.netflow{display:flex;flex-direction:column;align-items:center;gap:0}
+.netflow .hub{padding:13px 26px;border-radius:14px;font-weight:700;font-size:16px;color:#fff;
+   background:linear-gradient(120deg,var(--v1),var(--v2));box-shadow:0 10px 34px rgba(109,94,252,.45);position:relative;z-index:2}
+.netflow .conn{width:2px;height:26px;background:linear-gradient(var(--c1),rgba(34,211,238,.15))}
+.spokes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:720px}
+.spoke{display:flex;align-items:center;gap:8px;padding:11px 17px;border-radius:12px;background:rgba(255,255,255,.06);
+   border:1px solid var(--bd);color:var(--ink);font-size:14.5px;font-weight:600;transition:.2s}
+.spoke:hover{border-color:rgba(34,211,238,.5);transform:translateY(-2px)}
+.spoke .sd{width:7px;height:7px;border-radius:50%;background:var(--c1);box-shadow:0 0 10px var(--c1)}
