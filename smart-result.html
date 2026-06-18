@@ -5,147 +5,145 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Result — юридический консалтинг для бизнеса · Москва · Сочи</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
   *{ margin:0; padding:0; box-sizing:border-box; }
   :root{
-    --bg:#FAFBFC; --bg2:#FFFFFF; --ink:#0C1118; --muted:#5A6678; --muted2:#9AA6B6;
-    --accent:#0E9E66; --accent-d:#0B7E52; --emer:#12B981; --line:#E5E9F0; --card:#FFFFFF;
-    --soft:0 10px 40px rgba(12,17,24,.06);
+    --bg:#0A0B0F; --bg2:#101218; --ink:#F3EFE6; --muted:#9C988C; --muted2:#6A675F;
+    --gold:#C9A86A; --gold2:#E8D6A8; --gold-d:#A8884A; --emer:#C9A86A;
+    --line:rgba(255,255,255,.08); --gline:rgba(201,168,106,.22); --card:rgba(255,255,255,.025);
   }
   html{ scroll-behavior:smooth; }
-  body{ background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body{ background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.62; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   body::before{ content:""; position:fixed; inset:0; z-index:-2; background:
-    radial-gradient(46% 36% at 82% 0%, rgba(18,185,129,.09), transparent 70%),
-    radial-gradient(36% 36% at -5% 50%, rgba(14,158,102,.05), transparent 70%), var(--bg); }
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+    radial-gradient(50% 42% at 80% -5%, rgba(201,168,106,.12), transparent 68%),
+    radial-gradient(40% 40% at -8% 55%, rgba(201,168,106,.05), transparent 70%),
+    linear-gradient(180deg,#0A0B0F,#0C0D12); }
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 30px; }
   .serif{ font-family:'Playfair Display',Georgia,serif; }
-  .accent{ color:var(--accent); }
-  section{ padding:120px 0; position:relative; }
-  .eyebrow{ display:inline-flex; align-items:center; gap:9px; color:var(--accent); font-weight:600; letter-spacing:2px; text-transform:uppercase; font-size:13px; margin-bottom:18px; }
-  .eyebrow::before{ content:""; width:22px; height:1.5px; background:var(--accent); }
-  h2{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(30px,4.6vw,52px); line-height:1.1; letter-spacing:-.4px; }
-  .sec-sub{ color:var(--muted); font-size:18px; max-width:620px; margin-top:18px; }
+  .gold{ background:linear-gradient(95deg,var(--gold),var(--gold2) 55%,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  section{ padding:130px 0; position:relative; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:12px; color:var(--gold); font-weight:600; letter-spacing:3px; text-transform:uppercase; font-size:12px; margin-bottom:22px; }
+  .eyebrow::before{ content:""; width:30px; height:1px; background:linear-gradient(90deg,var(--gold),transparent); }
+  h2{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(32px,5vw,58px); line-height:1.08; letter-spacing:-.3px; }
+  .sec-sub{ color:var(--muted); font-size:18px; max-width:640px; margin-top:20px; font-weight:300; }
 
-  /* reveal */
-  .rv{ opacity:0; transform:translateY(32px); transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+  .rv{ opacity:0; transform:translateY(42px); transition:opacity 1s cubic-bezier(.16,.8,.3,1), transform 1s cubic-bezier(.16,.8,.3,1); }
   .rv.in{ opacity:1; transform:none; }
-  .d1{ transition-delay:.08s } .d2{ transition-delay:.16s } .d3{ transition-delay:.24s } .d4{ transition-delay:.32s }
+  .d1{ transition-delay:.1s } .d2{ transition-delay:.2s } .d3{ transition-delay:.3s } .d4{ transition-delay:.4s }
 
-  /* buttons */
-  .btn{ display:inline-flex; align-items:center; gap:9px; background:var(--accent); color:#fff; font-weight:700; padding:14px 26px; border-radius:10px;
-    text-decoration:none; font-size:15px; cursor:pointer; transition:transform .2s, box-shadow .2s, background .2s; box-shadow:0 8px 24px rgba(14,158,102,.22); border:none; }
-  .btn:hover{ transform:translateY(-2px); background:var(--accent-d); box-shadow:0 14px 36px rgba(14,158,102,.34); }
-  .btn-ghost{ background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none; }
-  .btn-ghost:hover{ border-color:var(--accent); background:rgba(18,185,129,.04); box-shadow:none; }
-  a{ color:var(--accent); }
+  .btn{ display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--gold),var(--gold-d)); color:#1A1206; font-weight:700; padding:15px 30px; border-radius:4px;
+    text-decoration:none; font-size:15px; cursor:pointer; transition:transform .3s, box-shadow .3s; box-shadow:0 10px 30px rgba(201,168,106,.18); border:none; letter-spacing:.3px; }
+  .btn:hover{ transform:translateY(-3px); box-shadow:0 18px 44px rgba(201,168,106,.34); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1px solid var(--gline); box-shadow:none; }
+  .btn-ghost:hover{ border-color:var(--gold); background:rgba(201,168,106,.05); box-shadow:none; }
+  a{ color:var(--gold); }
 
-  /* header */
-  header{ position:fixed; top:0; left:0; right:0; z-index:60; padding:22px 0; transition:.3s; border-bottom:1px solid transparent; }
-  header.scr{ background:rgba(250,251,252,.85); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); padding:13px 0; }
+  header{ position:fixed; top:0; left:0; right:0; z-index:60; padding:26px 0; transition:.4s; border-bottom:1px solid transparent; }
+  header.scr{ background:rgba(10,11,15,.78); backdrop-filter:blur(16px); border-bottom:1px solid var(--line); padding:15px 0; }
   .bar{ display:flex; align-items:center; justify-content:space-between; }
-  .logo{ display:flex; align-items:center; gap:13px; }
-  .mark{ width:42px; height:42px; border:1.5px solid var(--accent); border-radius:11px; display:flex; align-items:center; justify-content:center;
-    font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--accent); letter-spacing:1px; background:rgba(18,185,129,.06); }
-  .logo .nm{ font-weight:700; font-size:19px; letter-spacing:.5px; color:var(--ink); } .logo .nm b{ color:var(--accent); }
-  .logo .tg{ display:block; font-size:11px; color:var(--muted2); letter-spacing:2px; text-transform:uppercase; margin-top:1px; }
-  nav.links{ display:flex; gap:32px; }
-  nav.links a{ color:var(--muted); text-decoration:none; font-size:15px; font-weight:500; transition:.2s; }
+  .logo{ display:flex; align-items:center; gap:14px; }
+  .mark{ width:44px; height:44px; border:1px solid var(--gold); border-radius:6px; display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--gold); letter-spacing:1px;
+    background:linear-gradient(160deg,rgba(201,168,106,.12),transparent); }
+  .logo .nm{ font-weight:600; font-size:20px; letter-spacing:1px; color:var(--ink); } .logo .nm b{ color:var(--gold); font-weight:600; }
+  .logo .tg{ display:block; font-size:10px; color:var(--muted2); letter-spacing:3px; text-transform:uppercase; margin-top:2px; }
+  nav.links{ display:flex; gap:36px; }
+  nav.links a{ color:var(--muted); text-decoration:none; font-size:15px; font-weight:400; transition:.25s; }
   nav.links a:hover{ color:var(--ink); }
 
   /* hero */
-  .hero{ min-height:100vh; display:flex; align-items:center; padding:150px 0 80px; }
-  .hero .pill{ display:inline-flex; align-items:center; gap:10px; color:var(--muted); font-size:14px; border:1px solid var(--line); padding:8px 16px; border-radius:30px; background:#fff; margin-bottom:30px; box-shadow:0 2px 10px rgba(12,17,24,.03); }
-  .hero .pill .dot{ width:7px; height:7px; border-radius:50%; background:var(--emer); box-shadow:0 0 10px var(--emer); }
-  .hero h1{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(42px,7vw,86px); line-height:1.04; letter-spacing:-.5px; max-width:13ch; }
-  .hero h1 .accent{ font-style:italic; }
-  .hero p.lead{ font-size:clamp(18px,2.1vw,22px); color:var(--muted); max-width:600px; margin-top:30px; }
-  .hero .cta{ margin-top:42px; display:flex; gap:16px; flex-wrap:wrap; }
-  .float-side{ position:absolute; right:-50px; top:20%; width:400px; height:400px; pointer-events:none; }
+  .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; }
+  .hero .pill{ display:inline-flex; align-items:center; gap:11px; color:var(--muted); font-size:13px; letter-spacing:1px; border:1px solid var(--line); padding:9px 18px; border-radius:30px; background:rgba(255,255,255,.02); margin-bottom:34px; }
+  .hero .pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px var(--gold); }
+  .hero h1{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(46px,7.5vw,94px); line-height:1.02; letter-spacing:-.5px; max-width:14ch; }
+  .hero h1 .sheen{ font-style:italic; position:relative;
+    background:linear-gradient(100deg,var(--gold) 0%,var(--gold2) 30%,#fff7e6 45%,var(--gold2) 60%,var(--gold) 100%);
+    background-size:240% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 6s linear infinite; }
+  @keyframes sheen{ to{ background-position:-240% center } }
+  .hero p.lead{ font-size:clamp(18px,2.1vw,23px); color:var(--muted); max-width:620px; margin-top:32px; font-weight:300; }
+  .hero .cta{ margin-top:46px; display:flex; gap:16px; flex-wrap:wrap; }
+  .float-side{ position:absolute; right:-60px; top:18%; width:440px; height:440px; pointer-events:none; }
   .ring{ position:absolute; inset:0; border:1px solid var(--line); border-radius:50%; }
-  .ring.r2{ inset:50px; border-color:rgba(18,185,129,.3); }
-  .ring.r3{ inset:100px; border-color:rgba(18,185,129,.55); }
-  .ring .seg{ position:absolute; inset:-1px; border-radius:50%; border:2px solid transparent; border-top-color:var(--accent); animation:spin 14s linear infinite; }
-  .ring.r2 .seg{ animation-duration:10s; animation-direction:reverse; }
+  .ring.r2{ inset:55px; border-color:var(--gline); }
+  .ring.r3{ inset:110px; border-color:rgba(201,168,106,.4); }
+  .ring .seg{ position:absolute; inset:-1px; border-radius:50%; border:1.5px solid transparent; border-top-color:var(--gold); border-right-color:rgba(201,168,106,.4); animation:spin 16s linear infinite; }
+  .ring.r2 .seg{ animation-duration:11s; animation-direction:reverse; border-top-color:var(--gold2); }
   @keyframes spin{ to{ transform:rotate(360deg) } }
   .float-side .core{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-  .float-side .core b{ font-family:'Playfair Display',serif; font-size:66px; color:var(--ink); line-height:1; }
-  .float-side .core span{ color:var(--accent); font-size:13px; letter-spacing:3px; text-transform:uppercase; margin-top:8px; }
+  .float-side .core b{ font-family:'Playfair Display',serif; font-size:72px; line-height:1; background:linear-gradient(160deg,#fff,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .float-side .core span{ color:var(--gold); font-size:12px; letter-spacing:4px; text-transform:uppercase; margin-top:10px; }
 
-  /* metrics */
-  .metrics{ margin-top:80px; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); }
-  .metric{ padding:30px 26px 4px; border-right:1px solid var(--line); }
+  .metrics{ margin-top:88px; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); }
+  .metric{ padding:32px 28px 4px; border-right:1px solid var(--line); }
   .metric:last-child{ border-right:none; }
-  .metric .num{ font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(32px,4vw,46px); color:var(--ink); line-height:1; }
-  .metric .num .accent{ color:var(--accent); }
-  .metric .lbl{ color:var(--muted); font-size:14px; margin-top:10px; }
+  .metric .num{ font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(34px,4vw,50px); line-height:1; background:linear-gradient(160deg,#fff,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .metric .lbl{ color:var(--muted); font-size:14px; margin-top:12px; font-weight:300; }
 
   /* services */
-  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:54px; }
-  .scard{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:34px 30px; transition:transform .35s, box-shadow .35s, border-color .35s; position:relative; overflow:hidden; }
-  .scard:hover{ transform:translateY(-8px); box-shadow:var(--soft); border-color:rgba(18,185,129,.4); }
-  .scard .ico{ width:52px; height:52px; border-radius:13px; background:rgba(18,185,129,.08); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
-  .scard .ico svg{ width:26px; height:26px; stroke:var(--accent); fill:none; stroke-width:1.6; }
-  .scard h3{ font-family:'Playfair Display',serif; font-size:23px; font-weight:600; }
-  .scard p{ color:var(--muted); font-size:15px; margin-top:10px; }
-  .scard .n{ position:absolute; top:24px; right:28px; font-family:'Playfair Display',serif; font-size:15px; color:var(--muted2); }
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:60px; }
+  .scard{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:38px 32px; transition:transform .4s, box-shadow .4s, border-color .4s; position:relative; overflow:hidden; }
+  .scard::after{ content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 0%,rgba(201,168,106,.08),transparent 70%); opacity:0; transition:opacity .4s; }
+  .scard:hover{ transform:translateY(-8px); border-color:var(--gline); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+  .scard:hover::after{ opacity:1; }
+  .scard .ico{ width:54px; height:54px; border-radius:8px; background:linear-gradient(160deg,rgba(201,168,106,.16),transparent); border:1px solid var(--gline); display:flex; align-items:center; justify-content:center; margin-bottom:24px; }
+  .scard .ico svg{ width:26px; height:26px; stroke:var(--gold); fill:none; stroke-width:1.4; }
+  .scard h3{ font-family:'Playfair Display',serif; font-size:24px; font-weight:600; position:relative; }
+  .scard p{ color:var(--muted); font-size:15px; margin-top:12px; font-weight:300; position:relative; }
+  .scard .n{ position:absolute; top:30px; right:32px; font-family:'Playfair Display',serif; font-size:15px; color:var(--gold-d); }
 
-  /* approach */
-  .approach{ background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .appr-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-  .steps{ margin-top:30px; }
-  .step{ display:flex; gap:20px; padding:24px 0; border-bottom:1px solid var(--line); }
+  .approach{ background:linear-gradient(180deg,transparent,rgba(255,255,255,.012),transparent); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .appr-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .steps{ margin-top:34px; }
+  .step{ display:flex; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); }
   .step:last-child{ border-bottom:none; }
-  .step .sn{ font-family:'Playfair Display',serif; font-size:26px; color:var(--accent); font-weight:700; min-width:46px; }
-  .step b{ font-size:18px; } .step p{ color:var(--muted); font-size:15px; margin-top:4px; }
-  .proof{ background:linear-gradient(160deg,#0C1118,#16202b); border-radius:24px; padding:46px 40px; color:#fff; box-shadow:var(--soft); }
-  .proof .big{ font-family:'Playfair Display',serif; font-size:64px; color:var(--emer); line-height:1; }
-  .proof .pl{ color:#aeb9c9; margin-top:8px; }
-  .proof hr{ border:none; border-top:1px solid rgba(255,255,255,.12); margin:28px 0; }
-  .proof .row{ display:flex; justify-content:space-between; padding:9px 0; color:#cdd5e0; font-size:15px; }
-  .proof .row b{ color:#fff; }
+  .step .sn{ font-family:'Playfair Display',serif; font-size:28px; color:var(--gold); font-weight:600; min-width:50px; }
+  .step b{ font-size:18px; font-weight:600; } .step p{ color:var(--muted); font-size:15px; margin-top:5px; font-weight:300; }
+  .proof{ background:linear-gradient(160deg,#15161D,#0E0F14); border:1px solid var(--gline); border-radius:14px; padding:50px 44px; box-shadow:0 30px 70px rgba(0,0,0,.5); }
+  .proof .big{ font-family:'Playfair Display',serif; font-size:74px; line-height:1; background:linear-gradient(160deg,#fff,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .proof .pl{ color:var(--muted); margin-top:10px; font-weight:300; }
+  .proof hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .proof .row{ display:flex; justify-content:space-between; padding:10px 0; color:var(--muted); font-size:15px; font-weight:300; }
+  .proof .row b{ color:var(--ink); font-weight:600; }
 
-  /* cases */
-  .cases{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:54px; }
-  .case{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:32px; transition:transform .35s, box-shadow .35s; }
-  .case:hover{ transform:translateY(-6px); box-shadow:var(--soft); }
-  .case .tag{ display:inline-block; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--accent); background:rgba(18,185,129,.08); padding:5px 12px; border-radius:20px; }
-  .case .res{ font-family:'Playfair Display',serif; font-size:30px; margin:18px 0 6px; }
-  .case p{ color:var(--muted); font-size:15px; }
+  .cases{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:60px; }
+  .case{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:36px; transition:transform .4s, box-shadow .4s, border-color .4s; }
+  .case:hover{ transform:translateY(-6px); border-color:var(--gline); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+  .case .tag{ display:inline-block; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); border:1px solid var(--gline); padding:6px 13px; border-radius:30px; }
+  .case .res{ font-family:'Playfair Display',serif; font-size:34px; margin:22px 0 8px; background:linear-gradient(160deg,#fff,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .case p{ color:var(--muted); font-size:15px; font-weight:300; }
 
-  /* team / about */
-  .about-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:50px; align-items:center; }
-  .badges{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
-  .badge{ border:1px solid var(--line); border-radius:30px; padding:10px 18px; font-size:14px; color:var(--ink); font-weight:600; background:#fff; }
+  .about-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:center; }
+  .badges{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+  .badge{ border:1px solid var(--line); border-radius:30px; padding:11px 20px; font-size:14px; color:var(--ink); font-weight:400; background:rgba(255,255,255,.02); }
   .offices{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .office{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px; }
-  .office .city{ font-family:'Playfair Display',serif; font-size:22px; } .office p{ color:var(--muted); font-size:14px; margin-top:6px; }
+  .office{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:30px; }
+  .office .city{ font-family:'Playfair Display',serif; font-size:24px; color:var(--gold); } .office p{ color:var(--muted); font-size:14px; margin-top:8px; font-weight:300; }
 
-  /* testimonials */
-  .quotes{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:54px; }
-  .quote{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:34px; }
-  .quote .mk{ font-family:'Playfair Display',serif; font-size:50px; color:var(--accent); line-height:.5; }
-  .quote p{ font-size:17px; margin:14px 0 20px; }
-  .quote .who{ color:var(--muted); font-size:14px; } .quote .who b{ color:var(--ink); }
+  .quotes{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:60px; }
+  .quote{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:40px; }
+  .quote .mk{ font-family:'Playfair Display',serif; font-size:60px; color:var(--gold); line-height:.5; opacity:.6; }
+  .quote p{ font-size:18px; margin:18px 0 22px; font-weight:300; font-style:italic; font-family:'Playfair Display',serif; }
+  .quote .who{ color:var(--muted); font-size:14px; } .quote .who b{ color:var(--ink); font-weight:600; }
 
-  /* cta */
-  .cta-final{ background:linear-gradient(160deg,#0C1118,#16202b); color:#fff; text-align:center; border-radius:30px; padding:80px 40px; box-shadow:var(--soft); }
-  .cta-final h2{ color:#fff; } .cta-final p{ color:#aeb9c9; max-width:560px; margin:18px auto 0; font-size:18px; }
-  .cta-final .btn{ margin-top:32px; }
-  .contacts{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:48px; }
-  .contact{ text-align:center; } .contact .l{ color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:1px; } .contact .v{ font-size:17px; margin-top:6px; font-weight:600; }
+  .cta-final{ background:linear-gradient(160deg,#15161D,#0C0D12); border:1px solid var(--gline); color:var(--ink); text-align:center; border-radius:18px; padding:90px 40px; box-shadow:0 40px 90px rgba(0,0,0,.5); position:relative; overflow:hidden; }
+  .cta-final::before{ content:""; position:absolute; top:-40%; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(closest-side,rgba(201,168,106,.16),transparent); }
+  .cta-final h2{ position:relative; } .cta-final p{ color:var(--muted); max-width:580px; margin:20px auto 0; font-size:18px; font-weight:300; position:relative; }
+  .cta-final .btn{ margin-top:36px; position:relative; }
+  .contacts{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:50px; }
+  .contact{ text-align:center; } .contact .l{ color:var(--muted2); font-size:12px; text-transform:uppercase; letter-spacing:2px; } .contact .v{ font-size:18px; margin-top:8px; font-weight:600; }
 
-  footer{ border-top:1px solid var(--line); padding:40px 0; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  footer{ border-top:1px solid var(--line); padding:44px 0; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-weight:300; }
 
-  @media(prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none } .ring .seg{ animation:none } }
-  @media(max-width:980px){ .float-side{ display:none } .hero h1{ max-width:none } .appr-grid,.about-grid{ grid-template-columns:1fr; gap:34px } }
+  @media(prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none } .ring .seg,.hero h1 .sheen{ animation:none } .hero h1 .sheen{ color:var(--gold) } }
+  @media(max-width:980px){ .float-side{ display:none } .hero h1{ max-width:none } .appr-grid,.about-grid{ grid-template-columns:1fr; gap:40px } }
   @media(max-width:760px){
     nav.links{ display:none }
-    section{ padding:80px 0 }
+    section{ padding:84px 0 }
     .grid3,.cases,.quotes,.metrics,.offices,.contacts{ grid-template-columns:1fr }
     .metric{ border-right:none; border-bottom:1px solid var(--line) }
-    .hero{ padding:120px 0 60px; min-height:auto }
+    .hero{ padding:130px 0 60px; min-height:auto }
     .hero .cta{ flex-direction:column; align-items:stretch }
-    .cta-final{ padding:54px 24px }
+    .cta-final{ padding:60px 24px }
   }
 </style>
 </head>
@@ -167,18 +165,18 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <span class="pill rv"><span class="dot"></span> Юридический консалтинг для бизнеса · Москва · Сочи</span>
-    <h1 class="serif rv d1">Право, измеримое <span class="accent">результатом.</span></h1>
+    <span class="pill rv"><span class="dot"></span> ЮРИДИЧЕСКИЙ КОНСАЛТИНГ ДЛЯ БИЗНЕСА · МОСКВА · СОЧИ</span>
+    <h1 class="serif rv d1">Право, измеримое <span class="sheen">результатом.</span></h1>
     <p class="lead rv d2">Не абстрактный «опыт», а конкретный итог: выигранные дела, снятые риски и до −35% на юридических расходах против штатного отдела.</p>
     <div class="cta rv d3">
       <a href="#contacts" class="btn">Получить консультацию</a>
       <a href="#cases" class="btn btn-ghost">Смотреть кейсы →</a>
     </div>
     <div class="metrics rv d4">
-      <div class="metric"><div class="num"><span class="accent" data-count="-35" data-suffix="%">0</span></div><div class="lbl">на юридических расходах<br>против штатного юриста</div></div>
-      <div class="metric"><div class="num"><span data-count="5">0</span><span class="accent"> лет</span></div><div class="lbl">на рынке<br>Москва · Сочи</div></div>
+      <div class="metric"><div class="num"><span data-count="-35" data-suffix="%">0</span></div><div class="lbl">на юридических расходах<br>против штатного юриста</div></div>
+      <div class="metric"><div class="num"><span data-count="5">0</span> лет</div><div class="lbl">на рынке<br>Москва · Сочи</div></div>
       <div class="metric"><div class="num"><span data-count="5">0</span></div><div class="lbl">практик: корпоративное,<br>договоры, недвижимость, IP</div></div>
-      <div class="metric"><div class="num">24<span class="accent">/7</span></div><div class="lbl">доступность<br>без офисных издержек</div></div>
+      <div class="metric"><div class="num">24/7</div><div class="lbl">доступность<br>без офисных издержек</div></div>
     </div>
   </div>
   <div class="float-side">
@@ -193,7 +191,7 @@
 <section id="services">
   <div class="wrap">
     <span class="eyebrow rv">Услуги</span>
-    <h2 class="rv d1">Пять практик — один стандарт результата</h2>
+    <h2 class="rv d1">Пять практик — <span class="gold">один стандарт</span> результата</h2>
     <p class="sec-sub rv d2">Комплексное юридическое сопровождение бизнеса: от разовой задачи до полной замены штатного юротдела.</p>
     <div class="grid3">
       <div class="scard rv"><span class="n">01</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div><h3>Корпоративное право</h3><p>Структурирование бизнеса, сделки M&A, корпоративные споры, управление и защита долей.</p></div>
@@ -201,7 +199,7 @@
       <div class="scard rv d2"><span class="n">03</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg></div><h3>Недвижимость</h3><p>Сделки, регистрация прав, сопровождение строительства, споры по объектам и земле.</p></div>
       <div class="scard rv"><span class="n">04</span><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Интеллектуальная собственность</h3><p>Регистрация и защита товарных знаков, патентов, авторских прав. Борьба с нарушениями.</p></div>
       <div class="scard rv d1"><span class="n">05</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4M12 16h.01"/></svg></div><h3>Общие вопросы</h3><p>Консультации, претензионная и судебная работа, подготовка документов вне основных категорий.</p></div>
-      <div class="scard rv d2" style="display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(18,185,129,.06),#fff);"><h3>Не нашли свою задачу?</h3><p>Опишите её — подберём практику и план за один звонок.</p><a href="#contacts" class="btn" style="margin-top:18px;align-self:flex-start;">Обсудить задачу</a></div>
+      <div class="scard rv d2" style="display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(201,168,106,.07),transparent);border-color:var(--gline);"><h3>Не нашли свою задачу?</h3><p>Опишите её — подберём практику и план за один звонок.</p><a href="#contacts" class="btn" style="margin-top:22px;align-self:flex-start;">Обсудить задачу</a></div>
     </div>
   </div>
 </section>
@@ -211,16 +209,16 @@
   <div class="wrap appr-grid">
     <div>
       <span class="eyebrow rv">Подход</span>
-      <h2 class="rv d1">Почему результат — измерим</h2>
+      <h2 class="rv d1">Почему результат — <span class="gold">измерим</span></h2>
       <p class="sec-sub rv d2">Мы работаем не «по часам», а по итогу. До старта фиксируем цель и метрику, по которой вы оцените работу.</p>
       <div class="steps">
-        <div class="step rv"><div class="sn">01</div><div><b>Диагностика и цель</b><p>Разбираем задачу, оцениваем риски и фиксируем измеримый результат, к которому идём.</p></div></div>
-        <div class="step rv d1"><div class="sn">02</div><div><b>План и стоимость заранее</b><p>Прозрачный объём работ и фиксированная стоимость. Без сюрпризов в счёте.</p></div></div>
-        <div class="step rv d2"><div class="sn">03</div><div><b>Работа на итог</b><p>Ведём задачу до результата, держим вас в курсе. 24/7 на связи, без офисных издержек.</p></div></div>
+        <div class="step rv"><div class="sn serif">01</div><div><b>Диагностика и цель</b><p>Разбираем задачу, оцениваем риски и фиксируем измеримый результат, к которому идём.</p></div></div>
+        <div class="step rv d1"><div class="sn serif">02</div><div><b>План и стоимость заранее</b><p>Прозрачный объём работ и фиксированная стоимость. Без сюрпризов в счёте.</p></div></div>
+        <div class="step rv d2"><div class="sn serif">03</div><div><b>Работа на итог</b><p>Ведём задачу до результата, держим вас в курсе. 24/7 на связи, без офисных издержек.</p></div></div>
       </div>
     </div>
     <div class="proof rv d2">
-      <div class="big">−35%</div>
+      <div class="big serif">−35%</div>
       <div class="pl">средняя экономия на юридических расходах против штатного юротдела</div>
       <hr>
       <div class="row"><span>Штатный юрист (оклад + налоги + место)</span><b>от 150 000 ₽/мес</b></div>
@@ -235,12 +233,12 @@
 <section id="cases">
   <div class="wrap">
     <span class="eyebrow rv">Кейсы</span>
-    <h2 class="rv d1">Результат, который видно в цифрах</h2>
+    <h2 class="rv d1">Результат, который видно <span class="gold">в цифрах</span></h2>
     <p class="sec-sub rv d2">Несколько примеров. Детали — под NDA, итог — измерим.</p>
     <div class="cases">
-      <div class="case rv"><span class="tag">Корпоративный спор</span><div class="res accent">40 млн ₽</div><p>Защитили долю клиента в споре между партнёрами. Сохранили контроль над компанией и активами.</p></div>
-      <div class="case rv d1"><span class="tag">Сделка M&A</span><div class="res accent">3 недели</div><p>Структурировали и закрыли покупку бизнеса под ключ — в три раза быстрее обычного срока.</p></div>
-      <div class="case rv d2"><span class="tag">Товарный знак</span><div class="res accent">0 потерь</div><p>Остановили незаконное использование бренда и взыскали компенсацию с нарушителя.</p></div>
+      <div class="case rv"><span class="tag">Корпоративный спор</span><div class="res serif">40 млн ₽</div><p>Защитили долю клиента в споре между партнёрами. Сохранили контроль над компанией и активами.</p></div>
+      <div class="case rv d1"><span class="tag">Сделка M&A</span><div class="res serif">3 недели</div><p>Структурировали и закрыли покупку бизнеса под ключ — в три раза быстрее обычного срока.</p></div>
+      <div class="case rv d2"><span class="tag">Товарный знак</span><div class="res serif">+1,2 млн ₽</div><p>Остановили незаконное использование бренда и взыскали компенсацию с нарушителя.</p></div>
     </div>
   </div>
 </section>
@@ -250,7 +248,7 @@
   <div class="wrap about-grid">
     <div>
       <span class="eyebrow rv">О компании</span>
-      <h2 class="rv d1">Команда, которая отвечает за итог</h2>
+      <h2 class="rv d1">Команда, которая <span class="gold">отвечает за итог</span></h2>
       <p class="sec-sub rv d2">Smart Result — юридический консалтинг для бизнеса. Пять лет на рынке, офисы в Москве и Сочи. Заменяем штатный юротдел и ведём сложные задачи там, где цена ошибки высока.</p>
       <div class="badges rv d2">
         <span class="badge">5 лет на рынке</span><span class="badge">Москва · Сочи</span><span class="badge">5 практик</span><span class="badge">Полная конфиденциальность</span><span class="badge">24/7</span>
@@ -267,7 +265,7 @@
 <section style="padding-top:0;">
   <div class="wrap">
     <span class="eyebrow rv">Отзывы</span>
-    <h2 class="rv d1">Что говорят клиенты</h2>
+    <h2 class="rv d1">Что говорят <span class="gold">клиенты</span></h2>
     <div class="quotes">
       <div class="quote rv"><div class="mk">"</div><p>Передали им весь юридический блок — стало спокойнее и дешевле штатного юриста. Реагируют быстро, по делу, без воды.</p><div class="who"><b>Генеральный директор</b>, производственная компания</div></div>
       <div class="quote rv d1"><div class="mk">"</div><p>Закрыли сделку, которую другие юристы тянули месяцами. Чётко обозначили результат и сроки — и сделали.</p><div class="who"><b>Собственник</b>, девелопмент</div></div>
@@ -279,7 +277,7 @@
 <section id="contacts">
   <div class="wrap">
     <div class="cta-final rv">
-      <h2 class="serif">Обсудим вашу задачу?</h2>
+      <h2 class="serif">Обсудим вашу <span class="gold">задачу</span>?</h2>
       <p>Бесплатная консультация: разберём ситуацию, оценим риски и предложим план с измеримым результатом и фиксированной стоимостью.</p>
       <a href="tel:+79683991111" class="btn">Получить консультацию</a>
     </div>
