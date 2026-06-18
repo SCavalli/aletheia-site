@@ -66,8 +66,17 @@
 
   /* hero */
   .hero{ min-height:100vh; display:flex; align-items:center; padding:160px 0 90px; position:relative; isolation:isolate; }
-  .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center/cover no-repeat; }
-  .hero .herobg::after{ content:""; position:absolute; inset:0; background:
+  .hero .herobg{ position:absolute; inset:0; z-index:-1; background:url('hero-bg.png') center/cover no-repeat; overflow:hidden;
+    animation:heroBreath 22s ease-in-out infinite; transform-origin:70% 50%; }
+  .hero .herovid{ position:absolute; inset:0; z-index:-1; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.4s ease; }
+  .hero .herovid.on{ opacity:1; } /* видео плавно перекрывает статичный фон когда готово */
+  /* живой золотой шиммер поверх струй — переливается даже без видео */
+  .hero .shimmer{ position:absolute; inset:0; z-index:-1; pointer-events:none; mix-blend-mode:screen; opacity:.55;
+    background:linear-gradient(115deg,transparent 38%,rgba(232,214,168,.16) 47%,rgba(255,247,230,.28) 50%,rgba(232,214,168,.16) 53%,transparent 62%);
+    background-size:300% 100%; animation:shimmer 7s ease-in-out infinite; }
+  @keyframes heroBreath{ 0%,100%{ transform:scale(1.04) } 50%{ transform:scale(1.11) } }
+  @keyframes shimmer{ 0%{ background-position:130% 0 } 55%,100%{ background-position:-60% 0 } }
+  .hero .heroveil{ content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:
     linear-gradient(90deg,#0A0B0F 0%,rgba(10,11,15,.7) 24%,rgba(10,11,15,.15) 52%,transparent 72%),
     linear-gradient(180deg,rgba(10,11,15,.25),transparent 22%,rgba(10,11,15,.4)); }
   .hero .float-side{ display:none; }
@@ -109,7 +118,7 @@
   .scard p{ color:var(--muted); font-size:15px; margin-top:12px; font-weight:300; position:relative; }
   .scard .n{ position:absolute; top:30px; right:32px; font-family:'Playfair Display',serif; font-size:15px; color:var(--gold-d); }
 
-  .approach{ background:linear-gradient(180deg,transparent,rgba(255,255,255,.012),transparent); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .approach{ background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(201,168,106,.018),transparent); }
   .appr-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
   .steps{ margin-top:34px; }
   .step{ display:flex; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); }
@@ -152,7 +161,29 @@
 
   footer{ border-top:1px solid var(--line); padding:44px 0; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-weight:300; }
 
-  @media(prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none } .ring .seg,.hero h1 .sheen{ animation:none } .hero h1 .sheen{ color:var(--gold) } }
+  /* ===== СКВОЗНАЯ ЛЮКС-АТМОСФЕРА: золото дышит по всей странице, не только в герое ===== */
+  section:not(.hero){ overflow:hidden; }
+  /* распределённые золотые свечения за секциями — мягкий свет следует за скроллом */
+  section:not(.hero)::before{ content:""; position:absolute; width:720px; height:720px; border-radius:50%; z-index:0; pointer-events:none;
+    background:radial-gradient(circle,rgba(201,168,106,.09),transparent 66%); filter:blur(36px); top:-160px; right:-220px;
+    animation:pool 16s ease-in-out infinite; }
+  section:not(.hero):nth-of-type(even)::before{ right:auto; left:-240px; top:auto; bottom:-180px;
+    background:radial-gradient(circle,rgba(201,168,106,.07),transparent 66%); animation-duration:20s; }
+  @keyframes pool{ 0%,100%{ transform:translate(0,0) scale(1); opacity:.85 } 50%{ transform:translate(34px,26px) scale(1.12); opacity:1 } }
+  section:not(.hero) .wrap{ position:relative; z-index:1; }
+  /* тонкий золотой разделитель сверху каждой секции */
+  section:not(.hero)::after{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:min(1100px,84%); height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,106,.3),transparent); }
+  /* премиум-хайрлайн сверху карточек (виден всегда, не только на ховере) */
+  .scard::before,.case::before,.quote::before{ content:""; position:absolute; top:0; left:26px; right:26px; height:1px; z-index:1;
+    background:linear-gradient(90deg,transparent,rgba(201,168,106,.5),transparent); opacity:.55; }
+  .case,.quote{ position:relative; overflow:hidden; }
+  .scard,.case{ background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); }
+  .quote{ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); }
+  .office{ position:relative; overflow:hidden; background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012)); transition:border-color .4s; }
+  .office:hover{ border-color:var(--gline); }
+
+  @media(prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none } .ring .seg,.hero h1 .sheen,.hero .herobg,.hero .shimmer,section::before{ animation:none } .hero h1 .sheen{ color:var(--gold) } }
   @media(max-width:980px){ .float-side{ display:none } .hero h1{ max-width:none } .appr-grid,.about-grid{ grid-template-columns:1fr; gap:40px } }
   @media(max-width:760px){
     nav.links{ display:none }
@@ -183,7 +214,10 @@
 
 <!-- HERO -->
 <section class="hero">
+  <video class="herovid" autoplay muted loop playsinline preload="auto" poster="hero-bg.png"></video>
   <div class="herobg"></div>
+  <div class="shimmer"></div>
+  <div class="heroveil"></div>
   <div class="aurora"><span class="beam"></span></div>
   <div class="wrap">
     <span class="pill rv"><span class="dot"></span> ЮРИДИЧЕСКИЙ КОНСАЛТИНГ ДЛЯ БИЗНЕСА · МОСКВА · СОЧИ</span>
@@ -316,6 +350,10 @@
 </footer>
 
 <script>
+  // живой золотой фон: подгружаем видео-версию струй, плавно проявляем когда готово (если нет файла — остаётся анимированная картинка)
+  (function(){ const v=document.querySelector('.herovid'); if(!v) return; v.src='hero-bg.mp4';
+    v.addEventListener('canplay',()=>{ v.play().catch(()=>{}); v.classList.add('on'); }, {once:true});
+    v.addEventListener('error',()=>{ v.remove(); }); })();
   addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scr',scrollY>30),{passive:true});
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
