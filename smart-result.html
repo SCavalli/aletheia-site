@@ -18,6 +18,19 @@
     radial-gradient(50% 42% at 80% -5%, rgba(201,168,106,.12), transparent 68%),
     radial-gradient(40% 40% at -8% 55%, rgba(201,168,106,.05), transparent 70%),
     linear-gradient(180deg,#0A0B0F,#0C0D12); }
+  /* кинематографичное зерно + виньетка (люкс) */
+  body::after{ content:""; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 1.1s steps(3) infinite; }
+  @keyframes grain{ 0%{transform:translate(0,0)} 33%{transform:translate(-4%,3%)} 66%{transform:translate(3%,-2%)} 100%{transform:translate(0,0)} }
+  .vignette{ position:fixed; inset:0; z-index:-1; pointer-events:none; box-shadow:inset 0 0 240px 60px rgba(0,0,0,.7); }
+  /* золотой световой луч в герое */
+  .aurora{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .aurora i{ position:absolute; border-radius:50%; filter:blur(80px); opacity:.5; }
+  .aurora i.a1{ width:560px; height:560px; top:-200px; right:4%; background:radial-gradient(circle,rgba(201,168,106,.4),transparent 65%); animation:drift 18s ease-in-out infinite; }
+  .aurora i.a2{ width:420px; height:420px; bottom:-160px; left:-60px; background:radial-gradient(circle,rgba(201,168,106,.22),transparent 65%); animation:drift 22s ease-in-out infinite reverse; }
+  .beam{ position:absolute; top:-20%; left:30%; width:2px; height:140%; background:linear-gradient(180deg,transparent,rgba(232,214,168,.55),transparent); transform:rotate(18deg); filter:blur(2px); animation:beam 9s ease-in-out infinite; pointer-events:none; }
+  @keyframes drift{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,30px) scale(1.12)} }
+  @keyframes beam{ 0%,100%{opacity:0; transform:translateX(0) rotate(18deg)} 50%{opacity:1; transform:translateX(180px) rotate(18deg)} }
   .wrap{ max-width:1200px; margin:0 auto; padding:0 30px; }
   .serif{ font-family:'Playfair Display',Georgia,serif; }
   .gold{ background:linear-gradient(95deg,var(--gold),var(--gold2) 55%,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -148,6 +161,7 @@
 </style>
 </head>
 <body>
+<div class="vignette"></div>
 
 <header id="hdr">
   <div class="wrap bar">
@@ -164,6 +178,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="aurora"><i class="a1"></i><i class="a2"></i><span class="beam"></span></div>
   <div class="wrap">
     <span class="pill rv"><span class="dot"></span> ЮРИДИЧЕСКИЙ КОНСАЛТИНГ ДЛЯ БИЗНЕСА · МОСКВА · СОЧИ</span>
     <h1 class="serif rv d1">Право, измеримое <span class="sheen">результатом.</span></h1>
@@ -300,6 +315,12 @@
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;const to=+el.dataset.count;const suf=el.dataset.suffix||'';const neg=to<0;const tgt=Math.abs(to);let cur=0;const step=Math.max(1,Math.ceil(tgt/35));const t=setInterval(()=>{cur+=step;if(cur>=tgt){cur=tgt;clearInterval(t);}el.textContent=(neg?'−':'')+cur+suf;},26);cio.unobserve(el);})},{threshold:.6});
   document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+  // кинематографичный параллакс: знак SR + аврора движутся медленнее скролла
+  const fs=document.querySelector('.float-side'), au=document.querySelector('.aurora');
+  addEventListener('scroll',()=>{ const y=scrollY; if(fs) fs.style.transform='translateY('+(y*0.18)+'px)'; if(au) au.style.transform='translateY('+(y*0.08)+'px)'; },{passive:true});
+  // лёгкий «магнитный» наклон знака на движение мыши (люкс-деталь)
+  addEventListener('mousemove',(e)=>{ if(!fs) return; const dx=(e.clientX/innerWidth-.5), dy=(e.clientY/innerHeight-.5); fs.style.marginLeft=(dx*22)+'px'; fs.style.marginTop=(dy*22)+'px'; });
 </script>
 </body>
 </html>
