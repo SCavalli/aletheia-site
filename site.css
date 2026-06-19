@@ -235,3 +235,12 @@ footer .fl{margin-top:8px;color:#5a607a}
 .rcard .rd{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.45}
 .roi .rnote{margin-top:20px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .roi .rnote b{color:var(--ink)}
+/* выгоды-результаты (усиливаем сотрудников) */
+.bnfts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 6px}
+@media(max-width:900px){.bnfts{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.bnfts{grid-template-columns:1fr}}
+.bnft{border:1px solid var(--bd);border-radius:14px;padding:20px;background:rgba(255,255,255,.03);transition:border-color .25s}
+.bnft:hover{border-color:rgba(34,211,238,.4)}
+.bnft b{display:block;font-size:15.5px;margin-bottom:7px;color:var(--ink)}
+.bnft span{color:var(--muted);font-size:13.7px;line-height:1.45}
+.hook.center{text-align:center;max-width:640px;margin-left:auto;margin-right:auto}
