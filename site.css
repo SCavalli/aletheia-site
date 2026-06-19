@@ -208,3 +208,15 @@ footer .fl{margin-top:8px;color:#5a607a}
 /* блок AI-аудита (трипвайер) внутри CTA */
 .audit-note{margin:0 auto 26px;max-width:600px;color:var(--muted);font-size:16.5px;line-height:1.55}
 .audit-note b{color:var(--c1)}
+/* тарифы «сеть агентов» (неон, без золота) */
+.tier-head{text-align:center;max-width:700px;margin:40px auto 24px}
+.tier-head h3{font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+.tier-head p{color:var(--muted);font-size:16px;line-height:1.5}
+.tiers.t3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.tiers.t3{grid-template-columns:1fr}}
+.tmini .tsub{color:var(--c1);font-weight:600;font-size:14.5px;margin-bottom:12px}
+.tmini .td2{color:var(--muted);font-size:14px;line-height:1.45}
+.tmini.hot{border-color:rgba(34,211,238,.5);background:linear-gradient(150deg,rgba(34,211,238,.10),rgba(109,94,252,.07))}
+.tmini.hot .tn{color:var(--c1)}
+.tmini.hot .badge{background:linear-gradient(120deg,var(--v1),var(--c1));color:#fff}
+.tier-note{text-align:center;color:var(--muted2);font-size:14px;margin-top:18px}
