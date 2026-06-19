@@ -220,3 +220,18 @@ footer .fl{margin-top:8px;color:#5a607a}
 .tmini.hot .tn{color:var(--c1)}
 .tmini.hot .badge{background:linear-gradient(120deg,var(--v1),var(--c1));color:#fff}
 .tier-note{text-align:center;color:var(--muted2);font-size:14px;margin-top:18px}
+.tier-cta{text-align:center;margin-top:24px}
+/* блок «почему это окупается» — расчёт за год */
+.roi{border:1px solid var(--bd);border-radius:24px;padding:40px 34px;background:linear-gradient(160deg,rgba(109,94,252,.12),rgba(34,211,238,.06))}
+.roi h3{font-size:clamp(22px,3.6vw,32px);font-weight:800;letter-spacing:-.6px;margin-bottom:12px}
+.roi .rsub{color:var(--muted);font-size:16.5px;margin-bottom:26px;max-width:720px;line-height:1.55}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.roi-grid{grid-template-columns:1fr}}
+.rcard{border:1px solid var(--bd);border-radius:16px;padding:24px;background:rgba(255,255,255,.03)}
+.rcard.good{border-color:rgba(34,211,238,.45);background:linear-gradient(150deg,rgba(34,211,238,.10),rgba(109,94,252,.05))}
+.rcard .rh{font-size:14px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.rcard .rv{font-size:clamp(20px,2.8vw,26px);font-weight:800;letter-spacing:-.5px;line-height:1.2}
+.rcard.good .rv{color:var(--c1)}
+.rcard .rd{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.45}
+.roi .rnote{margin-top:20px;color:var(--muted);font-size:14.5px;line-height:1.5}
+.roi .rnote b{color:var(--ink)}
