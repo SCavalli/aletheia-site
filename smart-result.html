@@ -235,6 +235,8 @@
   .hero .herovid{ z-index:-2 !important; }
   /* pill-mobile-fix */
   @media(max-width:760px){ .hero .pill{ display:inline-block; white-space:normal; line-height:1.6; max-width:100% } .hero .pill .dot{ display:inline-block; vertical-align:middle; margin:0 8px 3px 0 } }
+  /* geo-mobile-hide */
+  @media(max-width:760px){ .hero .pill .geo{ display:none } .hero .pill{ font-size:11px } }
 </style>
 </head>
 <body>
@@ -265,7 +267,7 @@
   <div class="heroveil"></div>
   <div class="aurora"><span class="beam"></span></div>
   <div class="wrap">
-    <span class="pill rv"><span class="dot"></span> ВЕСЬ СПЕКТР ЮРИДИЧЕСКИХ УСЛУГ ДЛЯ БИЗНЕСА · МОСКВА · СОЧИ</span>
+    <span class="pill rv"><span class="dot"></span> ВЕСЬ СПЕКТР ЮРИДИЧЕСКИХ УСЛУГ ДЛЯ БИЗНЕСА<span class="geo"> · Москва · Сочи</span></span>
     <h1 class="serif rv d1">Право, измеримое <span class="sheen">результатом.</span></h1>
     <p class="lead rv d2">Выигранные дела, снятые риски и до −35% на юридических расходах против штатного юротдела. Цель и итог фиксируем до старта.</p>
     <div class="cta rv d3">
