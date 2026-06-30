@@ -237,6 +237,17 @@
   @media(max-width:760px){ .hero .pill{ display:inline-block; white-space:normal; line-height:1.6; max-width:100% } .hero .pill .dot{ display:inline-block; vertical-align:middle; margin:0 8px 3px 0 } }
   /* geo-mobile-hide */
   @media(max-width:760px){ .hero .pill .geo{ display:none } .hero .pill{ font-size:11px } }
+  /* mobile-burger-menu */
+  .burger{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; align-items:center; justify-content:center; background:rgba(255,255,255,.05); border:1px solid var(--gline); border-radius:10px; cursor:pointer; padding:0 }
+  .burger span{ width:20px; height:2px; background:var(--ink); transition:.3s; display:block }
+  body.mopen .burger span:nth-child(1){ transform:translateY(7px) rotate(45deg) }
+  body.mopen .burger span:nth-child(2){ opacity:0 }
+  body.mopen .burger span:nth-child(3){ transform:translateY(-7px) rotate(-45deg) }
+  .mnav{ position:fixed; inset:0; z-index:120; background:rgba(9,8,18,.98); backdrop-filter:blur(12px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1) }
+  .mnav a{ color:var(--ink); font-family:'Overpass',sans-serif; font-size:27px; font-weight:700; text-decoration:none; letter-spacing:.5px }
+  body.mopen .mnav{ transform:none } body.mopen{ overflow:hidden }
+  @media(max-width:760px){ .burger{ display:flex } }
+  @media(min-width:761px){ .mnav{ display:none !important } }
 </style>
 </head>
 <body>
@@ -256,7 +267,15 @@
       <a href="#about">О компании</a><a href="#services">Услуги</a><a href="#cases">Проекты</a><a href="#proof">Нас рекомендуют</a><a href="#contacts">Контакты</a>
     </nav>
     <a href="#contacts" class="btn">Контакты</a>
+    <button class="burger" aria-label="Меню" onclick="document.body.classList.toggle('mopen')"><span></span><span></span><span></span></button>
   </div>
+  <nav class="mnav">
+    <a href="#about" onclick="document.body.classList.remove('mopen')">О компании</a>
+    <a href="#services" onclick="document.body.classList.remove('mopen')">Услуги</a>
+    <a href="#cases" onclick="document.body.classList.remove('mopen')">Проекты</a>
+    <a href="#proof" onclick="document.body.classList.remove('mopen')">Нас рекомендуют</a>
+    <a href="#contacts" onclick="document.body.classList.remove('mopen')">Контакты</a>
+  </nav>
 </header>
 
 <!-- HERO -->
