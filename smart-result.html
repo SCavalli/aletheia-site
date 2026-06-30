@@ -233,6 +233,8 @@
   /* herovid-fix: видео-вода выше статичного кадра */
   .hero .herobg{ z-index:-3 !important; }
   .hero .herovid{ z-index:-2 !important; }
+  /* pill-mobile-fix */
+  @media(max-width:760px){ .hero .pill{ display:inline-block; white-space:normal; line-height:1.6; max-width:100% } .hero .pill .dot{ display:inline-block; vertical-align:middle; margin:0 8px 3px 0 } }
 </style>
 </head>
 <body>
@@ -393,7 +395,7 @@
 
 <script>
   // живой золотой фон: подгружаем видео-версию струй, плавно проявляем когда готово (если нет файла — остаётся анимированная картинка)
-  (function(){ const v=document.querySelector('.herovid'); if(!v) return; v.src='hero-water.mp4';
+  (function(){ const v=document.querySelector('.herovid'); if(!v) return; v.src=(window.innerWidth<=760?'hero-water-m.mp4':'hero-water.mp4');
     v.addEventListener('canplay',()=>{ v.play().catch(()=>{}); v.classList.add('on'); }, {once:true});
     v.addEventListener('error',()=>{ v.remove(); }); })();
   addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scr',scrollY>30),{passive:true});
