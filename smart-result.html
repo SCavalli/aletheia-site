@@ -254,6 +254,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <video class="herovid" autoplay muted loop playsinline preload="auto" poster="hero_a.png"></video>
   <div class="herobg"></div>
   <div class="shimmer"></div>
   <div class="heroveil"></div>
@@ -389,7 +390,7 @@
 
 <script>
   // живой золотой фон: подгружаем видео-версию струй, плавно проявляем когда готово (если нет файла — остаётся анимированная картинка)
-  (function(){ const v=document.querySelector('.herovid'); if(!v) return; v.src='hero-bg.mp4';
+  (function(){ const v=document.querySelector('.herovid'); if(!v) return; v.src='hero-water.mp4';
     v.addEventListener('canplay',()=>{ v.play().catch(()=>{}); v.classList.add('on'); }, {once:true});
     v.addEventListener('error',()=>{ v.remove(); }); })();
   addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scr',scrollY>30),{passive:true});
