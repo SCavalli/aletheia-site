@@ -226,7 +226,7 @@
   @media(max-width:380px){
     .hero h1{ font-size:30px } .wrap{ padding:0 16px }
   }
-  .hero .herobg{ background:url('hero_a.png') center/cover no-repeat !important; }
+  .hero .herobg{ background:url('hero-poster.jpg') center/cover no-repeat !important; }
   .hero .shimmer{ opacity:.4 !important; }
   .markimg{ height:44px; width:auto; display:block; }
   @media(max-width:760px){ .markimg{ height:36px; } }
@@ -238,16 +238,23 @@
   /* geo-mobile-hide */
   @media(max-width:760px){ .hero .pill .geo{ display:none } .hero .pill{ font-size:11px } }
   /* mobile-burger-menu */
-  .burger{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; align-items:center; justify-content:center; background:rgba(255,255,255,.05); border:1px solid var(--gline); border-radius:10px; cursor:pointer; padding:0 }
-  .burger span{ width:20px; height:2px; background:var(--ink); transition:.3s; display:block }
-  body.mopen .burger span:nth-child(1){ transform:translateY(7px) rotate(45deg) }
-  body.mopen .burger span:nth-child(2){ opacity:0 }
-  body.mopen .burger span:nth-child(3){ transform:translateY(-7px) rotate(-45deg) }
+  .burger{ display:none; width:46px; height:46px; align-items:center; justify-content:center; background:rgba(255,255,255,.06); border:1px solid var(--gline); border-radius:10px; cursor:pointer; padding:0; color:#fff; font-size:24px; line-height:1 }
+  .burger span{ width:22px; height:2.5px; background:#fff; transition:.3s; display:block; border-radius:2px }
+  body.mopen .burger{ font-size:22px }
+  
+  
   .mnav{ position:fixed; inset:0; z-index:120; background:rgba(9,8,18,.98); backdrop-filter:blur(12px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1) }
   .mnav a{ color:var(--ink); font-family:'Overpass',sans-serif; font-size:27px; font-weight:700; text-decoration:none; letter-spacing:.5px }
   body.mopen .mnav{ transform:none } body.mopen{ overflow:hidden }
   @media(max-width:760px){ .burger{ display:flex } }
   @media(min-width:761px){ .mnav{ display:none !important } }
+  /* mobile-visible-nav (надёжно: меню видно строкой под лого) */
+  @media(max-width:760px){
+    .burger{ display:none !important } .mnav{ display:none !important }
+    .bar{ flex-wrap:wrap }
+    nav.links{ display:flex !important; order:3; width:100%; flex-wrap:wrap; justify-content:center; gap:9px 16px; margin-top:13px; padding-top:13px; border-top:1px solid var(--line) }
+    nav.links a{ font-size:13px; letter-spacing:.3px; white-space:nowrap }
+  }
 </style>
 </head>
 <body>
@@ -267,7 +274,7 @@
       <a href="#about">О компании</a><a href="#services">Услуги</a><a href="#cases">Проекты</a><a href="#proof">Нас рекомендуют</a><a href="#contacts">Контакты</a>
     </nav>
     <a href="#contacts" class="btn">Контакты</a>
-    <button class="burger" aria-label="Меню" onclick="document.body.classList.toggle('mopen')"><span></span><span></span><span></span></button>
+    <button class="burger" aria-label="Меню" onclick="document.body.classList.toggle('mopen')">☰</button>
   </div>
   <nav class="mnav">
     <a href="#about" onclick="document.body.classList.remove('mopen')">О компании</a>
@@ -280,7 +287,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <video class="herovid" autoplay muted loop playsinline preload="auto" poster="hero_a.png"></video>
+  <video class="herovid" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"></video>
   <div class="herobg"></div>
   <div class="shimmer"></div>
   <div class="heroveil"></div>
