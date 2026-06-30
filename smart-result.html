@@ -255,6 +255,14 @@
     nav.links{ display:flex !important; order:3; width:100%; flex-wrap:wrap; justify-content:center; gap:9px 16px; margin-top:13px; padding-top:13px; border-top:1px solid var(--line) }
     nav.links a{ font-size:13px; letter-spacing:.3px; white-space:nowrap }
   }
+  /* mobile-header-fix: шапка отдельной строкой, без перекрытия hero */
+  @media(max-width:760px){
+    header#hdr{ position:relative !important; background:rgba(9,8,18,.96); border-bottom:1px solid var(--line) }
+    header#hdr.scr{ background:rgba(9,8,18,.96) }
+    .hero{ padding-top:34px !important; min-height:auto }
+    nav.links{ gap:8px 14px; margin-top:11px; padding-top:11px }
+    nav.links a{ font-size:12.5px }
+  }
 </style>
 </head>
 <body>
