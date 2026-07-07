@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aletheia — AI, который показывает правду о бизнесе</title>
 <meta name="description" content="Aletheia — AI-агентство полного цикла. Внедряем нейросети и строим сети AI-агентов для бизнеса в любой сфере: управленческий учёт, приватный AI, обучение команд, автоматизация. От задачи до результата.">
 <link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%236d5efc%27/%3E%3Cstop offset=%271%27 stop-color=%27%2322d3ee%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%274%27 y=%274%27 width=%2724%27 height=%2724%27 rx=%277%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
 </head>
 <body>
 
@@ -15,6 +17,7 @@
 <div class="grain"></div>
 
 <nav><div class="wrap nav-in">
+  <input type="checkbox" id="nav-t" class="nav-toggle">
   <div class="logo"><span class="mark"></span> Aletheia</div>
   <div class="nav-links">
     <a href="#products">Продукты</a>
@@ -23,6 +26,7 @@
     <a href="#faq">Вопросы</a>
   </div>
   <a href="#contact" class="btn">Получить AI-аудит</a>
+  <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
 </div></nav>
 
 <header class="hero"><div class="wrap">
@@ -178,7 +182,7 @@
       </div>
       <div class="rcard good">
         <div class="rh">AI-агент</div>
-        <div class="rv">от ~235 000 ₽ / год</div>
+        <div class="rv">от ~235 000 ₽ в первый год</div>
         <div class="rd">Внедрение от 70 000 ₽ + рабочая среда от ~165 000 ₽/год. Работает 24/7, не болеет, масштабируется.</div>
       </div>
     </div>
@@ -319,5 +323,6 @@
     if(reduce){ step(0); cancelAnimationFrame(raf); } else { raf=requestAnimationFrame(step); }
   })();
 </script>
+<div class="m-cta"><a href="#contact" class="btn">Получить AI-аудит</a></div>
 </body>
 </html>

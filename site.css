@@ -43,23 +43,49 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(109,94,252,.55)}
 .btn.ghost{background:rgba(255,255,255,.05);border:1px solid var(--bd);box-shadow:none}
 .btn.ghost:hover{background:rgba(255,255,255,.1)}
-@media(max-width:760px){.nav-links{display:none}}
+/* мобильная навигация: CSS-бургер (checkbox, без JS) + sticky-CTA */
+.nav-toggle{display:none}
+.nav-burger{display:none;width:42px;height:42px;border:1px solid var(--bd);border-radius:12px;cursor:pointer;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(255,255,255,.05)}
+.nav-burger span{display:block;width:18px;height:2px;background:#dfe3f2;border-radius:2px;transition:transform .25s,opacity .25s}
+.m-cta{display:none}
+@media(max-width:760px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(9,9,20,.97);border-bottom:1px solid var(--bd);padding:6px 22px 14px;backdrop-filter:blur(14px)}
+  .nav-links a{display:block;padding:13px 2px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-burger{display:flex}
+  .nav-toggle:checked ~ .nav-links{display:flex}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(2){opacity:0}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav .btn{display:none}
+  .m-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg,rgba(7,7,16,0),rgba(7,7,16,.92) 40%)}
+  .m-cta .btn{width:100%;justify-content:center;font-size:16px;padding:15px 24px}
+  body{padding-bottom:74px}
+}
 
 /* HERO */
 .hero{padding:120px 0 90px;text-align:center;position:relative}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--bd);border-radius:30px;
       font-size:14px;color:var(--muted);background:rgba(255,255,255,.03);margin-bottom:30px}
 .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--c1);box-shadow:0 0 10px var(--c1)}
-.hero h1{font-size:clamp(40px,7vw,76px);line-height:1.03;letter-spacing:-2px;font-weight:800;margin-bottom:26px}
+.hero h1{font-size:clamp(40px,7vw,76px);line-height:1.03;letter-spacing:-1.2px;font-weight:800;margin-bottom:26px}
 .hero .sub{font-size:clamp(18px,2.4vw,23px);color:var(--muted);max-width:720px;margin:0 auto 40px;line-height:1.55}
 .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .logos{margin-top:64px;color:var(--muted2);font-size:14px;letter-spacing:.5px}
 .logos .row{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-size:15px;color:var(--muted)}
 .logos .row span{opacity:.8}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-.reveal.in{opacity:1;transform:none}
+/* reveal — контент видим по умолчанию; анимация только при живом JS (html.js) */
+.reveal{opacity:1;transform:none}
+html.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+html.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html.js .reveal{opacity:1;transform:none;transition:none}
+  .blob{animation:none}
+}
 
 section{padding:90px 0;position:relative}
 .sec-head{text-align:center;max-width:680px;margin:0 auto 56px}
@@ -98,7 +124,7 @@ section{padding:90px 0;position:relative}
 /* ЦИФРЫ */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
 @media(max-width:760px){.stats{grid-template-columns:1fr}}
-.stat .big{font-size:clamp(44px,6vw,64px);font-weight:800;letter-spacing:-2px;line-height:1}
+.stat .big{font-size:clamp(44px,6vw,64px);font-weight:800;letter-spacing:-1.2px;line-height:1}
 .stat .lbl{color:var(--muted);font-size:16px;margin-top:12px}
 
 /* CTA */
@@ -109,7 +135,7 @@ section{padding:90px 0;position:relative}
 
 footer{border-top:1px solid var(--bd);padding:48px 0;color:var(--muted2);font-size:15px;text-align:center}
 footer .logo{justify-content:center;margin-bottom:14px;font-size:18px}
-footer .fl{margin-top:8px;color:#5a607a}
+footer .fl{margin-top:8px;color:#8a92ac}
 
 /* ===== ПОДСТРАНИЦЫ ПРОДУКТОВ ===== */
 .backlink{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:15px;margin-bottom:26px}
@@ -244,3 +270,6 @@ footer .fl{margin-top:8px;color:#5a607a}
 .bnft b{display:block;font-size:15.5px;margin-bottom:7px;color:var(--ink)}
 .bnft span{color:var(--muted);font-size:13.7px;line-height:1.45}
 .hook.center{text-align:center;max-width:640px;margin-left:auto;margin-right:auto}
+
+/* типографика: ровные строки заголовков */
+h1,h2,h3{text-wrap:balance}
