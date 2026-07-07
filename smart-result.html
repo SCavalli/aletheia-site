@@ -9,7 +9,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap');
   *{ margin:0; padding:0; box-sizing:border-box; }
   :root{
-    --bg:#090812; --bg2:#120F26; --ink:#EEF0F8; --muted:#9D9CB4; --muted2:#6B6A82;
+    --bg:#090812; --bg2:#120F26; --ink:#EEF0F8; --muted:#9D9CB4; --muted2:#8A89A0;
     --gold:#C6CCE2; --gold2:#EEF1FB; --gold-d:#8E93AC; --emer:#5B4BC4; --indigo:#2F235D; --indigo-l:#5B4BC4;
     --line:rgba(255,255,255,.08); --gline:rgba(150,160,205,.24); --card:rgba(255,255,255,.025);
   }
@@ -39,7 +39,9 @@
   h2{ font-family:'Overpass',serif; font-weight:600; font-size:clamp(32px,5vw,58px); line-height:1.08; letter-spacing:-.3px; }
   .sec-sub{ color:var(--muted); font-size:18px; max-width:640px; margin-top:20px; font-weight:300; }
 
-  .rv{ opacity:0; transform:translateY(42px); transition:opacity 1s cubic-bezier(.16,.8,.3,1), transform 1s cubic-bezier(.16,.8,.3,1); }
+  .rv{ opacity:1; transform:none }
+  html.js .rv{ opacity:0; transform:translateY(42px); transition:opacity 1s cubic-bezier(.16,.8,.3,1), transform 1s cubic-bezier(.16,.8,.3,1); }
+  html.js .rv.in{ opacity:1; transform:none; }
   .rv.in{ opacity:1; transform:none; }
   .d1{ transition-delay:.1s } .d2{ transition-delay:.2s } .d3{ transition-delay:.3s } .d4{ transition-delay:.4s }
 
@@ -188,7 +190,7 @@
   .office{ position:relative; overflow:hidden; background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012)); transition:border-color .4s; }
   .office:hover{ border-color:var(--gline); }
 
-  @media(prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none } .ring .seg,.hero h1 .sheen,.hero .herobg,.hero .shimmer,section::before{ animation:none } .hero h1 .sheen{ color:var(--gold) } }
+  @media(prefers-reduced-motion:reduce){ html.js .rv{ opacity:1; transform:none; transition:none } .ring .seg,.hero h1 .sheen,.hero .herobg,.hero .shimmer,section::before,body::after,.sitefx .ray,.sitefx .orb,.beam{ animation:none } .hero h1 .sheen{ color:var(--gold) } html{ scroll-behavior:auto } }
   @media(max-width:980px){ .float-side{ display:none } .hero h1{ max-width:none } .appr-grid,.about-grid{ grid-template-columns:1fr; gap:40px } }
   @media(max-width:760px){
     nav.links{ display:none }
@@ -265,11 +267,12 @@
     nav.links a{ font-size:12.5px }
   }
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%236d5efc%27/%3E%3Cstop offset=%271%27 stop-color=%27%2322d3ee%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%274%27 y=%274%27 width=%2724%27 height=%2724%27 rx=%277%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%272%27 y=%272%27 width=%2728%27 height=%2728%27 rx=%277%27 fill=%27%232F235D%27/%3E%3Ctext x=%2716%27 y=%2721.5%27 font-family=%27Georgia,serif%27 font-size=%2713%27 font-weight=%27bold%27 fill=%27%23CFC9E8%27 text-anchor=%27middle%27%3ESR%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Smart Result — юридические услуги для бизнеса в Москве и Сочи: споры, договоры, сопровождение, интеллектуальная собственность. Право, измеримое результатом.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Aletheia — AI-агентство полного цикла">
-<meta property="og:description" content="Внедряем AI и строим сети агентов: учёт, продажи, поддержка, документы. Аудит с гарантией результата.">
-<meta property="og:image" content="https://aletheia-ai.ru/og.jpg">
+<meta property="og:title" content="Smart Result — юридические услуги для бизнеса · Москва · Сочи">
+<meta property="og:description" content="Весь спектр юридических услуг для бизнеса. Право, измеримое результатом: споры, договоры, сопровождение, IP.">
+<meta property="og:image" content="https://aletheia-ai.ru/hero-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
@@ -312,6 +315,8 @@
     <h1 class="serif rv d1">Право, измеримое <span class="sheen">результатом.</span></h1>
     <p class="lead rv d2">Выигранные дела, снятые риски и до −35% на юридических расходах против штатного юротдела. Цель и итог фиксируем до старта.</p>
     <div class="cta rv d3">
+      <a href="tel:+79683991111" class="btn">Получить консультацию</a>
+      <a href="#services" class="btn btn-ghost">Услуги и практики</a>
     </div>
     <div class="metrics rv d4">
       <div class="metric"><div class="num"><span data-count="-35" data-suffix="%">0</span></div><div class="lbl">на юридических расходах<br>против штатного юриста</div></div>
@@ -338,7 +343,7 @@
       <div class="scard rv"><span class="n">01</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div><h3>Корпоративное право</h3><p>Структурирование бизнеса, сделки M&A, корпоративные споры, управление и защита долей.</p></div>
       <div class="scard rv d1"><span class="n">02</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-3M9 3h6M8 11h8M8 15h5"/></svg></div><h3>Договорная работа</h3><p>Разработка и экспертиза договоров любой сложности — с защитой ваших интересов и минимизацией рисков.</p></div>
       <div class="scard rv d2"><span class="n">03</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg></div><h3>Недвижимость</h3><p>Сделки, регистрация прав, сопровождение строительства, споры по объектам и земле.</p></div>
-      <div class="scard rv"><span class="n">04</span><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Интеллектуальная собственность</h3><p>Регистрация и защита товарных знаков, патентов, авторских прав. Борьба с нарушениями.</p></div>
+      <div class="scard rv"><span class="n">04</span><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.8a3.6 3.6 0 100 4.4"/></svg></div><h3>Интеллектуальная собственность</h3><p>Регистрация и защита товарных знаков, патентов, авторских прав. Борьба с нарушениями.</p></div>
       <div class="scard rv d1"><span class="n">05</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4M12 16h.01"/></svg></div><h3>Общие вопросы</h3><p>Консультации, претензионная и судебная работа, подготовка документов вне основных категорий.</p></div>
       <div class="scard rv d2" style="display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(91,75,196,.07),transparent);border-color:var(--gline);"><h3>Не нашли свою задачу?</h3><p>Опишите её — подберём практику и план за один звонок.</p><a href="#contacts" class="btn" style="margin-top:22px;align-self:flex-start;">Обсудить задачу</a></div>
     </div>
