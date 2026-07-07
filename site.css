@@ -7,7 +7,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);
+body{font-family:"Manrope",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);
      line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:18px}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
@@ -28,7 +28,9 @@ a{color:inherit;text-decoration:none}
 .grain{position:fixed;inset:0;z-index:-1;opacity:.035;pointer-events:none;
    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-.grad-text{background:linear-gradient(100deg,var(--v1),var(--v2) 45%,var(--c1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-text{color:var(--c1)}
+/* акцент в тексте */
+.acc{color:var(--c1);font-weight:800}
 
 /* NAV */
 nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(7,7,16,0.6);border-bottom:1px solid var(--bd)}
@@ -103,8 +105,9 @@ section{padding:90px 0;position:relative}
        -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s}
 .pcard:hover{transform:translateY(-6px);background:rgba(255,255,255,.06)}
 .pcard:hover::before{opacity:1}
-.pcard .ico{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:28px;
+.pcard .ico{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:var(--c1);
        background:linear-gradient(135deg,rgba(109,94,252,.25),rgba(34,211,238,.18));border:1px solid var(--bd);margin-bottom:20px}
+.pcard .ico svg{display:block;width:26px;height:26px}
 .pcard h3{font-size:24px;font-weight:700;margin-bottom:10px}
 .pcard p{color:var(--muted);font-size:16px;margin-bottom:18px;line-height:1.55}
 .pcard .price{color:var(--gold);font-weight:600;font-size:15px}
@@ -136,6 +139,20 @@ section{padding:90px 0;position:relative}
 footer{border-top:1px solid var(--bd);padding:48px 0;color:var(--muted2);font-size:15px;text-align:center}
 footer .logo{justify-content:center;margin-bottom:14px;font-size:18px}
 footer .fl{margin-top:8px;color:#8a92ac}
+footer .freq{font-size:13px;color:var(--muted2);margin-top:12px}
+
+/* trust-блок «кто за этим стоит» */
+#founder{padding:56px 0 84px}
+.founder-box{max-width:640px;margin:0 auto;text-align:center}
+.founder-box h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.5px;margin-bottom:16px}
+.founder-box p{color:var(--muted);font-size:17px;line-height:1.6}
+.founder-links{margin-top:18px}
+.founder-links a{color:var(--c1);font-weight:600}
+.founder-links a:hover{text-decoration:underline}
+.founder-req{margin-top:14px;font-size:13.5px;color:var(--muted2)}
+
+/* строка-факты вместо цифр-карточек */
+.statline p{font-size:clamp(17px,2.3vw,20px);line-height:1.6}
 
 /* ===== ПОДСТРАНИЦЫ ПРОДУКТОВ ===== */
 .backlink{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:15px;margin-bottom:26px}
@@ -153,7 +170,8 @@ footer .fl{margin-top:8px;color:#8a92ac}
 @media(max-width:820px){.twocol{grid-template-columns:1fr}}
 .panel{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:34px 30px}
 .panel h3{font-size:22px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
-.panel h3 .e{font-size:24px}
+.panel h3 .e{display:inline-flex;color:var(--c1)}
+.panel h3 .e svg{display:block;width:24px;height:24px}
 .checklist{list-style:none}
 .checklist li{position:relative;padding-left:34px;margin:14px 0;color:var(--muted);font-size:16.5px;line-height:1.5}
 .checklist li::before{content:"";position:absolute;left:0;top:9px;width:18px;height:18px;border-radius:6px;
@@ -165,7 +183,8 @@ footer .fl{margin-top:8px;color:#8a92ac}
 @media(max-width:900px){.feat-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.feat-grid{grid-template-columns:1fr}}
 .feat{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px}
-.feat .fi{font-size:26px;margin-bottom:14px}
+.feat .fi{color:var(--c1);margin-bottom:14px}
+.feat .fi svg{display:block;width:26px;height:26px}
 .feat h4{font-size:18px;font-weight:700;margin-bottom:8px}
 .feat p{color:var(--muted);font-size:15.5px;line-height:1.5}
 
@@ -191,11 +210,17 @@ footer .fl{margin-top:8px;color:#8a92ac}
 .tmini .td{color:var(--muted);font-size:14.5px;line-height:1.45}
 .tmini .badge{position:absolute;top:-1px;right:-1px;background:var(--gold);color:#0a1622;font-size:11px;font-weight:800;padding:5px 11px;border-radius:0 18px 0 14px}
 
-/* FAQ */
-.faq{max-width:820px;margin:0 auto}
-.qa{border:1px solid var(--bd);border-radius:16px;padding:24px 26px;margin-bottom:14px;background:var(--card)}
-.qa h4{font-size:18px;font-weight:700;margin-bottom:10px}
-.qa p{color:var(--muted);font-size:16px;line-height:1.55}
+/* FAQ — аккордеон */
+.faq{max-width:780px;margin:0 auto}
+details.qa{border-bottom:1px solid var(--bd)}
+details.qa:first-of-type{border-top:1px solid var(--bd)}
+details.qa summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+   padding:20px 2px;font-size:18px;font-weight:700;line-height:1.35}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"+";color:var(--c1);font-size:22px;font-weight:400;line-height:1;flex:none;
+   transition:transform .25s;transform-origin:center}
+details.qa[open] summary::after{transform:rotate(45deg)}
+details.qa p{color:var(--muted);font-size:16px;line-height:1.55;padding:0 2px 22px;max-width:660px}
 
 /* ===== РАЗДЕЛ AI-АГЕНТЫ / СЕТИ АГЕНТОВ ===== */
 .agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
@@ -203,8 +228,9 @@ footer .fl{margin-top:8px;color:#8a92ac}
 @media(max-width:560px){.agrid{grid-template-columns:1fr}}
 .acard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px;transition:transform .25s,border-color .25s,background .25s;overflow:hidden}
 .acard:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.45);background:rgba(255,255,255,.06)}
-.acard .ai{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;
+.acard .ai{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--c1);
    background:linear-gradient(135deg,rgba(109,94,252,.25),rgba(34,211,238,.18));border:1px solid var(--bd);margin-bottom:16px}
+.acard .ai svg{display:block;width:24px;height:24px}
 .acard h4{font-size:18.5px;font-weight:700;margin-bottom:8px}
 .acard p{color:var(--muted);font-size:15px;line-height:1.5}
 /* «сеть под ключ» — выделенный блок с мини-схемой */
