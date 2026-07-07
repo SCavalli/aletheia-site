@@ -144,6 +144,9 @@ footer .freq{font-size:13px;color:var(--muted2);margin-top:12px}
 /* trust-блок «кто за этим стоит» */
 #founder{padding:56px 0 84px}
 .founder-box{max-width:640px;margin:0 auto;text-align:center}
+.founder-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;margin-bottom:22px;
+  border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--v1),var(--c1)) border-box;
+  box-shadow:0 0 34px rgba(34,211,238,.22)}
 .founder-box h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.5px;margin-bottom:16px}
 .founder-box p{color:var(--muted);font-size:17px;line-height:1.6}
 .founder-links{margin-top:18px}
