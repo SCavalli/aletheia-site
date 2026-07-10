@@ -302,3 +302,33 @@ details.qa p{color:var(--muted);font-size:16px;line-height:1.55;padding:0 2px 22
 
 /* типографика: ровные строки заголовков */
 h1,h2,h3{text-wrap:balance}
+
+/* ЛЕСТНИЦА ЗРЕЛОСТИ (переупаковка продуктов в путь, 10.07) */
+.path{max-width:860px;margin:0 auto;position:relative}
+.pstep{display:flex;gap:22px;position:relative;padding:6px 0}
+.step-rail{display:flex;flex-direction:column;align-items:center;width:54px;flex-shrink:0;position:relative}
+.step-rail::after{content:"";position:absolute;top:46px;bottom:-14px;width:2px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(34,211,238,.45),rgba(109,94,252,.35))}
+.pstep:last-of-type .step-rail::after{display:none}
+.step-num{font-weight:800;font-size:15px;color:var(--c1);letter-spacing:1px;padding-top:4px}
+.step-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--v1),var(--c1));
+  box-shadow:0 0 14px rgba(34,211,238,.7);margin-top:7px}
+.step-body{display:flex;gap:20px;align-items:flex-start;flex:1;background:var(--card);border:1px solid var(--bd);
+  border-radius:20px;padding:24px 26px;margin-bottom:22px;transition:transform .25s,border-color .25s,background .25s}
+.pstep:hover .step-body{transform:translateX(6px);background:rgba(255,255,255,.06);border-color:rgba(34,211,238,.35)}
+.step-ico{width:50px;height:50px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:var(--c1);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2)}
+.step-stage{font-size:13.5px;color:var(--c1);font-weight:600;margin-bottom:6px}
+.step-text h3{font-size:21px;font-weight:800;margin-bottom:8px}
+.step-text p{color:var(--muted);font-size:15.5px;line-height:1.55}
+.step-text .price{margin-top:10px}
+.step-go{align-self:center;color:var(--muted2);font-size:22px;transition:color .25s,transform .25s}
+.pstep:hover .step-go{color:var(--c1);transform:translateX(4px)}
+.path-note{text-align:center;color:var(--muted2);font-size:15px;margin-top:8px}
+.path-mini .sep{color:var(--c1);opacity:.7}
+@media(max-width:640px){
+  .pstep{gap:12px}
+  .step-rail{width:34px}
+  .step-body{flex-direction:column;gap:14px;padding:20px}
+  .step-go{display:none}
+}
