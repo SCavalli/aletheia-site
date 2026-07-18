@@ -332,3 +332,39 @@ h1,h2,h3{text-wrap:balance}
   .step-body{flex-direction:column;gap:14px;padding:20px}
   .step-go{display:none}
 }
+
+/* ===== MOTION-ПАСС 18.07 (animate-скилл): фирменная хореография ===== */
+/* 1. Нейроимпульс: сигнал бежит по линии пути (подпись бренда — «путь живой») */
+.step-rail::after{
+  background:linear-gradient(180deg,
+    rgba(34,211,238,.45) 0%,rgba(109,94,252,.35) 40%,
+    rgba(34,211,238,.95) 50%,
+    rgba(109,94,252,.35) 60%,rgba(34,211,238,.45) 100%);
+  background-size:100% 320%;
+  animation:railpulse 3.6s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes railpulse{0%{background-position:0 130%}100%{background-position:0 -130%}}
+/* узлы пульсируют волной вслед за импульсом */
+.step-dot{animation:dotpulse 3.6s cubic-bezier(.4,0,.6,1) infinite;animation-delay:calc(var(--i,0)*.42s)}
+@keyframes dotpulse{
+  0%,72%,100%{box-shadow:0 0 14px rgba(34,211,238,.7);transform:scale(1)}
+  80%{box-shadow:0 0 26px rgba(34,211,238,1),0 0 44px rgba(109,94,252,.6);transform:scale(1.35)}
+}
+/* 2. Ступени: list-stagger вместо общего fade (ритм списка) */
+html.js .pstep.reveal{transition-delay:calc(var(--i,0)*90ms)}
+/* 3. Hero-каскад при загрузке (единственная entrance-хореография страницы) */
+html.js .hero .reveal{transition-duration:.65s}
+html.js .hero .reveal:nth-child(1){transition-delay:.05s}
+html.js .hero .wrap>.reveal:nth-child(2){transition-delay:.13s}
+html.js .hero .wrap>.reveal:nth-child(3){transition-delay:.21s}
+html.js .hero .wrap>.reveal:nth-child(4){transition-delay:.29s}
+html.js .hero .wrap>.reveal:nth-child(5){transition-delay:.37s}
+html.js .hero .wrap>.reveal:nth-child(6){transition-delay:.45s}
+/* 4. Кнопки: мгновенный press-фидбек */
+.btn:active{transform:scale(.97) translateY(0);transition-duration:.09s}
+.btn.ghost:active{transform:scale(.97)}
+/* 5. Гард reduced-motion на всё новое */
+@media (prefers-reduced-motion: reduce){
+  .step-rail::after,.step-dot{animation:none}
+  html.js .pstep.reveal,html.js .hero .reveal{transition-delay:0s}
+}
