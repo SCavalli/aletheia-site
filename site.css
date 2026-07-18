@@ -41,7 +41,7 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(
 .nav-links{display:flex;gap:30px;font-size:15px;color:var(--muted)}
 .nav-links a:hover{color:#fff}
 .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(120deg,var(--v1),var(--v2));color:#fff;font-weight:600;
-     padding:13px 24px;border-radius:14px;font-size:15.5px;transition:transform .18s,box-shadow .18s;box-shadow:0 8px 30px rgba(109,94,252,.35);cursor:pointer;border:none}
+     padding:13px 24px;border-radius:14px;font-size:15.5px;transition:transform .16s var(--eo),box-shadow .2s var(--eo);box-shadow:0 8px 30px rgba(109,94,252,.35);cursor:pointer;border:none}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(109,94,252,.55)}
 .btn.ghost{background:rgba(255,255,255,.05);border:1px solid var(--bd);box-shadow:none}
 .btn.ghost:hover{background:rgba(255,255,255,.1)}
@@ -100,7 +100,7 @@ section{padding:90px 0;position:relative}
 @media(max-width:1000px){.grid3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.grid3{grid-template-columns:1fr}}
 .pcard{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:30px 26px;overflow:hidden;
-       transition:transform .25s,border-color .25s,background .25s;cursor:pointer;height:100%}
+       transition:transform .22s var(--eo),border-color .22s var(--eo),background .22s var(--eo);cursor:pointer;height:100%}
 .pcard::before{content:"";position:absolute;inset:0;border-radius:22px;padding:1px;background:linear-gradient(135deg,var(--v1),var(--c1));
        -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s}
 .pcard:hover{transform:translateY(-6px);background:rgba(255,255,255,.06)}
@@ -229,7 +229,7 @@ details.qa p{color:var(--muted);font-size:16px;line-height:1.55;padding:0 2px 22
 .agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
 @media(max-width:900px){.agrid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.agrid{grid-template-columns:1fr}}
-.acard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px;transition:transform .25s,border-color .25s,background .25s;overflow:hidden}
+.acard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px;transition:transform .22s var(--eo),border-color .22s var(--eo),background .22s var(--eo);overflow:hidden}
 .acard:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.45);background:rgba(255,255,255,.06)}
 .acard .ai{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--c1);
    background:linear-gradient(135deg,rgba(109,94,252,.25),rgba(34,211,238,.18));border:1px solid var(--bd);margin-bottom:16px}
@@ -247,7 +247,7 @@ details.qa p{color:var(--muted);font-size:16px;line-height:1.55;padding:0 2px 22
 .netflow .conn{width:2px;height:26px;background:linear-gradient(var(--c1),rgba(34,211,238,.15))}
 .spokes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:720px}
 .spoke{display:flex;align-items:center;gap:8px;padding:11px 17px;border-radius:12px;background:rgba(255,255,255,.06);
-   border:1px solid var(--bd);color:var(--ink);font-size:14.5px;font-weight:600;transition:.2s}
+   border:1px solid var(--bd);color:var(--ink);font-size:14.5px;font-weight:600;transition:border-color .2s var(--eo),background .2s var(--eo),color .2s var(--eo)}
 .spoke:hover{border-color:rgba(34,211,238,.5);transform:translateY(-2px)}
 .spoke .sd{width:7px;height:7px;border-radius:50%;background:var(--c1);box-shadow:0 0 10px var(--c1)}
 
@@ -314,7 +314,7 @@ h1,h2,h3{text-wrap:balance}
 .step-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--v1),var(--c1));
   box-shadow:0 0 14px rgba(34,211,238,.7);margin-top:7px}
 .step-body{display:flex;gap:20px;align-items:flex-start;flex:1;background:var(--card);border:1px solid var(--bd);
-  border-radius:20px;padding:24px 26px;margin-bottom:22px;transition:transform .25s,border-color .25s,background .25s}
+  border-radius:20px;padding:24px 26px;margin-bottom:22px;transition:transform .22s var(--eo),border-color .22s var(--eo),background .22s var(--eo),box-shadow .3s var(--eo)}
 .pstep:hover .step-body{transform:translateX(6px);background:rgba(255,255,255,.06);border-color:rgba(34,211,238,.35)}
 .step-ico{width:50px;height:50px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
   color:var(--c1);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2)}
@@ -367,4 +367,34 @@ html.js .hero .wrap>.reveal:nth-child(6){transition-delay:.45s}
 @media (prefers-reduced-motion: reduce){
   .step-rail::after,.step-dot{animation:none}
   html.js .pstep.reveal,html.js .hero .reveal{transition-delay:0s}
+}
+
+/* ===== ПОЛИШ-ПАСС 19.07 (Ковальски): невидимые детали ===== */
+:root{
+  --eo:cubic-bezier(0.23,1,0.32,1);          /* сильный ease-out */
+  --eio:cubic-bezier(0.77,0,0.175,1);        /* сильный ease-in-out */
+}
+/* фирменное выделение текста */
+::selection{background:rgba(34,211,238,.28);color:#fff}
+/* доступный focus только с клавиатуры */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--c1);outline-offset:3px;border-radius:6px}
+/* убрать серую вспышку тапа на iOS, оставить свой press-фидбек */
+a,button{-webkit-tap-highlight-color:transparent}
+/* тёмный скроллбар в тон */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:5px;border:2px solid #0b0d17}
+::-webkit-scrollbar-thumb:hover{background:rgba(34,211,238,.35)}
+::-webkit-scrollbar-track{background:transparent}
+/* сглаживание шрифта на тёмном */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+/* ступени: мягкое свечение при наведении (глубина) */
+.pstep:hover .step-body{box-shadow:0 6px 32px rgba(34,211,238,.10),0 2px 10px rgba(0,0,0,.35)}
+/* ссылки навигации: подчёркивание въезжает */
+nav a{position:relative}
+nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;
+  background:linear-gradient(90deg,var(--c1),var(--v1));transition:right .22s var(--eo)}
+nav a:hover::after{right:0}
+@media (prefers-reduced-motion: reduce){
+  nav a::after{transition:none}
 }
