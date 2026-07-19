@@ -398,3 +398,12 @@ nav a:hover::after{right:0}
 @media (prefers-reduced-motion: reduce){
   nav a::after{transition:none}
 }
+
+/* контакт-карточка основателя (19.07, правка Сергея «контакты красиво») */
+.contact-card{max-width:380px;margin:22px auto 0;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:8px 0;text-align:left}
+.contact-title{font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);padding:10px 20px 6px}
+.contact-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 20px;
+  border-top:1px solid rgba(255,255,255,.06);transition:background .18s var(--eo)}
+.contact-row:hover{background:rgba(34,211,238,.06)}
+.contact-label{color:var(--muted);font-size:14.5px}
+.contact-val{color:var(--c1);font-weight:600;font-size:15px;white-space:nowrap}
