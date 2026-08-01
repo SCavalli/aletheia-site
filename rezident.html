@@ -62,6 +62,8 @@
   .hero .cta-row{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; }
   .pill{ display:inline-flex; align-items:center; gap:9px; border:1px solid var(--bd); border-radius:30px; padding:9px 18px; font-size:14px; color:var(--muted); background:rgba(255,255,255,.03); margin-bottom:26px; }
   .pill .dot{ width:8px; height:8px; border-radius:50%; background:var(--c1); box-shadow:0 0 10px var(--c1); }
+  .hero .punch{ margin-top:22px; font-size:clamp(17px,2vw,21px); font-weight:700; color:#fff; max-width:680px; line-height:1.5; }
+  .hero .punch span{ color:var(--muted); font-weight:400; }
   .trustbar{ margin-top:52px; display:flex; gap:30px; flex-wrap:wrap; color:var(--muted); font-size:14px; }
   .trustbar .t{ display:flex; align-items:center; gap:9px; }
   .trustbar svg{ width:19px; height:19px; stroke:var(--c1); fill:none; stroke-width:1.7; }
@@ -233,6 +235,7 @@
     <div class="pill reveal"><span class="dot"></span> ALETHEIA · Приватный AI для конфиденциальных документов</div>
     <h1 class="reveal d1">Загрузите самый секретный документ. AI разберёт его за минуты. <span class="grad-text">Наружу не уйдёт ничего.</span></h1>
     <p class="lead reveal d2">РЕЗИДЕНТ работает в вашем офисе и анализирует договоры, дела и отчёты без интернета, без VPN, без облака. Документ не покидает устройство. Физически.</p>
+    <p class="punch reveal d2">Железо — ваше. Интернет — не нужен. Счёт за токены — не придёт. <span>Один раз поставили, дальше он просто работает.</span></p>
     <div class="cta-row reveal d3">
       <a href="#" class="btn js-demo">Записаться на демо</a>
       <a href="#how" class="btn btn-ghost">Как это работает</a>
@@ -314,6 +317,19 @@
   </div>
 </section>
 
+<!-- ECONOMY -->
+<section class="how">
+  <div class="wrap">
+    <span class="eyebrow reveal">Экономика</span>
+    <h2 class="reveal d1">Облако выставляет счёт каждый месяц. <span class="grad-text">РЕЗИДЕНТ — один раз.</span></h2>
+    <div class="steps">
+      <div class="step reveal"><div class="n grad-text">₽0</div><b>За каждого сотрудника</b><p>Облачный AI считает места: взяли человека — счёт вырос. Здесь заводите хоть весь отдел, платы за место нет.</p></div>
+      <div class="step reveal d1"><div class="n grad-text">₽0</div><b>За каждый вопрос</b><p>Разбирайте хоть тысячу страниц в день. Счётчик токенов не тикает — считает ваше железо, а не чужой сервер.</p></div>
+      <div class="step reveal d2"><div class="n grad-text">1</div><b>Регулярный платёж</b><p>Только сопровождение. Это не «поддержка на всякий случай», а подписка на то, чтобы он оставался рабочим: свежая модель, новые документы в базе, бэкапы.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- HOW -->
 <section class="how" id="how">
   <div class="wrap">
@@ -370,7 +386,7 @@
       <div class="item reveal"><div class="h"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><b>Устройство</b></div><p>Готовое устройство с закрытым AI-модулем нашей сборки. Тихое, мощное, всегда в розетке. Поставили один раз — и забыли про технику.</p></div>
       <div class="item reveal d1"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21 8 14 2 9.4h7.6z"/></svg><b>Модель под вас</b></div><p>Обучаем AI на ваших документах и задачах. Он знает ваши договоры и вашу отрасль, а не отвечает шаблоном.</p></div>
       <div class="item reveal d2"><div class="h"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><b>Внедрение за час</b></div><p>Привозим, подключаем к офисной сети, заводим сотрудников, показываем как пользоваться. В тот же день в работе.</p></div>
-      <div class="item reveal d3"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3.5"/></svg><b>Сопровождение</b></div><p>Обновления модели, новые документы в базу, бэкапы, поддержка. Устройство всегда свежее, голова у вас свободна.</p></div>
+      <div class="item reveal d3"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3.5"/></svg><b>Подписка на работоспособность</b></div><p>Не «поддержка на всякий случай»: обновления модели, новые документы в базу, бэкапы, разбор вопросов сотрудников. Устройство всегда свежее, голова у вас свободна.</p></div>
     </div>
   </div>
 </section>
@@ -396,6 +412,7 @@
     <details open><summary>Как его обновлять, если он без интернета?</summary><div class="a">Вы сами открываете короткое защищённое окно (кнопкой или ночью на 15 минут). Мы обновляем модель и добавляем документы, вы закрываете. Всё остальное время — полная изоляция. Контроль у вас, не у нас.</div></details>
     <details><summary>А если устройство украдут?</summary><div class="a">Диск зашифрован. Без вашего ключа это бесполезная коробка — данные не достать.</div></details>
     <details><summary>Это законно?</summary><div class="a">Да. Документы не покидают устройство, значит передачи третьим лицам нет. Соответствие коммерческой тайне и 152-ФЗ заложено в саму архитектуру.</div></details>
+    <details><summary>Что будет со счётом, когда сотрудников станет больше?</summary><div class="a">Ничего. Платы за место и за запрос у РЕЗИДЕНТА нет: вы платите за устройство и сопровождение, а не за количество людей и вопросов. В облаке каждый новый человек — плюс к ежемесячному счёту, здесь — просто ещё один логин.</div></details>
     <details><summary>Он умнее ChatGPT?</summary><div class="a">Для анализа ваших документов — точнее: он обучен на них и не отвлекается. Для общих вопросов берите облако. РЕЗИДЕНТ сделан для работы с тайной.</div></details>
     </div>
   </div>
