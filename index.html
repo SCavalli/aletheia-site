@@ -1,344 +1,371 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<script>document.documentElement.classList.add('js')</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aletheia — AI, который показывает правду о бизнесе</title>
-<meta name="description" content="Aletheia — AI-агентство полного цикла. Нанимаем бизнесу AI-сотрудников — от одного до целой команды: продажи, поддержка 24/7, управленческий учёт, приватный AI, продукты под ключ. От задачи до результата.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALETHEIA · AI-сотрудники для бизнеса</title>
+<meta name="description" content="Нанимаем вам AI-сотрудников, которые берут рутину на себя: учёт, продажи, поддержку, документы. Этой компанией управляет команда AI-сотрудников.">
+<link rel="canonical" href="https://aletheia-ai.ru/">
+
+<!-- Соцпревью: трафик идёт из Telegram и Instagram, без этого ссылка выглядит пустой.
+     В v3 я эти теги потерял при переносе, возвращаю. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ALETHEIA">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://aletheia-ai.ru/">
+<meta property="og:title" content="ALETHEIA · AI-сотрудники для бизнеса">
+<meta property="og:description" content="Нанимаем вам сотрудников, которым не нужен офис. Учёт, продажи, поддержка, документы. Этой компанией управляет команда AI-сотрудников.">
+<meta property="og:image" content="https://aletheia-ai.ru/og-v3.jpg">
+<meta property="og:image:width" content="1376">
+<meta property="og:image:height" content="768">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ALETHEIA · AI-сотрудники для бизнеса">
+<meta name="twitter:description" content="Нанимаем вам сотрудников, которым не нужен офис.">
+<meta name="twitter:image" content="https://aletheia-ai.ru/og-v3.jpg">
+<meta name="theme-color" content="#06060d">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%236d5efc%27/%3E%3Cstop offset=%271%27 stop-color=%27%2322d3ee%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%274%27 y=%274%27 width=%2724%27 height=%2724%27 rx=%277%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aletheia — AI-агентство полного цикла">
-<meta property="og:description" content="Внедряем AI и нанимаем вам AI-сотрудников: учёт, продажи, поддержка, документы. Аудит с гарантией результата.">
-<meta property="og:image" content="https://aletheia-ai.ru/og.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-v3.css">
 </head>
 <body>
 
-<div class="bg-fx"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
-<canvas id="nn-canvas"></canvas>
-<div class="hero-veil"></div>
-<div class="grain"></div>
+<canvas id="nn-canvas" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
 
-<nav><div class="wrap nav-in">
-  <input type="checkbox" id="nav-t" class="nav-toggle">
-  <div class="logo"><span class="mark"></span> Aletheia</div>
-  <div class="nav-links">
-    <a href="#products">Услуги</a>
-    <a href="#agents">AI-сотрудники</a>
-    <a href="#how">Подход</a>
-    <a href="#faq">Вопросы</a>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true"></span> ALETHEIA</a>
+    <nav class="nav-links" aria-label="Основная навигация">
+      <a href="#flagship">AI-сотрудники</a>
+      <a href="#more">Услуги</a>
+      <a href="#how">Как работаем</a>
+    </nav>
+    <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Получить AI-аудит</a>
   </div>
-  <a href="https://t.me/aletheia_support_bot" class="btn">Получить консультацию</a>
-  <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
-</div></nav>
+</header>
 
-<header class="hero"><div class="wrap">
-  <div class="pill reveal in"><span class="dot"></span> AI-агентство полного цикла · команда AI-сотрудников под ключ</div>
-  <h1 class="reveal in">AI, который показывает<br><span class="grad-text">правду</span> о вашем бизнесе</h1>
-  <p class="sub reveal in">Внедряем AI и нанимаем вам цифровых сотрудников, которые берут рутину на себя: учёт, продажи, поддержку, документы. Вы видите цифры и принимаете решения, остальное делает система.</p>
-  <p class="hook reveal in">Та же команда AI-сотрудников, что управляет этой компанией, может работать у вас.</p>
-  <div class="cta-row reveal in">
-    <a href="https://t.me/aletheia_support_bot" class="btn">Получить консультацию</a>
-    <a href="#products" class="btn ghost">Все услуги →</a>
-  </div>
-  <div class="logos reveal in">
-    <div>Путь клиента</div>
-    <div class="row path-mini"><span>Аудит</span><span class="sep">→</span><span>Учти</span><span class="sep">→</span><span>Сотрудники</span><span class="sep">→</span><span>Резидент</span></div>
-  </div>
-</div></header>
+<main>
 
-<section id="products"><div class="wrap">
-  <div class="sec-head reveal">
-    <h2>Услуги: от одного сотрудника<br>до <span class="grad-text">AI-компании</span></h2>
-    <p>Каждую услугу мы сначала обкатываем на себе — вы покупаете то, что уже работает.</p>
-  </div>
-  <div class="svc-grid">
-    <a class="pcard feat reveal" href="agents.html">
-      <div class="feat-tag">Главный продукт</div>
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5.6" r="2.1"/><circle cx="5.6" cy="17.4" r="2.1"/><circle cx="18.4" cy="17.4" r="2.1"/><path d="m11 7.5-4.3 8"/><path d="m13 7.5 4.3 8"/><path d="M7.7 17.4h8.6"/></svg></div>
-      <h3>AI-сотрудники для бизнеса</h3>
-      <p>Цифровые сотрудники под ваши процессы: продажи, поддержка, финансы, документы, аналитика. Работают 24/7 — лично у вас, в компании или у каждого человека в команде. От одного сотрудника до полного штата с оркестратором.</p>
-      <div class="price">от 100 000 ₽ · тарифы «Сотрудник» / «Команда» / «Предприятие»</div>
-      <div class="more">Подробнее о сотрудниках <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.3c0 4-4 7.2-9 7.2-1 0-2-.1-2.9-.4L4.2 19.8l1.1-3.4C3.9 15 3 13.2 3 11.3 3 7.3 7 4 12 4s9 3.3 9 7.3Z"/><path d="M8.4 11.3h.01"/><path d="M12 11.3h.01"/><path d="M15.6 11.3h.01"/></svg></div>
-      <h3>AI-менеджер поддержки 24/7</h3>
-      <p>Отвечает вашим клиентам ночью, в выходные и в других часовых поясах, ведёт диалог как живой менеджер и собирает заявки. Наш работает прямо в этом боте — напишите и проверьте.</p>
-      <div class="price">от 100 000 ₽ · живое демо в один клик</div>
-      <div class="more">Поговорить с нашим <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="audit.html">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.4-4.4"/><path d="M8.2 11h5.6"/><path d="M11 8.2v5.6"/></svg></div>
-      <h3>AI-аудит</h3>
-      <p>Разбираем ваши процессы и показываем, где AI даст деньги уже в этом квартале. Карта процессов, точки автоматизации, расчёт ROI. Лучший первый шаг.</p>
-      <div class="price">29 000 ₽ · гарантия возврата</div>
-      <div class="more">Что входит в аудит <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="security.html">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 5.7v5.5c0 4.4 2.9 7.5 7 8.8 4.1-1.3 7-4.4 7-8.8V5.7L12 3Z"/><circle cx="11" cy="11" r="2.4"/><path d="m12.8 12.8 2.2 2.2"/></svg></div>
-      <h3>AI-аудит безопасности</h3>
-      <p>Проверим ваш сайт и инфраструктуру глазами взломщика — пока это не сделал настоящий. Находим открытые двери, устаревший софт с известными дырами, слабую защиту входа. Отчёт человеческим языком: где дыра, чем грозит, как закрыть. Критичное чиним сразу.</p>
-      <div class="price">39 000 ₽ · не нашли значимых дыр — вернём деньги</div>
-      <div class="more">Как проходит проверка <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="security.html">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 5.7v5.5c0 4.4 2.9 7.5 7 8.8 4.1-1.3 7-4.4 7-8.8V5.7L12 3Z"/><path d="M9.2 11.8l1.9 1.9 3.7-4"/></svg></div>
-      <h3>Защита под ключ</h3>
-      <p>Нашли дыры — держим их закрытыми и следим, чтобы новые не появились. Фаервол, автообновления, защита от ботов и перебора паролей, бэкапы с проверкой восстановления, сторож. Раз в месяц — свежий аудит с отчётом. Клиентам с AI-сотрудниками сюда же входит защита самих сотрудников от перехвата.</p>
-      <div class="price">от 20 000 ₽/мес · клиники, юристы, финансы — индивидуально</div>
-      <div class="more">Что входит в защиту <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="uchti.html">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M6.8 16.5v-4.7"/><path d="M12 16.5V6.8"/><path d="M17.2 16.5V9.6"/></svg></div>
-      <h3>Учти.Бизнес</h3>
-      <p>Управленческий учёт всей компании в Telegram: общий котёл, дашборд, налоги, роли. Прибыль по каждой точке — в реальном времени.</p>
-      <div class="price">от 49 000 ₽ · есть живое демо</div>
-      <div class="more">Как это работает <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="https://beyondbeautyconcierge.ru" target="_blank" rel="noopener">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2c.7 4.8 3 7.1 7.8 7.8-4.8.7-7.1 3-7.8 7.8-.7-4.8-3-7.1-7.8-7.8 4.8-.7 7.1-3 7.8-7.8Z"/></svg></div>
-      <h3>AI-продукт под ключ</h3>
-      <p>Сделаем ваш продукт на нейросетях от идеи до запуска: бот, оплата, личный кабинет. Живой пример — наш Beyond Beauty Concierge, AI-консьерж красоты.</p>
-      <div class="price">цена по задаче · есть готовый кейс</div>
-      <div class="more">Посмотреть кейс <span>→</span></div>
-    </a>
-    <a class="pcard reveal" href="rezident.html">
-      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 5.7v5.5c0 4.4 2.9 7.5 7 8.8 4.1-1.3 7-4.4 7-8.8V5.7L12 3Z"/><circle cx="12" cy="10.5" r="1.7"/><path d="M12 12.2v3.1"/></svg></div>
-      <h3>Резидент</h3>
-      <p>Приватный AI для конфиденциальных документов. Офлайн, на вашем железе — данные не покидают офис. Для тех, кому нельзя в облако: ни платы за место, ни счёта за токены.</p>
-      <div class="price">от 290 000 ₽ · премиум</div>
-      <div class="more">Подробнее <span>→</span></div>
-    </a>
-  </div>
-  <p class="path-note reveal">Обучение команды входит в каждое внедрение — мы учим людей работать с тем, что поставили. С чего начать именно вам — подскажет AI-аудит.</p>
-</div></section>
+  <!-- ПЕРВЫЙ ЭКРАН: одна мысль, много воздуха, один акцент -->
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="rise">Нанимаем вам <em>сотрудников</em>, которым не нужен офис</h1>
+      <p class="lede rise">AI-сотрудники берут рутину на себя: учёт, продажи, поддержку, документы.
+        Вы видите цифры и принимаете решения, остальное делает система.</p>
+      <div class="actions rise">
+        <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Получить AI-аудит</a>
+        <a class="btn btn-ghost" href="#flagship">Что они делают</a>
+      </div>
+      <p class="under rise">Этой компанией управляет команда AI-сотрудников. Та же самая может работать у вас.</p>
+      <div class="scroll-hint rise">Что именно они закрывают</div>
+    </div>
+  </section>
 
-<section id="proof"><div class="wrap">
-  <div class="proofbox reveal">
-    <div class="eyebrow">Почему нам можно верить</div>
-    <h2>Эта компания управляется командой AI-сотрудников</h2>
-    <p>Оркестратор раздаёт задачи специалистам: маркетинг, разработка, аналитика, поддержка. <b>Мы продаём не теорию — мы продаём то, на чём работаем сами каждый день.</b></p>
-    <p class="proof-stats">Работаем на своих данных — <b class="acc">100%</b> прозрачно · сотрудники на связи <b class="acc">24/7</b> · вся картина бизнеса на <b class="acc">1 экране</b></p>
-  </div>
-</div></section>
+  <!-- ФЛАГМАН: типографика вместо карточек-клонов -->
+  <section class="flagship" id="flagship">
+    <div class="wrap">
+      <h2>Каждому в команде свой AI-сотрудник</h2>
+      <p class="flag-lede">Не один бот на всю компанию, а сотрудник под конкретного человека и его задачи.
+        Он знает ваш бизнес, работает без напоминаний и подаёт голос сам, когда что-то разошлось.</p>
 
+      <dl class="roles">
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Продажи</dt>
+          <dd>Отвечает за секунды в любое время, доводит заявку до сделки и сам поднимает клиента, который замолчал.</dd>
+        </div>
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Поддержка</dt>
+          <dd>Ведёт переписку без шаблонов, помнит прошлые обращения и передаёт человеку только то, что действительно требует человека.</dd>
+        </div>
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Финансы</dt>
+          <dd>Сводит доходы и расходы, сверяет отчёты с системой учёта и молчит, когда всё сходится.</dd>
+        </div>
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Аналитика</dt>
+          <dd>Следит за показателями и подсвечивает, где просело, пока проблема ещё маленькая.</dd>
+        </div>
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Документы</dt>
+          <dd>Читает договоры, счета и акты, достаёт нужные данные в таблицу и находит то, что не сходится.</dd>
+        </div>
+        <div class="role">
+          <dt><span class="mark-dot" aria-hidden="true"></span>Операции</dt>
+          <dd>Держит регламенты и рутину: напоминания, сводки, отчёты к утру, без вашего участия.</dd>
+        </div>
+      </dl>
 
-<section id="agents"><div class="wrap">
-  <div class="sec-head reveal">
-    <div class="eyebrow">AI-сотрудники</div>
-    <h2>Каждому в команде свой <span class="grad-text">AI-сотрудник</span></h2>
-    <p>AI-сотрудник садится рядом с человеком и забирает рутину: переписку, отчёты, обработку заявок, поиск по документам. Человек перестаёт тонуть в мелочах и занимается тем, что приносит деньги: сделками, клиентами, решениями. Тяжёлые задачи AI-сотрудник тоже тянет сам. Итог: та же команда успевает больше и закрывает сделки быстрее.</p>
-    <div class="hook center">Мы не сокращаем штат. Мы усиливаем каждого в нём.</div>
-  </div>
-  <div class="bnfts">
-    <div class="bnft reveal"><b>Быстрее сделки</b><span>AI-сотрудник отвечает лиду за секунды в любое время и не теряет ни одного обращения. Меньше слитых заявок, выше конверсия.</span></div>
-    <div class="bnft reveal"><b>Больше теми же людьми</b><span>Команда тянет выросший поток задач без расширения штата и фонда оплаты.</span></div>
-    <div class="bnft reveal"><b>Выше KPI каждого</b><span>Сотрудник снимает с себя рутину и вкладывает время в то, что приносит выручку.</span></div>
-    <div class="bnft reveal"><b>Ноль простоев</b><span>AI-сотрудник работает 24/7, без выходных и больничных. Процесс не встаёт, когда человек ушёл домой.</span></div>
-  </div>
-  <div class="agrid" style="margin-top:30px">
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.3c0 4-4 7.2-9 7.2-1 0-2-.1-2.9-.4L4.2 19.8l1.1-3.4C3.9 15 3 13.2 3 11.3 3 7.3 7 4 12 4s9 3.3 9 7.3Z"/><path d="M12 14.2V9.6"/><path d="M9.9 11.6 12 9.5l2.1 2.1"/></svg></div><h4>Сотрудник продаж</h4><p>Отвечает лиду за секунды в любое время и доводит до заявки. Ни одного потерянного обращения.</p></div>
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14.5v-2.3a8 8 0 0 1 16 0v2.3"/><rect x="3.2" y="13.6" width="4.2" height="6" rx="2"/><rect x="16.6" y="13.6" width="4.2" height="6" rx="2"/></svg></div><h4>Сотрудник поддержки</h4><p>Закрывает типовые вопросы клиентов без оператора, сложное передаёт человеку.</p></div>
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.3"/><path d="M10.3 16.2V7.8h2.9a2.5 2.5 0 0 1 0 5h-2.9"/><path d="M9.2 14.6h4"/></svg></div><h4>Сотрудник финансов</h4><p>Сводит отчёт и показывает прибыль к утру. Предупреждает о кассовых разрывах.</p></div>
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"/><path d="m5 15 4.2-4.4 3.2 2.9 6.1-6.7"/><path d="M14.7 6.8h3.8v3.8"/></svg></div><h4>Сотрудник аналитики</h4><p>Следит за цифрами и подсвечивает, где течёт. Отчёты читаются за минуту.</p></div>
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 19.6H20"/><path d="M16.2 4.3a2 2 0 0 1 2.8 2.8L8.3 17.8 4.2 19l1.1-4.1L16.2 4.3Z"/></svg></div><h4>Сотрудник контента</h4><p>Пишет и упаковывает посты и рассылки потоком, в вашем тоне.</p></div>
-    <div class="acard reveal"><div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.5"/><path d="M12 18.7v2.5"/><path d="M21.2 12h-2.5"/><path d="M5.3 12H2.8"/><path d="m18.5 5.5-1.8 1.8"/><path d="m7.3 16.7-1.8 1.8"/><path d="m18.5 18.5-1.8-1.8"/><path d="M7.3 7.3 5.5 5.5"/></svg></div><h4>Сотрудник операций</h4><p>Подхватывает рутину между сервисами и не теряет задачи.</p></div>
-  </div>
-  <div class="netbox reveal">
-    <h3>Команда AI-сотрудников под ключ</h3>
-    <p>Собираем команду AI-сотрудников под вашу компанию: оркестратор ставит задачи, специализированные сотрудники исполняют, обмениваются контекстом и держат общую память. Так устроена и сама команда ALETHEIA — и так мы соберём её для вас.</p>
-    <div class="netflow">
-      <div class="hub"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px;margin-right:4px"><circle cx="12" cy="12" r="2.7"/><circle cx="12" cy="4.6" r="1.7"/><circle cx="19.2" cy="16.6" r="1.7"/><circle cx="4.8" cy="16.6" r="1.7"/><path d="M12 9.3V6.3"/><path d="m14.3 13.4 3.4 2.2"/><path d="m9.7 13.4-3.4 2.2"/></svg> Оркестратор</div>
-      <div class="conn"></div>
-      <div class="spokes">
-        <span class="spoke"><span class="sd"></span> Продажи</span>
-        <span class="spoke"><span class="sd"></span> Поддержка</span>
-        <span class="spoke"><span class="sd"></span> Финансы</span>
-        <span class="spoke"><span class="sd"></span> Аналитика</span>
-        <span class="spoke"><span class="sd"></span> Контент</span>
-        <span class="spoke"><span class="sd"></span> Операции</span>
+      <div class="flag-foot">
+        <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Получить AI-аудит</a>
+        <p class="note">Начинаем с аудита: смотрим процессы и считаем, что окупится первым.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="tier-head reveal">
-    <h3>Тарифы: команда AI-сотрудников под ключ</h3>
-    <p>Разовое внедрение + ежемесячная рабочая среда (облачная среда сотрудников и сопровождение). Точную конфигурацию и цену фиксируем на AI-аудите.</p>
-  </div>
-  <div class="tiers t3">
-    <div class="tmini reveal">
-      <div class="tn">Сотрудник</div>
-      <div class="tp">от 100 000 ₽</div>
-      <div class="tsub">+ рабочая среда 12–15 000 ₽/мес</div>
-      <div class="td2">Один AI-сотрудник под вашу задачу. Для личной задачи или старта — без отдельной инфраструктуры.</div>
-    </div>
-    <div class="tmini hot reveal">
-      <div class="badge">Популярное</div>
-      <div class="tn">Команда</div>
-      <div class="tp">от 350 000 ₽</div>
-      <div class="tsub">+ рабочая среда от 60 000 ₽/мес</div>
-      <div class="td2">3–5 сотрудников на отдельном аккаунте. Закрывают целое направление и работают как команда.</div>
-    </div>
-    <div class="tmini reveal">
-      <div class="tn">Предприятие</div>
-      <div class="tp">от 600 000 ₽</div>
-      <div class="tsub">+ рабочая среда от 100 000 ₽/мес</div>
-      <div class="td2">До 10–15 сотрудников: полный штат под ваши процессы, интеграции и сопровождение.</div>
-    </div>
-  </div>
-  <div class="tier-note">Точную конфигурацию и цену фиксируем на AI-аудите — под ваши процессы.</div>
-  <div class="tier-cta"><a href="agents.html" class="btn ghost">Все тарифы и расчёт выгоды →</a></div>
 
-  <div class="roi reveal" style="margin-top:40px">
-    <h3>Почему это окупается</h3>
-    <p class="rsub">Считайте за год. Один AI-сотрудник берёт на себя работу, на которую иначе нужен человек в штате — только работает 24/7, без выходных, больничных и текучки.</p>
-    <div class="roi-grid">
-      <div class="rcard">
-        <div class="rh">Сотрудник на рутину</div>
-        <div class="rv">от 1 000 000 ₽ / год</div>
-        <div class="rd">Оклад + налоги + рабочее место. Работает ~8 часов 5 дней в неделю, болеет, может уволиться.</div>
+  <!-- ВТОРОЙ УРОВЕНЬ: индекс услуг. Ритм намеренно другой — мелкая сетка после крупных строк. -->
+  <section class="level2" id="more">
+    <div class="wrap">
+      <div class="l2-head">
+        <h2>Остальное, если нужно точечно</h2>
+        <p class="l2-note">Шесть направлений вокруг флагмана. Цены и подробности внутри, чтобы не выбирать вслепую.</p>
       </div>
-      <div class="rcard good">
-        <div class="rh">AI-сотрудник</div>
-        <div class="rv">от ~265 000 ₽ в первый год</div>
-        <div class="rd">Внедрение от 100 000 ₽ + рабочая среда от ~165 000 ₽/год. Работает 24/7, не болеет, масштабируется.</div>
+      <div class="l2-grid">
+        <a class="l2-item" href="audit.html">
+          <h3>AI-аудит <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Смотрим процессы и считаем, что окупится первым. С него начинают почти все.</p>
+        </a>
+        <a class="l2-item" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">
+          <h3>Поддержка 24/7 <span class="arr" aria-hidden="true">→</span></h3>
+          <p>AI-сотрудник на входящих обращениях. Работает прямо сейчас: напишите ему и проверьте.</p>
+        </a>
+        <a class="l2-item" href="security.html">
+          <h3>Безопасность <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Аудит рисков и защита контура: права доступа, границы, журнал действий.</p>
+        </a>
+        <a class="l2-item" href="uchti.html">
+          <h3>Учти.Бизнес <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Управленческий учёт в телефоне: прибыль по точкам, налоги, предстоящие платежи.</p>
+        </a>
+        <a class="l2-item" href="https://beyondbeautyconcierge.ru" target="_blank" rel="noopener">
+          <h3>Продукт под ключ <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Собираем целый AI-сервис: бот, оплата, кабинет, анализ по фото. От идеи до запуска.</p>
+        </a>
+        <a class="l2-item" href="rezident.html">
+          <h3>РЕЗИДЕНТ <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Приватный AI офлайн, в вашем контуре. Для юристов, клиник и всех, у кого данные не уезжают.</p>
+        </a>
       </div>
     </div>
-    <div class="rnote"><b>Разница — в разы.</b> Цена обоснована не «потому что AI», а экономией, которую видно в деньгах за год. Точную выгоду под ваши процессы и цифры считаем на AI-аудите.</div>
-  </div>
-</div></section>
+  </section>
 
-<section id="how"><div class="wrap">
-  <div class="sec-head reveal">
-    <h2>Как мы работаем</h2>
-  </div>
-  <div class="steps">
-    <div class="step reveal"><div class="n">01</div><h4>Разбор</h4><p>Смотрим на ваши процессы и находим, где AI даст результат быстрее всего.</p></div>
-    <div class="step reveal"><div class="n">02</div><h4>Решение</h4><p>Подбираем продукт или собираем команду AI-сотрудников под вашу задачу, без лишнего.</p></div>
-    <div class="step reveal"><div class="n">03</div><h4>Внедрение</h4><p>Ставим, настраиваем, обучаем команду. Вы получаете рабочий инструмент, а не инструкцию.</p></div>
-    <div class="step reveal"><div class="n">04</div><h4>Сопровождение</h4><p>Остаёмся на связи: дорабатываем, масштабируем, отвечаем за результат.</p></div>
-  </div>
-</div></section>
-
-
-<section id="faq"><div class="wrap">
-  <div class="sec-head reveal">
-    <h2>Коротко о главном</h2>
-  </div>
-  <div class="faq reveal">
-    <details class="qa"><summary>Это заменит моих сотрудников?</summary><p>Нет. AI-сотрудники снимают рутину, а люди занимаются тем, что приносит смысл и деньги. Команда не сокращается — освобождается.</p></details>
-    <details class="qa"><summary>Где будут мои данные?</summary><p>У вас. Особенно в Резиденте — он работает офлайн на вашем железе, данные не уходят в облако.</p></details>
-    <details class="qa"><summary>Сколько занимает внедрение?</summary><p>Первый рабочий результат — за дни, не месяцы. Начинаем с AI-аудита, дальше внедряем по приоритету: сначала то, что быстрее окупится.</p></details>
-    <details class="qa"><summary>От чего зависит цена?</summary><p>От объёма: один сотрудник под функцию, небольшая команда или полный штат под ключ с сопровождением. На аудите фиксируем, что нужно именно вам.</p></details>
-    <details class="qa"><summary>А если не сработает?</summary><p>Начинаем с аудита за 29 000 ₽ — карта процессов и расчёт ROI. Не увидите пользы после аудита — вернём деньги. Так вы ничем не рискуете на старте.</p></details>
-    <details class="qa"><summary>Нужно ли мне разбираться в AI?</summary><p>Нет. Делаем под ключ: внедряем, настраиваем, обучаем команду и сопровождаем. Вы получаете рабочий инструмент, а не инструкцию.</p></details>
-  </div>
-</div></section>
-
-<section id="contact"><div class="wrap">
-  <div class="cta-box reveal">
-    <h2>Начните с AI-аудита бизнеса</h2>
-    <p class="audit-note">За 3–5 дней покажем карту процессов под автоматизацию и расчёт ROI. <b>Стоимость аудита — 29 000 ₽. Не увидите пользы — вернём деньги.</b></p>
-    <div class="cta-row" style="justify-content:center">
-      <a href="https://t.me/aletheia_support_bot" class="btn" id="tg-cta">Получить AI-аудит</a>
-      <a href="audit.html" class="btn ghost">Что входит в аудит →</a>
+  <!-- PROOF: единственная секция по центру. Смена оси ломает монотонность. -->
+  <section class="proof" id="proof">
+    <div class="wrap">
+      <div class="inner">
+        <h2>Этой компанией управляет команда AI-сотрудников</h2>
+        <p>Мы не рассказываем про AI со стороны. Заявки, учёт, отчёты и часть переписки внутри
+          ALETHEIA ведут те же цифровые сотрудники, которых мы ставим клиентам.</p>
+        <span class="sign"><i aria-hidden="true"></i> Работают прямо сейчас, пока вы читаете</span>
+      </div>
     </div>
-  </div>
-</div></section>
+  </section>
 
-<section id="founder"><div class="wrap">
-  <div class="founder-box reveal">
-    <img class="founder-photo" src="founder.jpg" alt="Сергей Ковалев — основатель Aletheia" width="140" height="140" loading="lazy">
-    <h2>Кто за этим стоит</h2>
-    <p>Aletheia — проект Сергея Ковалева: предприниматель, биохакер, практик нейросетей. Команда AI-сотрудников, которая ведёт эту компанию, собрана его руками — и её же мы строим клиентам.</p>
-    <div class="contact-card">
-      <div class="contact-title">Связь</div>
-      <a class="contact-row" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener"><span class="contact-label">Telegram</span><span class="contact-val">написать →</span></a>
-      <a class="contact-row" href="mailto:hello@aletheia-ai.ru"><span class="contact-label">Почта</span><span class="contact-val">hello@aletheia-ai.ru</span></a>
-      <a class="contact-row" href="tel:+79037652070"><span class="contact-label">Телефон</span><span class="contact-val">+7&nbsp;903&nbsp;765-20-70</span></a>
+  <!-- КАК РАБОТАЕМ: горизонтальная лента. Цифры законны, это реальная последовательность. -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <h2>Как это устроено</h2>
+      <p class="flag-lede">Первый рабочий результат вы видите за дни, а не за месяцы.
+        Разбираться в технологиях не нужно, это наша часть работы.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="n">01</span>
+          <h3>Аудит</h3>
+          <p>Смотрим процессы и находим, где рутина съедает больше всего. Считаем, что окупится первым.</p>
+        </div>
+        <div class="step">
+          <span class="n">02</span>
+          <h3>Границы</h3>
+          <p>До запуска договариваемся, к чему у сотрудника есть доступ и что он не делает без вас.</p>
+        </div>
+        <div class="step">
+          <span class="n">03</span>
+          <h3>Запуск</h3>
+          <p>Ставим первого сотрудника на самый дорогой участок и смотрим на цифры, а не на ощущения.</p>
+        </div>
+        <div class="step">
+          <span class="n">04</span>
+          <h3>Сопровождение</h3>
+          <p>Начинка обновляется каждый месяц. Мы держим систему живой, а не сдаём и забываем.</p>
+        </div>
+      </div>
     </div>
-    <p class="founder-req">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</p>
-  </div>
-</div></section>
+  </section>
 
-<footer><div class="wrap">
-  <div class="logo"><span class="mark"></span> Aletheia</div>
-  <div>ALETHEIA — от греч. ἀλήθεια, «истина». AI, который показывает, как есть.</div>
-  <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener">@aletheia_ai</a></div>
-  <div class="fl">© 2026 Aletheia · <a href="audit.html">AI-аудит</a> · <a href="security.html">Безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
-  <div class="fl"><a href="oferta.html">Публичная оферта</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
-  <div class="fl freq">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</div>
-</div></footer>
+  <!-- ОСНОВАТЕЛЬ: асимметрия и единственное фото на странице -->
+  <section class="founder" id="founder">
+    <div class="wrap">
+      <div class="f-grid">
+        <img class="f-photo" src="founder.jpg" alt="Сергей Ковалев, основатель ALETHEIA" loading="lazy" width="320" height="400">
+        <div class="f-body">
+          <h2>Кто за этим стоит</h2>
+          <p>Меня зовут Сергей Ковалев. Я не консультант по AI со стороны: я собрал команду цифровых
+            сотрудников сначала для собственного бизнеса, а потом стал ставить такие же другим.</p>
+          <p>Поэтому мы говорим не обещаниями, а тем, что уже работает каждый день: в рознице,
+            в бухгалтерии, в юридической фирме, на выходе бренда на международный рынок.</p>
+          <p class="who">Основатель ALETHEIA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФИНАЛЬНЫЙ CTA: тот же единственный призыв -->
+  <section class="close" id="contact">
+    <div class="wrap">
+      <h2>Начните с аудита</h2>
+      <p>Посмотрим процессы, посчитаем цену одной задачи и скажем прямо, где AI-сотрудник окупится,
+        а где он вам не нужен.</p>
+      <div class="actions">
+        <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Получить AI-аудит</a>
+        <a class="btn btn-ghost" href="#flagship">Ещё раз посмотреть, что они делают</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ПАНЕЛЬ TWEAKS — живой подбор. Включается только ?tweaks=1, на прод не идёт. -->
+<aside id="tweaks" hidden aria-label="Панель подбора стиля">
+  <button class="tw-close" type="button" aria-label="Закрыть панель">×</button>
+  <h3>Подбор</h3>
+
+  <label>Акцент</label>
+  <div class="tw-swatches">
+    <button type="button" data-accent="#22d3ee" style="--s:#22d3ee" title="Циан (текущий)"></button>
+    <button type="button" data-accent="#7dd3fc" style="--s:#7dd3fc" title="Ледяной"></button>
+    <button type="button" data-accent="#a78bfa" style="--s:#a78bfa" title="Фиолет"></button>
+    <button type="button" data-accent="#34d399" style="--s:#34d399" title="Изумруд"></button>
+    <button type="button" data-accent="#f4f6fc" style="--s:#f4f6fc" title="Монохром"></button>
+    <button type="button" data-accent="#e8c45a" style="--s:#e8c45a" title="Тёплый"></button>
+  </div>
+
+  <label for="tw-type">Размер шрифта <output id="tw-type-v">100%</output></label>
+  <input id="tw-type" type="range" min="88" max="118" value="100" step="2">
+
+  <label for="tw-air">Воздух <output id="tw-air-v">100%</output></label>
+  <input id="tw-air" type="range" min="70" max="150" value="100" step="5">
+
+  <label for="tw-density">Плотность сети <output id="tw-density-v">100%</output></label>
+  <input id="tw-density" type="range" min="30" max="160" value="100" step="10">
+
+  <label for="tw-glow">Яркость сети <output id="tw-glow-v">100%</output></label>
+  <input id="tw-glow" type="range" min="0" max="180" value="100" step="10">
+
+  <button class="tw-reset" type="button">Сбросить</button>
+</aside>
 
 <script>
-  // reveal на скролле
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+(function(){
+  if(new URLSearchParams(location.search).get('tweaks')!=='1') return;
+  const p=document.getElementById('tweaks'); if(!p) return;
+  p.hidden=false;
+  const root=document.documentElement.style;
+  const set=(k,v)=>root.setProperty(k,v);
+  const bind=(id,fn)=>{
+    const el=document.getElementById(id), out=document.getElementById(id+'-v');
+    el.addEventListener('input',()=>{ out.textContent=el.value+'%'; fn(+el.value); });
+  };
+  p.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{
+    set('--accent', b.dataset.accent);
+    window.__nnAccent && window.__nnAccent(b.dataset.accent);
+  }));
+  bind('tw-type', v=>set('--type-scale', v/100));
+  bind('tw-air',  v=>set('--air', v/100));
+  bind('tw-density', v=>window.__nnDensity && window.__nnDensity(v/100));
+  bind('tw-glow',    v=>window.__nnGlow && window.__nnGlow(v/100));
+  p.querySelector('.tw-reset').addEventListener('click',()=>{
+    ['--accent','--type-scale','--air'].forEach(k=>root.removeProperty(k));
+    window.__nnAccent && window.__nnAccent('#22d3ee');
+    window.__nnDensity && window.__nnDensity(1);
+    window.__nnGlow && window.__nnGlow(1);
+    p.querySelectorAll('input[type=range]').forEach(i=>{i.value=100;document.getElementById(i.id+'-v').textContent='100%';});
+  });
+  p.querySelector('.tw-close').addEventListener('click',()=>{p.hidden=true;});
+})();
+</script>
 
-  // ===== живая нейросеть / команда сотрудников — фон всего сайта =====
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <a class="brand" href="/"><span class="mark" aria-hidden="true"></span> ALETHEIA</a>
+        <p style="margin-top:10px;max-width:34ch">AI-сотрудники для бизнеса. ἀλήθεια, истина: показываем,
+          как дела обстоят на самом деле.</p>
+      </div>
+      <nav class="foot-links" aria-label="Разделы">
+        <a href="#flagship">AI-сотрудники</a>
+        <a href="audit.html">Аудит</a>
+        <a href="uchti.html">Учти.Бизнес</a>
+        <a href="rezident.html">РЕЗИДЕНТ</a>
+        <a href="security.html">Безопасность</a>
+        <a href="oferta.html">Оферта</a>
+        <a href="privacy.html">Данные</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>ALETHEIA, 2026</span>
+      <a href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Написать нам</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Живая нейросеть — единственный вау-момент страницы, ДНК бренда.
+  // Ничего не прячет и ни на что не влияет: если этот скрипт не выполнится,
+  // страница остаётся полностью читаемой. Именно тут была единая точка отказа в v2.
   (function(){
     const cv=document.getElementById('nn-canvas'); if(!cv) return;
-    const ctx=cv.getContext('2d');
+    const ctx=cv.getContext('2d'); if(!ctx) return;
     let W,H,DPR,nodes=[],pulses=[],mouse={x:-9999,y:-9999,active:false},raf;
-    const V1=[109,94,252],V2=[168,85,247],C1=[34,211,238];
+    let ACC=[34,211,238]; const DIM=[109,94,252];
+    let densityK=1, glowK=1;   // ручки панели Tweaks
+    const hex2rgb=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');
+      return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
+    window.__nnAccent=h=>{ACC=hex2rgb(h);build();};
+    window.__nnDensity=k=>{densityK=k;build();};
+    window.__nnGlow=k=>{glowK=k;};
     const mix=(a,b,t)=>[Math.round(a[0]+(b[0]-a[0])*t),Math.round(a[1]+(b[1]-a[1])*t),Math.round(a[2]+(b[2]-a[2])*t)];
     const rgba=(c,a)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
     const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-    function resize(){
-      DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
-      cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);build();
-    }
     function build(){
-      const count=Math.round(Math.min(78,Math.max(28,(W*H)/18000)));
+      const count=Math.round(Math.min(120,Math.max(6,((W*H)/24000)*densityK)));
       nodes=[];
       for(let i=0;i<count;i++){
-        const hub=Math.random()<0.15;
-        nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*0.2,vy:(Math.random()-.5)*0.2,
-          r:hub?(2.4+Math.random()*1.6):(1+Math.random()*1.1),hub,
-          col:Math.random()<.5?C1:(Math.random()<.5?V1:V2),ph:Math.random()*Math.PI*2});
+        const hub=Math.random()<0.14;
+        nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*0.16,vy:(Math.random()-.5)*0.16,
+          r:hub?(2.2+Math.random()*1.3):(0.9+Math.random()*1),hub,
+          col:Math.random()<.62?ACC:DIM,ph:Math.random()*Math.PI*2});
       }
     }
-    const LINK=150;
+    function resize(){
+      DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+      cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);build();
+    }
+    const LINK=155;
     function step(t){
       ctx.clearRect(0,0,W,H);
       for(const n of nodes){
         n.x+=n.vx;n.y+=n.vy;
         if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
-        if(mouse.active){const dx=mouse.x-n.x,dy=mouse.y-n.y,d=Math.hypot(dx,dy);if(d<170){n.x+=dx/d*0.6;n.y+=dy/d*0.6;}}
+        if(mouse.active){const dx=mouse.x-n.x,dy=mouse.y-n.y,d=Math.hypot(dx,dy);if(d<170){n.x+=dx/d*0.5;n.y+=dy/d*0.5;}}
       }
       for(let i=0;i<nodes.length;i++){
         for(let j=i+1;j<nodes.length;j++){
           const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
           if(d<LINK){const al=1-d/LINK,c=mix(a.col,b.col,.5);
-            ctx.strokeStyle=rgba(c,al*0.5);ctx.lineWidth=al*1.3+0.3;
+            ctx.strokeStyle=rgba(c,al*0.34*glowK);ctx.lineWidth=al*1.05+0.25;
             ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
         }
-        if(mouse.active){const a=nodes[i],dx=a.x-mouse.x,dy=a.y-mouse.y,d=Math.hypot(dx,dy);
-          if(d<200){ctx.strokeStyle=rgba(C1,(1-d/200)*0.5);ctx.lineWidth=1;
-            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();}}
       }
       for(const n of nodes){
-        const glow=0.65+0.35*Math.sin(t*0.0016+n.ph),rr=n.r;
-        ctx.beginPath();ctx.arc(n.x,n.y,rr+(n.hub?6:3),0,7);ctx.fillStyle=rgba(n.col,(n.hub?0.20:0.12)*glow);ctx.fill();
-        ctx.beginPath();ctx.arc(n.x,n.y,rr+(n.hub?2.4:1.2),0,7);ctx.fillStyle=rgba(n.col,(n.hub?0.28:0.16)*glow);ctx.fill();
-        ctx.beginPath();ctx.arc(n.x,n.y,rr,0,7);ctx.fillStyle=rgba(n.hub?[255,255,255]:n.col,(n.hub?1:0.8)*glow);ctx.fill();
+        const glow=(0.6+0.4*Math.sin(t*0.0015+n.ph))*glowK;
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r+(n.hub?5:2.6),0,7);ctx.fillStyle=rgba(n.col,(n.hub?0.16:0.09)*glow);ctx.fill();
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,7);ctx.fillStyle=rgba(n.hub?[255,255,255]:n.col,(n.hub?.92:.7)*glow);ctx.fill();
       }
-      if(Math.random()<0.06&&nodes.length>2){
+      if(Math.random()<0.05&&nodes.length>2){
         const a=nodes[(Math.random()*nodes.length)|0];let best=null,bd=1e9;
         for(const b of nodes){if(b===a)continue;const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<LINK&&d<bd){bd=d;best=b;}}
-        if(best)pulses.push({a,b:best,t:0,sp:0.012+Math.random()*0.02,col:Math.random()<.5?C1:V2});
+        if(best)pulses.push({a,b:best,t:0,sp:0.011+Math.random()*0.016});
       }
       for(let k=pulses.length-1;k>=0;k--){
         const p=pulses[k];p.t+=p.sp;if(p.t>=1){pulses.splice(k,1);continue;}
         const x=p.a.x+(p.b.x-p.a.x)*p.t,y=p.a.y+(p.b.y-p.a.y)*p.t;
-        ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fillStyle=rgba(p.col,.12);ctx.fill();
-        ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fillStyle=rgba(p.col,.95);ctx.fill();
+        ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fillStyle=rgba(ACC,.1);ctx.fill();
+        ctx.beginPath();ctx.arc(x,y,1.8,0,7);ctx.fillStyle=rgba(ACC,.9);ctx.fill();
       }
       raf=requestAnimationFrame(step);
     }
@@ -348,9 +375,8 @@
     addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mouse.x=t.clientX;mouse.y=t.clientY;mouse.active=true;}},{passive:true});
     addEventListener('touchend',()=>{mouse.active=false;});
     resize();
-    if(reduce){ step(0); cancelAnimationFrame(raf); } else { raf=requestAnimationFrame(step); }
+    if(reduce){ step(0); } else { raf=requestAnimationFrame(step); }
   })();
 </script>
-<div class="m-cta"><a href="https://t.me/aletheia_support_bot" class="btn">Получить консультацию</a></div>
 </body>
 </html>

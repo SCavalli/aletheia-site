@@ -1,0 +1,259 @@
+/* ALETHEIA v3 — премиум-переработка: воздух, сдержанность, один акцент.
+   ДНК бренда сохранено: тёмная база, canvas-нейросеть, циан как единственный акцент.
+   Убрано осознанно: blob-градиенты (тот самый «фиолетовый AI-штамп»), карточки-клоны,
+   reveal на всём подряд. Премиум здесь делает пустое место, а не эффекты. */
+
+:root{
+  --bg:#06060d;
+  --ink:#f4f6fc;
+  --muted:#a7aec6;          /* 7.1:1 на --bg, проходит по контрасту для body */
+  --muted-dim:#828aa6;      /* только для крупного/второстепенного, ≥4.6:1 */
+  --accent:#22d3ee;         /* единственный акцент */
+  --hair:rgba(255,255,255,.09);
+  --hair-strong:rgba(255,255,255,.16);
+  --maxw:1180px;
+
+  /* ручки панели Tweaks: по умолчанию 1, панель их переопределяет */
+  --type-scale:1; --air:1;
+
+  /* ритм: намеренно неравномерный, не линейная сетка */
+  --gap-xs:calc(.5rem*var(--air)); --gap-s:calc(1rem*var(--air));
+  --gap-m:calc(2rem*var(--air));   --gap-l:calc(4rem*var(--air));
+  --gap-xl:calc(clamp(5rem,10vw,9rem)*var(--air));
+
+  --ease:cubic-bezier(.16,1,.3,1);   /* ease-out-expo */
+
+  --z-nav:50; --z-modal:100;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;
+  font-size:calc(16px*var(--type-scale))}   /* ручка «размер шрифта» тянет всю rem-шкалу */
+body{
+  font-family:"Manrope",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);
+  font-size:1.125rem;line-height:1.65;   /* светлый текст на тёмном просит воздуха */
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#04121a}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+
+/* ---------- фон: ровно два слоя вместо четырёх ---------- */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none}
+/* линза только под первым экраном — держит контраст заголовка */
+.veil{position:fixed;top:0;left:0;right:0;height:105vh;z-index:-1;pointer-events:none;
+  background:radial-gradient(72% 52% at 50% 34%,rgba(6,6,13,.72),rgba(6,6,13,.34) 58%,transparent 86%)}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:var(--z-nav);
+  background:rgba(6,6,13,.72);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--hair)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:var(--gap-m)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;letter-spacing:.14em}
+.brand .mark{width:12px;height:12px;border-radius:2px;background:var(--accent);
+  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+.nav-links{display:flex;gap:var(--gap-m);align-items:center}
+.nav-links a{font-size:15px;color:var(--muted);transition:color .25s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+@media(max-width:860px){.nav-links{display:none}}
+/* на узком экране кнопка в шапке ломалась на две строки и раздувала навигацию */
+.btn{white-space:nowrap}
+@media(max-width:520px){
+  .nav-in{height:64px}
+  .nav .btn{padding:11px 18px;font-size:14px}
+  .brand{font-size:15px;letter-spacing:.1em}
+}
+
+/* ---------- кнопки: одна форма на весь сайт ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;
+  padding:16px 30px;border-radius:999px;
+  background:var(--accent);color:#04121a;
+  font-weight:800;font-size:16px;letter-spacing:.01em;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  box-shadow:0 0 0 rgba(34,211,238,0)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hair-strong);
+  box-shadow:none;font-weight:700}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:none}
+
+/* ---------- HERO: один экран, одна мысль ---------- */
+.hero{min-height:100svh;display:flex;align-items:center;
+  padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem)}
+.hero h1{
+  /* ch считается по СОБСТВЕННОМУ размеру шрифта заголовка, а не по 18px родителя.
+     Ограничение на родителе давало 19ch ≈ 178px и ломало заголовок на шесть строк. */
+  max-width:min(100%,20ch);
+  font-size:clamp(2.6rem,5.6vw,4.5rem);  /* сдержаннее: премиум не кричит */
+  line-height:1.04;
+  letter-spacing:-.032em;                /* выше пола -.04em, буквы не слипаются */
+  font-weight:800;
+  text-wrap:balance;
+}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{margin-top:var(--gap-m);max-width:52ch;font-size:clamp(1.1rem,1.8vw,1.35rem);
+  color:var(--muted);line-height:1.58;font-weight:400;text-wrap:pretty}
+.hero .actions{margin-top:clamp(2rem,4vh,3rem);display:flex;gap:14px;flex-wrap:wrap}
+.hero .under{margin-top:var(--gap-m);font-size:15px;color:var(--muted-dim);max-width:46ch}
+
+/* тонкая линия-указатель вниз, без «скролл-мышки» */
+.scroll-hint{margin-top:clamp(2.5rem,6vh,4rem);display:flex;align-items:center;gap:14px;
+  font-size:14px;color:var(--muted-dim)}
+.scroll-hint::before{content:"";width:56px;height:1px;background:var(--hair-strong)}
+
+/* ---------- FLAGSHIP: не карточки, а типографика ---------- */
+.flagship{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.flagship h2{
+  /* та же ловушка, что была в h1: ch должен считаться по размеру самого заголовка */
+  max-width:min(100%,22ch);
+  font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;letter-spacing:-.028em;
+  font-weight:800;text-wrap:balance}
+.flagship .flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
+
+/* строки ролей: hairline-разделители, без рамок и плашек */
+.roles{margin-top:var(--gap-l);border-top:1px solid var(--hair)}
+.role{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);
+  gap:var(--gap-s) var(--gap-l);
+  padding:clamp(1.4rem,3vw,2.1rem) 0;border-bottom:1px solid var(--hair);
+  transition:transform .4s var(--ease)}
+.role:hover{transform:translateX(12px)}
+.role dt{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:700;letter-spacing:-.015em}
+.role dd{color:var(--muted);max-width:62ch;text-wrap:pretty}
+.role .mark-dot{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);margin-right:12px;vertical-align:middle;opacity:0;
+  transition:opacity .35s var(--ease)}
+.role:hover .mark-dot{opacity:1}
+@media(max-width:760px){
+  .role{grid-template-columns:1fr;gap:6px}
+  .role dd{font-size:16px}
+}
+
+.flag-foot{margin-top:var(--gap-l);display:flex;align-items:center;gap:var(--gap-m);flex-wrap:wrap}
+.flag-foot .note{color:var(--muted-dim);font-size:15px;max-width:40ch}
+
+/* ---------- FOOTER-заглушка этапа 1 ---------- */
+.foot{padding:var(--gap-l) 0;border-top:1px solid var(--hair);color:var(--muted-dim);font-size:14px}
+
+/* ---------- MOTION ----------
+   Reveal ТОЛЬКО на первом экране и только как усиление уже видимого:
+   базовое состояние — контент виден. JS ничего не прячет. */
+.rise{animation:rise .9s var(--ease) both}
+.rise:nth-child(1){animation-delay:.04s}
+.rise:nth-child(2){animation-delay:.12s}
+.rise:nth-child(3){animation-delay:.2s}
+.rise:nth-child(4){animation-delay:.28s}
+.rise:nth-child(5){animation-delay:.36s}
+/* В анимации НЕТ opacity — сознательно. С fill-mode both стартовое состояние
+   применяется до старта, и любой headless-рендер (краулер, превью, скриншот)
+   поймал бы пустой экран. Ровно та болезнь, что была в v2. Двигаем только позицию:
+   контент виден всегда, движение остаётся. */
+@keyframes rise{from{transform:translateY(16px)}to{transform:none}}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise{animation:none}
+  .btn,.btn-ghost,.role,.nav-links a{transition:none}
+}
+
+
+/* ---------- ПАНЕЛЬ TWEAKS (?tweaks=1, в прод не идёт) ---------- */
+#tweaks{position:fixed;right:20px;bottom:20px;z-index:var(--z-modal);width:250px;
+  padding:18px 18px 20px;border-radius:16px;
+  background:rgba(10,10,20,.94);border:1px solid var(--hair-strong);
+  backdrop-filter:blur(18px);box-shadow:0 24px 60px rgba(0,0,0,.6);
+  font-size:13px;color:var(--ink)}
+#tweaks[hidden]{display:none}
+#tweaks h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-dim);font-weight:700;margin-bottom:14px}
+#tweaks label{display:flex;justify-content:space-between;align-items:center;
+  margin:14px 0 7px;color:var(--muted);font-size:12px}
+#tweaks output{color:var(--accent);font-weight:700}
+#tweaks input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+.tw-swatches{display:flex;gap:8px;flex-wrap:wrap}
+.tw-swatches button{width:28px;height:28px;border-radius:50%;border:1px solid var(--hair-strong);
+  background:var(--s);cursor:pointer;transition:transform .2s var(--ease)}
+.tw-swatches button:hover{transform:scale(1.14)}
+.tw-close{position:absolute;top:10px;right:12px;background:none;border:0;color:var(--muted-dim);
+  font-size:20px;line-height:1;cursor:pointer}
+.tw-close:hover{color:var(--ink)}
+.tw-reset{margin-top:18px;width:100%;padding:9px;border-radius:9px;cursor:pointer;
+  background:transparent;border:1px solid var(--hair-strong);color:var(--muted);font-size:12px}
+.tw-reset:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:520px){#tweaks{left:14px;right:14px;width:auto;bottom:14px}}
+
+/* =====================================================================
+   СЕКЦИИ ВТОРОГО ЭТАПА
+   Правило: каждая секция отличается ритмом от соседней, иначе страница
+   читается как таблица. Чередуем: слева-крупно → индекс-сеткой → по центру
+   → горизонтальная лента → асимметрия с фото.
+   ===================================================================== */
+
+/* ---------- ВТОРОЙ УРОВЕНЬ: индекс, а не карточки-клоны ---------- */
+.level2{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.l2-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--gap-m);flex-wrap:wrap}
+.l2-note{color:var(--muted-dim);font-size:15px;max-width:34ch}
+.l2-grid{margin-top:var(--gap-l);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  border-top:1px solid var(--hair);border-left:1px solid var(--hair)}
+.l2-item{display:block;padding:clamp(1.5rem,2.6vw,2rem);
+  border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  transition:background .35s var(--ease)}
+.l2-item:hover{background:rgba(255,255,255,.028)}
+.l2-item h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.l2-item h3 .arr{color:var(--accent);opacity:0;transform:translateX(-4px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.l2-item:hover h3 .arr{opacity:1;transform:none}
+.l2-item p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.55;text-wrap:pretty}
+
+/* ---------- PROOF: единственная секция по центру ---------- */
+.proof{padding:var(--gap-xl) 0;border-top:1px solid var(--hair);text-align:center}
+.proof .inner{max-width:44ch;margin:0 auto}
+.proof h2{max-width:none;margin:0 auto}
+.proof p{margin-top:var(--gap-s);color:var(--muted);text-wrap:pretty}
+.proof .sign{margin-top:var(--gap-m);display:inline-flex;align-items:center;gap:12px;
+  padding:11px 20px;border:1px solid var(--hair-strong);border-radius:999px;
+  font-size:14px;color:var(--muted-dim)}
+.proof .sign i{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 14px var(--accent);animation:pulse 2.6s ease-in-out infinite;font-style:normal}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* ---------- КАК РАБОТАЕМ: горизонтальная лента с цифрами ----------
+   Цифры здесь законны: это реальная последовательность, а не декор. */
+.how{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.steps{margin-top:var(--gap-l);display:grid;gap:var(--gap-m);
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.step{position:relative;padding-top:var(--gap-m);border-top:1px solid var(--hair-strong)}
+.step .n{position:absolute;top:-.72em;left:0;font-size:13px;font-weight:800;
+  color:var(--accent);background:var(--bg);padding-right:12px}
+.step h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
+.step p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.55;text-wrap:pretty}
+
+/* ---------- ОСНОВАТЕЛЬ: асимметрия и единственное фото ---------- */
+.founder{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.f-grid{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.f-photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;
+  filter:grayscale(1) contrast(1.06);border:1px solid var(--hair)}
+.f-body h2{max-width:20ch}
+.f-body p{margin-top:var(--gap-s);color:var(--muted);max-width:58ch;text-wrap:pretty}
+.f-body .who{margin-top:var(--gap-m);font-size:15px;color:var(--muted-dim)}
+@media(max-width:800px){
+  .f-grid{grid-template-columns:1fr;gap:var(--gap-m)}
+  .f-photo{max-width:230px}
+}
+
+/* ---------- ФИНАЛЬНЫЙ CTA ---------- */
+.close{padding:var(--gap-xl) 0;border-top:1px solid var(--hair);text-align:center}
+.close h2{max-width:18ch;margin:0 auto}
+.close p{margin:var(--gap-s) auto 0;max-width:46ch;color:var(--muted)}
+.close .actions{margin-top:var(--gap-l);display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- ФУТЕР ---------- */
+.foot{padding:var(--gap-l) 0 var(--gap-m);border-top:1px solid var(--hair);
+  color:var(--muted-dim);font-size:14px}
+.foot-in{display:flex;justify-content:space-between;gap:var(--gap-m);flex-wrap:wrap;align-items:flex-start}
+.foot-links{display:flex;gap:var(--gap-s) var(--gap-m);flex-wrap:wrap}
+.foot-links a:hover{color:var(--accent)}
+.foot-bottom{margin-top:var(--gap-m);padding-top:var(--gap-s);border-top:1px solid var(--hair);
+  display:flex;justify-content:space-between;gap:var(--gap-s);flex-wrap:wrap;font-size:13px}
