@@ -15,6 +15,10 @@
 
   /* ручки панели Tweaks: по умолчанию 1, панель их переопределяет */
   --type-scale:1; --air:1;
+  /* Пара по оси контраста: дисплейный характерный + нейтральный текстовой.
+     Обе с кириллицей, проверено по ответу Google Fonts. */
+  --font-head:"Unbounded",system-ui,sans-serif;
+  --font-body:"Onest",system-ui,sans-serif;
 
   /* ритм: намеренно неравномерный, не линейная сетка */
   --gap-xs:calc(.5rem*var(--air)); --gap-s:calc(1rem*var(--air));
@@ -30,7 +34,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;
   font-size:calc(16px*var(--type-scale))}   /* ручка «размер шрифта» тянет всю rem-шкалу */
 body{
-  font-family:"Manrope",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-family:var(--font-body);
   background:var(--bg);color:var(--ink);
   font-size:1.125rem;line-height:1.65;   /* светлый текст на тёмном просит воздуха */
   -webkit-font-smoothing:antialiased;
@@ -59,12 +63,15 @@ a{color:inherit;text-decoration:none}
 .nav-links a{font-size:15px;color:var(--muted);transition:color .25s var(--ease)}
 .nav-links a:hover{color:var(--ink)}
 @media(max-width:860px){.nav-links{display:none}}
-/* на узком экране кнопка в шапке ломалась на две строки и раздувала навигацию */
-.btn{white-space:nowrap}
+/* nowrap нужен ТОЛЬКО кнопке в шапке. На остальных он давал вылет за экран
+   на мобиле: длинная кнопка не могла перенестись и растягивала страницу. */
+.nav .btn{white-space:nowrap}
+.btn{max-width:100%;text-align:center}
 @media(max-width:520px){
-  .nav-in{height:64px}
-  .nav .btn{padding:11px 18px;font-size:14px}
-  .brand{font-size:15px;letter-spacing:.1em}
+  .nav-in{height:64px;gap:12px}
+  .nav .btn{padding:10px 14px;font-size:13px}
+  .brand{font-size:14px;letter-spacing:.06em;gap:8px}
+  .brand .mark{width:10px;height:10px}
 }
 
 /* ---------- кнопки: одна форма на весь сайт ---------- */
@@ -82,11 +89,12 @@ a{color:inherit;text-decoration:none}
 /* ---------- HERO: один экран, одна мысль ---------- */
 .hero{min-height:100svh;display:flex;align-items:center;
   padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem)}
+h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
 .hero h1{
   /* ch считается по СОБСТВЕННОМУ размеру шрифта заголовка, а не по 18px родителя.
      Ограничение на родителе давало 19ch ≈ 178px и ломало заголовок на шесть строк. */
-  max-width:min(100%,20ch);
-  font-size:clamp(2.6rem,5.6vw,4.5rem);  /* сдержаннее: премиум не кричит */
+  max-width:min(100%,17ch);
+  font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
   letter-spacing:-.032em;                /* выше пола -.04em, буквы не слипаются */
   font-weight:800;
@@ -108,7 +116,7 @@ a{color:inherit;text-decoration:none}
 .flagship h2{
   /* та же ловушка, что была в h1: ch должен считаться по размеру самого заголовка */
   max-width:min(100%,22ch);
-  font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;letter-spacing:-.028em;
+  font-size:clamp(1.55rem,3.1vw,2.4rem);line-height:1.14;letter-spacing:-.022em;
   font-weight:800;text-wrap:balance}
 .flagship .flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
 
@@ -196,15 +204,19 @@ a{color:inherit;text-decoration:none}
 .l2-note{color:var(--muted-dim);font-size:15px;max-width:34ch}
 .l2-grid{margin-top:var(--gap-l);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   border-top:1px solid var(--hair);border-left:1px solid var(--hair)}
-.l2-item{display:block;padding:clamp(1.5rem,2.6vw,2rem);
+.l2-item{display:flex;flex-direction:column;cursor:pointer;
+  padding:clamp(1.5rem,2.6vw,2rem);background:rgba(255,255,255,.022);
   border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
-  transition:background .35s var(--ease)}
-.l2-item:hover{background:rgba(255,255,255,.028)}
-.l2-item h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.l2-item h3 .arr{color:var(--accent);opacity:0;transform:translateX(-4px);
-  transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.l2-item:hover h3 .arr{opacity:1;transform:none}
+  transition:background .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
+.l2-item:hover,.l2-item:focus-visible{background:rgba(34,211,238,.07);
+  box-shadow:inset 0 0 0 1px var(--accent);transform:translateY(-3px);outline:none}
+.l2-item h3{font-size:1.08rem;font-weight:700;letter-spacing:-.01em;
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+/* Стрелка видна ВСЕГДА: на мобиле hover не существует, признак ссылки нужен постоянный */
+.l2-item h3 .arr{color:var(--accent);opacity:.85;transition:transform .3s var(--ease)}
+.l2-item:hover h3 .arr{transform:translateX(5px)}
 .l2-item p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.55;text-wrap:pretty}
+.l2-item .go{margin-top:auto;padding-top:14px;color:var(--accent);font-size:14px;font-weight:700}
 
 /* ---------- PROOF: единственная секция по центру ---------- */
 .proof{padding:var(--gap-xl) 0;border-top:1px solid var(--hair);text-align:center}
@@ -259,3 +271,9 @@ a{color:inherit;text-decoration:none}
 .foot-links a:hover{color:var(--accent)}
 .foot-bottom{margin-top:var(--gap-m);padding-top:var(--gap-s);border-top:1px solid var(--hair);
   display:flex;justify-content:space-between;gap:var(--gap-s);flex-wrap:wrap;font-size:13px}
+
+.tw-fonts{display:grid;gap:6px}
+.tw-fonts button{padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left;
+  background:transparent;border:1px solid var(--hair);color:var(--muted);font-size:12px}
+.tw-fonts button:hover{border-color:var(--accent);color:var(--ink)}
+.tw-fonts button.on{border-color:var(--accent);color:var(--accent);background:rgba(34,211,238,.08)}

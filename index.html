@@ -28,7 +28,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- Дефолтная пара: Unbounded (заголовки, характер) + Onest (текст, чистый гротеск).
+     Альтернативы догружаются только в режиме подбора ?tweaks=1, чтобы не утяжелять прод. -->
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site-v3.css">
 </head>
 <body>
@@ -118,26 +120,32 @@
         <a class="l2-item" href="audit.html">
           <h3>AI-аудит <span class="arr" aria-hidden="true">→</span></h3>
           <p>Смотрим процессы и считаем, что окупится первым. С него начинают почти все.</p>
+        <span class="go">Подробнее</span>
         </a>
         <a class="l2-item" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">
           <h3>Поддержка 24/7 <span class="arr" aria-hidden="true">→</span></h3>
           <p>AI-сотрудник на входящих обращениях. Работает прямо сейчас: напишите ему и проверьте.</p>
+        <span class="go">Подробнее</span>
         </a>
         <a class="l2-item" href="security.html">
           <h3>Безопасность <span class="arr" aria-hidden="true">→</span></h3>
           <p>Аудит рисков и защита контура: права доступа, границы, журнал действий.</p>
+        <span class="go">Подробнее</span>
         </a>
         <a class="l2-item" href="uchti.html">
           <h3>Учти.Бизнес <span class="arr" aria-hidden="true">→</span></h3>
           <p>Управленческий учёт в телефоне: прибыль по точкам, налоги, предстоящие платежи.</p>
+        <span class="go">Подробнее</span>
         </a>
         <a class="l2-item" href="https://beyondbeautyconcierge.ru" target="_blank" rel="noopener">
           <h3>Продукт под ключ <span class="arr" aria-hidden="true">→</span></h3>
           <p>Собираем целый AI-сервис: бот, оплата, кабинет, анализ по фото. От идеи до запуска.</p>
+        <span class="go">Подробнее</span>
         </a>
         <a class="l2-item" href="rezident.html">
           <h3>РЕЗИДЕНТ <span class="arr" aria-hidden="true">→</span></h3>
           <p>Приватный AI офлайн, в вашем контуре. Для юристов, клиник и всех, у кого данные не уезжают.</p>
+        <span class="go">Подробнее</span>
         </a>
       </div>
     </div>
@@ -211,7 +219,7 @@
         а где он вам не нужен.</p>
       <div class="actions">
         <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Получить AI-аудит</a>
-        <a class="btn btn-ghost" href="#flagship">Ещё раз посмотреть, что они делают</a>
+        <a class="btn btn-ghost" href="#flagship">Что они делают</a>
       </div>
     </div>
   </section>
@@ -231,6 +239,14 @@
     <button type="button" data-accent="#34d399" style="--s:#34d399" title="Изумруд"></button>
     <button type="button" data-accent="#f4f6fc" style="--s:#f4f6fc" title="Монохром"></button>
     <button type="button" data-accent="#e8c45a" style="--s:#e8c45a" title="Тёплый"></button>
+  </div>
+
+  <label>Шрифт</label>
+  <div class="tw-fonts">
+    <button type="button" data-font="unbounded" class="on">Unbounded + Onest</button>
+    <button type="button" data-font="golos">Golos Text</button>
+    <button type="button" data-font="commissioner">Commissioner + Onest</button>
+    <button type="button" data-font="onest">Onest (один шрифт)</button>
   </div>
 
   <label for="tw-type">Размер шрифта <output id="tw-type-v">100%</output></label>
@@ -259,6 +275,22 @@
     const el=document.getElementById(id), out=document.getElementById(id+'-v');
     el.addEventListener('input',()=>{ out.textContent=el.value+'%'; fn(+el.value); });
   };
+  // альтернативные шрифты грузим только здесь, в режиме подбора
+  const alt=document.createElement('link'); alt.rel='stylesheet';
+  alt.href='https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&family=Commissioner:wght@400;700;800&display=swap';
+  document.head.appendChild(alt);
+  const FONTS={
+    unbounded:['"Unbounded"','"Onest"'],
+    golos:['"Golos Text"','"Golos Text"'],
+    commissioner:['"Commissioner"','"Onest"'],
+    onest:['"Onest"','"Onest"']
+  };
+  p.querySelectorAll('[data-font]').forEach(b=>b.addEventListener('click',()=>{
+    const f=FONTS[b.dataset.font]; if(!f) return;
+    set('--font-head', f[0]+',system-ui,sans-serif');
+    set('--font-body', f[1]+',system-ui,sans-serif');
+    p.querySelectorAll('[data-font]').forEach(x=>x.classList.toggle('on', x===b));
+  }));
   p.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{
     set('--accent', b.dataset.accent);
     window.__nnAccent && window.__nnAccent(b.dataset.accent);
@@ -268,7 +300,8 @@
   bind('tw-density', v=>window.__nnDensity && window.__nnDensity(v/100));
   bind('tw-glow',    v=>window.__nnGlow && window.__nnGlow(v/100));
   p.querySelector('.tw-reset').addEventListener('click',()=>{
-    ['--accent','--type-scale','--air'].forEach(k=>root.removeProperty(k));
+    ['--accent','--type-scale','--air','--font-head','--font-body'].forEach(k=>root.removeProperty(k));
+    p.querySelectorAll('[data-font]').forEach((x,i)=>x.classList.toggle('on', i===0));
     window.__nnAccent && window.__nnAccent('#22d3ee');
     window.__nnDensity && window.__nnDensity(1);
     window.__nnGlow && window.__nnGlow(1);
