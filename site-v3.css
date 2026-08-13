@@ -136,6 +136,12 @@ a{color:inherit;text-decoration:none}
   filter:blur(38px);animation:crystal-glow 7s ease-in-out infinite}
 @keyframes crystal-glow{0%,100%{opacity:.65}50%{opacity:1}}
 h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
+/* 13.08: секционные h2 жили на браузерном bold (700) — тяжелее, чем сам h1.
+   Отсюда ощущение «шрифт очень жирный» по всей странице. Базовое правило
+   выравнивает все заголовки второго уровня по одному облегчённому весу. */
+h2{max-width:min(100%,22ch);
+  font-size:clamp(1.55rem,3.1vw,2.4rem);line-height:1.14;letter-spacing:-.022em;
+  font-weight:300;text-wrap:balance}
 .hero h1{
   /* ch считается по СОБСТВЕННОМУ размеру шрифта заголовка, а не по 18px родителя.
      Ограничение на родителе давало 19ch ≈ 178px и ломало заголовок на шесть строк. */
@@ -143,9 +149,10 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
   letter-spacing:-.028em;                /* выше пола -.04em, буквы не слипаются */
-  /* 13.08: было 800 — Сергей: «очень жирный». У Unbounded 800 это плакатный вес,
-     на крупном кегле он давит. 500 даёт тот же характер, но дышит. */
-  font-weight:500;
+  /* 13.08: было 800, потом 500 — Сергей всё равно: «жирный очень». У Unbounded
+     широкие буквы, даже средний вес читается плакатным. 300 — его выбор из трёх
+     показанных вариантов: характер шрифта остаётся, давление уходит. */
+  font-weight:300;
   text-wrap:balance;
 }
 .hero h1 em{font-style:normal;color:var(--accent)}
@@ -179,7 +186,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   /* та же ловушка, что была в h1: ch должен считаться по размеру самого заголовка */
   max-width:min(100%,22ch);
   font-size:clamp(1.55rem,3.1vw,2.4rem);line-height:1.14;letter-spacing:-.022em;
-  font-weight:500;text-wrap:balance}
+  font-weight:300;text-wrap:balance}
 .flagship .flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
 
 /* строки ролей: hairline-разделители, без рамок и плашек */
@@ -189,7 +196,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   padding:clamp(1.4rem,3vw,2.1rem) 0;border-bottom:1px solid var(--hair);
   transition:transform .4s var(--ease)}
 .role:hover{transform:translateX(12px)}
-.role dt{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:700;letter-spacing:-.015em}
+.role dt{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:500;letter-spacing:-.015em}
 .role dd{color:var(--muted);max-width:62ch;text-wrap:pretty}
 .role .mark-dot{display:inline-block;width:6px;height:6px;border-radius:50%;
   background:var(--accent);margin-right:12px;vertical-align:middle;opacity:0;
@@ -272,7 +279,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   transition:background .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
 .l2-item:hover,.l2-item:focus-visible{background:rgba(34,211,238,.07);
   box-shadow:inset 0 0 0 1px var(--accent);transform:translateY(-3px);outline:none}
-.l2-item h3{font-size:1.08rem;font-weight:700;letter-spacing:-.01em;
+.l2-item h3{font-size:1.08rem;font-weight:500;letter-spacing:-.01em;
   display:flex;align-items:center;justify-content:space-between;gap:10px}
 /* Стрелка видна ВСЕГДА: на мобиле hover не существует, признак ссылки нужен постоянный */
 .l2-item h3 .arr{color:var(--accent);opacity:.85;transition:transform .3s var(--ease)}
@@ -300,7 +307,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
 .step{position:relative;padding-top:var(--gap-m);border-top:1px solid var(--hair-strong)}
 .step .n{position:absolute;top:-.72em;left:0;font-size:13px;font-weight:800;
   color:var(--accent);background:var(--bg);padding-right:12px}
-.step h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
+.step h3{font-size:1.1rem;font-weight:500;letter-spacing:-.01em}
 .step p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.55;text-wrap:pretty}
 
 /* ---------- ОСНОВАТЕЛЬ: асимметрия и единственное фото ---------- */
@@ -356,23 +363,30 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
     /* 13.08 вечер: планета в исходном кадре стоит правее середины, поэтому
        контейнер сдвинут влево — иначе её правый бок срезает край экрана. */
     top:-1%;left:21%;right:auto;
-    width:120%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.95;
+    /* 13.08: opacity была .95 — вместе с маской и подложкой давала «дымку».
+       Сам кадр яркий, глушила его вёрстка, поэтому здесь полная непрозрачность. */
+    width:120%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:1;
     transform:translate3d(calc(-50% + var(--px)),var(--py),0)}
   .hero-visual img,.hero-visual video,.hero-visual canvas{
     /* Одна радиальная маска вместо двухслойной десктопной: гасит верх, низ и оба
-       бока по эллипсу, поэтому кристалл растворяется в фоне без единого стыка. */
+       бока по эллипсу, поэтому планета растворяется в фоне без единого стыка.
+       13.08: сплошная часть была всего 30% радиуса — полупрозрачным оказывался
+       сам шар, а не только края. Ядро расширено до 54%, растворение осталось. */
     -webkit-mask-image:radial-gradient(closest-side ellipse at 50% 50%,
-       #000 30%,rgba(0,0,0,.55) 58%,rgba(0,0,0,.16) 80%,transparent 95%);
+       #000 54%,rgba(0,0,0,.74) 72%,rgba(0,0,0,.22) 87%,transparent 97%);
     mask-image:radial-gradient(closest-side ellipse at 50% 50%,
-       #000 30%,rgba(0,0,0,.55) 58%,rgba(0,0,0,.16) 80%,transparent 95%);
+       #000 54%,rgba(0,0,0,.74) 72%,rgba(0,0,0,.22) 87%,transparent 97%);
     -webkit-mask-composite:source-over;mask-composite:add}
   .hero-visual::after{inset:14% 14% 14% 14%}
   /* Затемнение поверх кристалла и под текстом. Кадр видео меняется, светлые
      грани уходят под заголовок — эта подложка держит контраст на любом кадре.
      Лежит между камнем (z1) и текстом (z2), поэтому текст не трогает. */
+  /* 13.08: верхние стопы были .34/.42 — подложка гасила саму планету, хотя
+     защищать надо только зону текста. Верх осветлён, низ под заголовком
+     оставлен плотным: контраст текста не пострадал. */
   .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(to bottom,
-      rgba(6,6,13,.34) 0%,rgba(6,6,13,.42) 30%,rgba(6,6,13,.72) 62%,
+      rgba(6,6,13,.08) 0%,rgba(6,6,13,.16) 30%,rgba(6,6,13,.64) 62%,
       rgba(6,6,13,.92) 84%,var(--bg) 100%)}
   .hero{align-items:flex-end;padding-top:clamp(9rem,30vh,14rem)}
   .hero .lede{max-width:min(60ch,100%);font-size:1.05rem}
