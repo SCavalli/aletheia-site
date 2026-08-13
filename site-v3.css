@@ -56,7 +56,7 @@ a{color:inherit;text-decoration:none}
   background:rgba(6,6,13,.72);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--hair)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:var(--gap-m)}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;letter-spacing:.14em}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.14em}
 .brand .mark{width:12px;height:12px;border-radius:2px;background:var(--accent);
   box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
 .nav-links{display:flex;gap:var(--gap-m);align-items:center}
@@ -78,7 +78,7 @@ a{color:inherit;text-decoration:none}
 .btn{display:inline-flex;align-items:center;gap:10px;
   padding:16px 30px;border-radius:999px;
   background:var(--accent);color:#04121a;
-  font-weight:800;font-size:16px;letter-spacing:.01em;
+  font-weight:700;font-size:16px;letter-spacing:.01em;
   transition:transform .3s var(--ease),box-shadow .3s var(--ease);
   box-shadow:0 0 0 rgba(34,211,238,0)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
@@ -142,8 +142,10 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   max-width:min(100%,15ch);
   font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
-  letter-spacing:-.032em;                /* выше пола -.04em, буквы не слипаются */
-  font-weight:800;
+  letter-spacing:-.028em;                /* выше пола -.04em, буквы не слипаются */
+  /* 13.08: было 800 — Сергей: «очень жирный». У Unbounded 800 это плакатный вес,
+     на крупном кегле он давит. 500 даёт тот же характер, но дышит. */
+  font-weight:500;
   text-wrap:balance;
 }
 .hero h1 em{font-style:normal;color:var(--accent)}
@@ -177,7 +179,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   /* та же ловушка, что была в h1: ch должен считаться по размеру самого заголовка */
   max-width:min(100%,22ch);
   font-size:clamp(1.55rem,3.1vw,2.4rem);line-height:1.14;letter-spacing:-.022em;
-  font-weight:800;text-wrap:balance}
+  font-weight:500;text-wrap:balance}
 .flagship .flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
 
 /* строки ролей: hairline-разделители, без рамок и плашек */
@@ -353,8 +355,8 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
        узнаётся целиком, маска по-прежнему растворяет края в фон. */
     /* 13.08 вечер: планета в исходном кадре стоит правее середины, поэтому
        контейнер сдвинут влево — иначе её правый бок срезает край экрана. */
-    top:-1%;left:31%;right:auto;
-    width:112%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.92;
+    top:-1%;left:21%;right:auto;
+    width:120%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.95;
     transform:translate3d(calc(-50% + var(--px)),var(--py),0)}
   .hero-visual img,.hero-visual video,.hero-visual canvas{
     /* Одна радиальная маска вместо двухслойной десктопной: гасит верх, низ и оба

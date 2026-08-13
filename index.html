@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Дефолтная пара: Unbounded (заголовки, характер) + Onest (текст, чистый гротеск).
      Альтернативы догружаются только в режиме подбора ?tweaks=1, чтобы не утяжелять прод. -->
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site-v3.css">
 <!-- Постер планеты тянем первым приоритетом: он держит первый экран,
      пока грузится видео. Пустого места быть не должно ни секунды. -->
@@ -63,9 +63,15 @@
       <!-- Постер — кадр 0 этого же ролика, поэтому подмены глазом не видно.
            Он виден сразу и остаётся при любом сбое: нет автоплея, экономия трафика,
            отключено движение, не догрузилось видео. Пустоты не бывает никогда. -->
-      <video class="globe" src="assets/globe-loop.mp4" poster="assets/globe-poster.jpg"
+      <video class="globe" poster="assets/globe-poster.jpg"
              autoplay muted loop playsinline preload="auto"
-             width="1280" height="720"></video>
+             width="1920" height="1080">
+        <!-- 1080p, потому что на ретине первый экран показывает планету шириной
+             в 1720 точек: файл должен быть КРУПНЕЕ показа, иначе мыло. Телефону
+             отдаём вдвое лёгкий файл — там показ 1300 точек. -->
+        <source media="(min-width:901px)" src="assets/globe-loop.mp4" type="video/mp4">
+        <source src="assets/globe-loop-m.mp4" type="video/mp4">
+      </video>
     </div>
     <script>
       // Уважение к prefers-reduced-motion и к экономии трафика: снимаем источник
@@ -77,7 +83,7 @@
         if(!(matchMedia('(prefers-reduced-motion:reduce)').matches ||
              (navigator.connection && navigator.connection.saveData))) return;
         v.autoplay=false; v.removeAttribute('autoplay');
-        v.pause(); v.removeAttribute('src'); v.load();
+        v.pause(); v.innerHTML=''; v.removeAttribute('src'); v.load();
       })();
     </script>
     <div class="wrap hero-wrap">
@@ -372,7 +378,7 @@
   // из скрипта. Не сработает — остаётся постер, поломки нет.
   (function(){
     const v=document.querySelector('video.globe');
-    if(v && v.getAttribute('src')) v.play().catch(()=>{});
+    if(v && v.querySelector('source')) v.play().catch(()=>{});
   })();
 
   // Параллакс кристалла: сдвиг за курсором и на скролле. Никакой логики показа контента
