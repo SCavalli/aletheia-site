@@ -32,9 +32,9 @@
      Альтернативы догружаются только в режиме подбора ?tweaks=1, чтобы не утяжелять прод. -->
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site-v3.css">
-<!-- Постер кристалла тянем первым приоритетом: он держит первый экран,
-     пока грузится видео. Пустого прямоугольника быть не должно ни секунды. -->
-<link rel="preload" as="image" href="assets/crystal-poster.jpg" fetchpriority="high">
+<!-- Постер планеты тянем первым приоритетом: он держит первый экран,
+     пока грузится видео. Пустого места быть не должно ни секунды. -->
+<link rel="preload" as="image" href="assets/globe-poster.jpg" fetchpriority="high">
 </head>
 <body>
 
@@ -57,33 +57,27 @@
 
   <!-- ПЕРВЫЙ ЭКРАН: одна мысль, много воздуха, один акцент -->
   <section class="hero">
-    <!-- Кристалл: украшение поверх видимого контента. Если картинка или JS отвалятся,
-         текст и кнопки останутся на месте и читаемыми. -->
+    <!-- ПЛАНЕТА С АГЕНТАМИ НА ОРБИТАХ: украшение поверх видимого контента.
+         Если видео или JS отвалятся, текст и кнопки останутся на месте и читаемыми. -->
     <div class="hero-visual" aria-hidden="true">
-      <!-- Постер — это кадр 0 того же видео, поэтому подмены глазом не видно.
-           Он виден сразу и остаётся при любом сбое: не загрузилось видео, нет автоплея,
-           экономия трафика, отключено движение — на месте живой кристалл, а не чёрный экран. -->
-      <video class="crystal" poster="assets/crystal-poster.jpg"
+      <!-- Постер — кадр 0 этого же ролика, поэтому подмены глазом не видно.
+           Он виден сразу и остаётся при любом сбое: нет автоплея, экономия трафика,
+           отключено движение, не догрузилось видео. Пустоты не бывает никогда. -->
+      <video class="globe" src="assets/globe-loop.mp4" poster="assets/globe-poster.jpg"
              autoplay muted loop playsinline preload="auto"
-             width="1280" height="720">
-        <!-- Луп собран «туда-обратно»: камера отъезжает и возвращается, стык кадров
-             совпадает. Прямая петля давала видимый рывок каждые 5 секунд. -->
-        <source media="(min-width:901px)" src="assets/crystal-loop.mp4" type="video/mp4">
-        <source src="assets/crystal-loop-m.mp4" type="video/mp4">
-      </video>
+             width="1280" height="720"></video>
     </div>
     <script>
-      // Уважение к prefers-reduced-motion и к экономии трафика.
-      // Скрипт стоит сразу за видео и снимает источники ДО того, как что-то поедет:
-      // остаётся постер. Если скрипт не выполнится — просто играет видео, поломки нет.
+      // Уважение к prefers-reduced-motion и к экономии трафика: снимаем источник
+      // ДО того, как что-то поедет, остаётся постер. Скрипт не выполнится —
+      // просто играет видео, поломки нет.
       (function(){
-        var v=document.currentScript.previousElementSibling.querySelector('video.crystal');
+        var v=document.currentScript.previousElementSibling.querySelector('video.globe');
         if(!v) return;
-        var still=matchMedia('(prefers-reduced-motion:reduce)').matches ||
-                  (navigator.connection && navigator.connection.saveData);
-        if(!still) return;
+        if(!(matchMedia('(prefers-reduced-motion:reduce)').matches ||
+             (navigator.connection && navigator.connection.saveData))) return;
         v.autoplay=false; v.removeAttribute('autoplay');
-        v.pause(); v.innerHTML=''; v.removeAttribute('src'); v.load();   // остаётся постер
+        v.pause(); v.removeAttribute('src'); v.load();
       })();
     </script>
     <div class="wrap hero-wrap">
@@ -374,11 +368,11 @@
 </footer>
 
 <script>
-  // Страховка автоплея: часть браузеров игнорирует атрибут, но разрешает play() из скрипта.
-  // Не сработает — остаётся постер, поломки нет.
+  // Страховка автоплея: часть браузеров игнорирует атрибут, но разрешает play()
+  // из скрипта. Не сработает — остаётся постер, поломки нет.
   (function(){
-    const v=document.querySelector('video.crystal');
-    if(v && v.querySelector('source')) v.play().catch(()=>{});
+    const v=document.querySelector('video.globe');
+    if(v && v.getAttribute('src')) v.play().catch(()=>{});
   })();
 
   // Параллакс кристалла: сдвиг за курсором и на скролле. Никакой логики показа контента

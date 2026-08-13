@@ -103,7 +103,13 @@ a{color:inherit;text-decoration:none}
   transform:translate3d(var(--px),calc(-50% + var(--py)),0);
   transition:transform .6s cubic-bezier(.16,1,.3,1);
   will-change:transform}
-.hero-visual img,.hero-visual video{width:100%;height:100%;object-fit:cover;display:block;
+/* Подложка и живая сфера лежат друг на друге и меняются кроссфейдом: пока код не
+   отрисовал первый кадр, виден статичный кадр той же сферы, поэтому пустоты нет. */
+.hero-visual img,.hero-visual canvas{position:absolute;inset:0}
+.hero-visual canvas{opacity:0;transition:opacity .8s var(--ease)}
+.hero-visual.live canvas{opacity:1}
+.hero-visual.live img{opacity:0;transition:opacity .8s var(--ease)}
+.hero-visual img,.hero-visual video,.hero-visual canvas{width:100%;height:100%;object-fit:cover;display:block;
   background:#06060d;
   /* период равен длине лупа: иначе два движения расходятся фазой и кристалл «плавает» */
   animation:crystal-float 10.08s ease-in-out infinite;
@@ -345,10 +351,12 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
     /* 13.08: было 142% — камень раздувался и обрезался краями экрана, читался
        как абстрактная текстура, а не как кристалл. Сузили до ~112%: силуэт
        узнаётся целиком, маска по-прежнему растворяет края в фон. */
-    top:-1%;left:50%;right:auto;
+    /* 13.08 вечер: планета в исходном кадре стоит правее середины, поэтому
+       контейнер сдвинут влево — иначе её правый бок срезает край экрана. */
+    top:-1%;left:31%;right:auto;
     width:112%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.92;
     transform:translate3d(calc(-50% + var(--px)),var(--py),0)}
-  .hero-visual img,.hero-visual video{
+  .hero-visual img,.hero-visual video,.hero-visual canvas{
     /* Одна радиальная маска вместо двухслойной десктопной: гасит верх, низ и оба
        бока по эллипсу, поэтому кристалл растворяется в фоне без единого стыка. */
     -webkit-mask-image:radial-gradient(closest-side ellipse at 50% 50%,
@@ -392,7 +400,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   /* Полный покой: ни дыхания, ни параллакса, ни пульса свечения.
      Видео снимает скрипт, здесь гасим всё остальное движение. */
   .hero-visual{transition:none;transform:translate3d(0,-50%,0)}
-  .hero-visual img,.hero-visual video{animation:none;transition:none}
+  .hero-visual img,.hero-visual video,.hero-visual canvas{animation:none;transition:none}
   .hero-visual::after{animation:none}
 }
 @media(prefers-reduced-motion:reduce) and (max-width:900px){
