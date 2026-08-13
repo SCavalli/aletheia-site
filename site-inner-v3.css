@@ -175,7 +175,9 @@ section[id],header[id]{scroll-margin-top:96px}
 /* ---------- ЗАПАСНОЙ КАНАЛ ЗАЯВКИ (13.08) ----------
    Живёт под главной кнопкой, свёрнут. Тем, кто идёт в Telegram, не мешает;
    тем, у кого мессенджер закрыт корпоративной политикой, даёт дверь. */
-.alt-lead{margin-top:18px;max-width:520px;margin-left:auto;margin-right:auto}
+/* Блок живёт внутри центрированного CTA. Без выравнивания по левому краю
+   значок «+» отрывается от своей строки, а поля выглядят случайно расставленными. */
+.alt-lead{margin-top:18px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left}
 .alt-lead summary{cursor:pointer;color:var(--muted2);font-size:15px;list-style:none;
   display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
 .alt-lead summary::-webkit-details-marker{display:none}

@@ -430,7 +430,7 @@ h2{max-width:min(100%,22ch);
 /* ---------- ЗАПАСНОЙ КАНАЛ ЗАЯВКИ (13.08) ----------
    Под главной кнопкой, свёрнут. Нужен тем, у кого Telegram закрыт политикой
    компании: банки, госорганы, юристы. Иначе для них кнопка — тупик. */
-.alt-lead{margin-top:20px;max-width:520px}
+.alt-lead{margin-top:20px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left}
 .alt-lead summary{cursor:pointer;color:var(--muted-dim);font-size:15px;list-style:none;
   display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
 .alt-lead summary::-webkit-details-marker{display:none}
