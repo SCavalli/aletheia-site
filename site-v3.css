@@ -396,7 +396,9 @@ h2{max-width:min(100%,22ch);
 @media(max-width:520px){
   .hero{padding-top:clamp(8rem,26vh,12rem)}
   /* 13.08: было 158% (камень обрезан краями). 124% — узкий экран, силуэт целиком. */
-  .hero-visual{width:124%;opacity:.92}
+  /* opacity держим 1: приглушала именно эта строка — она перебивала правило
+     блока 900px, поэтому на телефоне планета оставалась в дымке. */
+  .hero-visual{width:124%;opacity:1}
   .hero .actions{gap:10px}
   .scroll-hint{margin-top:clamp(.8rem,2vh,1.4rem)}
 }
