@@ -1,0 +1,160 @@
+/* ALETHEIA — слой v3 для внутренних страниц.
+   Грузится ПОСЛЕ site.css и переодевает старые страницы в язык главной:
+   графит вместо фиолетового, циан как единственный акцент, Unbounded + Onest,
+   плашки-стекло заменены волосяной линией. Разметка страниц не менялась —
+   так пять страниц переодеваются без риска потерять контент.
+   Источник правды по токенам: DESIGN.md и site-v3.css. */
+
+:root{
+  --bg:#06060d; --bg2:#0a0a14;
+  --ink:#f4f6fc; --muted:#a7aec6; --muted2:#828aa6;
+  /* Фиолетовый убит в корне: обе переменные теперь циан, поэтому все градиенты
+     старого стиля, замешанные на v1/v2, автоматически становятся акцентом. */
+  --v1:#22d3ee; --v2:#22d3ee; --c1:#22d3ee; --gold:#22d3ee;
+  --card:transparent; --bd:rgba(255,255,255,.09);
+  --bd-strong:rgba(255,255,255,.16);
+  --maxw:1180px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --font-head:"Unbounded",system-ui,sans-serif;
+  --font-body:"Onest",system-ui,sans-serif;
+}
+
+body{font-family:var(--font-body);font-size:1.125rem;line-height:1.65;background:var(--bg)}
+h1,h2,h3,h4,.logo,.btn{font-family:var(--font-head)}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.032em}
+p{text-wrap:pretty}
+.wrap{max-width:var(--maxw);padding:0 clamp(20px,5vw,40px)}
+section{padding:clamp(4rem,9vw,7rem) 0}
+
+/* ---------- фон: тот же графит, что на главной, без фиолетовой дымки ---------- */
+.bg-fx{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
+.blob,.blobs,.grain{display:none}
+/* РЕЗИДЕНТ рисует фон через body::before своим инлайновым стилем */
+body::before{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
+/* его же шапка и заголовки — под тот же язык */
+header.scrolled{background:rgba(6,6,13,.72);border-bottom:1px solid var(--bd)}
+.eyebrow{color:var(--muted2);font-weight:500;letter-spacing:.01em;font-size:15px;
+  text-transform:none;font-family:var(--font-body)}
+
+/* ---------- контент виден сразу ----------
+   В старом стиле html.js .reveal{opacity:0} — контент ждал IntersectionObserver.
+   Не сработал скрипт (или это краулер/превью) — страница пустая. Это ровно тот
+   баг, что ломал v2, поэтому здесь гасим сокрытие целиком. */
+html.js .reveal,html.js .reveal.in,html.js .hero .reveal,html.js .pstep.reveal{
+  opacity:1;transform:none;transition:none}
+
+/* ---------- NAV ---------- */
+nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.nav-in{height:76px;gap:2rem}
+.logo{font-weight:800;font-size:17px;letter-spacing:.14em;gap:12px}
+.logo .mark{width:12px;height:12px;border-radius:2px;background:var(--accent,#22d3ee);
+  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+.logo .mark::after{content:none}
+.nav-links{gap:2rem;font-size:15px;color:var(--muted)}
+.nav-burger{border:1px solid var(--bd-strong);border-radius:10px;background:transparent}
+
+/* ---------- кнопки: одна форма на весь сайт ---------- */
+.btn{background:#22d3ee;color:#04121a;font-weight:800;font-size:16px;letter-spacing:.01em;
+  padding:16px 30px;border-radius:999px;box-shadow:none;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn.ghost,.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--bd-strong);
+  font-weight:700;box-shadow:none}
+.btn.ghost:hover,.btn-ghost:hover{background:transparent;border-color:#22d3ee;color:#22d3ee}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.btn.ghost:focus-visible,.btn-ghost:focus-visible,.nav-links a:focus-visible,
+.logo:focus-visible,.backlink:focus-visible{outline:2px solid #22d3ee;outline-offset:4px;border-radius:6px}
+
+/* ---------- заголовки страниц ---------- */
+.subhero{padding:clamp(3rem,7vw,5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+.subhero h1{font-size:clamp(2.05rem,4.4vw,3.5rem);line-height:1.04;font-weight:800;letter-spacing:-.032em}
+.subhero .lead{font-size:clamp(1.1rem,1.8vw,1.35rem);color:var(--muted);line-height:1.58;max-width:min(48ch,100%)}
+/* Ярлык раздела остаётся ОДИН — над заголовком страницы. Над каждой секцией
+   такие же «кикеры» убраны: это самый заметный штамп AI-вёрстки. */
+.subhero .eyebrow{color:var(--muted2);font-weight:500;letter-spacing:.01em;
+  font-size:15px;text-transform:none;margin-bottom:14px;font-family:var(--font-body)}
+.sec-head .eyebrow,.demo-box .eyebrow{display:none}
+.sec-head{text-align:left;margin:0 0 clamp(2rem,4vw,3rem);max-width:760px}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:800;line-height:1.1}
+.sec-head p{color:var(--muted)}
+.backlink{color:var(--muted2);font-size:15px}
+.backlink:hover{color:#22d3ee}
+
+/* ---------- карточки: волосяная линия вместо стекла ---------- */
+.feat,.step,.tmini,.rcard,.panel,.bnft,.acard,.netbox,.qa,.contact-card,.founder-box,.demo-box{
+  background:transparent;border:1px solid var(--bd);border-radius:16px;
+  transition:border-color .3s var(--ease)}
+.feat:hover,.step:hover,.tmini:hover,.bnft:hover,.acard:hover{border-color:var(--bd-strong)}
+.feat h4,.step h4,.acard h4{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.feat p,.step p,.acard p{color:var(--muted);font-size:15.5px}
+/* Иконка — квадратный колодец фиксированного размера. Без размера рамка растягивалась
+   на всю карточку и читалась как пустое поле ввода. */
+.feat .fi,.step-ico,.acard .ai,.panel h3 .e{background:transparent;border:1px solid var(--bd);
+  color:#22d3ee;width:46px;height:46px;border-radius:12px;
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 46px}
+.panel h3 .e{width:38px;height:38px;flex-basis:38px;border-radius:10px}
+/* Нумерация шагов оставлена: это настоящая последовательность, а не «01/02/03»
+   ради красоты. Но подана тихо — акцент на самом шаге. */
+.step .n,.step-num,.num{color:#22d3ee;font-weight:700;font-size:14px;letter-spacing:.06em}
+.step-dot{background:#22d3ee}
+
+/* тарифы */
+.tmini.hot,.tmini.flag,.rcard.good{border-color:rgba(34,211,238,.42);
+  background:linear-gradient(160deg,rgba(34,211,238,.07),transparent 62%)}
+.tmini .tn,.tmini.flag .tn,.tmini.hot .tn{color:var(--ink);font-weight:700}
+.tmini .tp{font-family:var(--font-head);font-weight:800;letter-spacing:-.02em}
+.tmini .tsub{color:#22d3ee;font-weight:600}
+.tmini .td,.tmini .td2{color:var(--muted)}
+.tmini .badge,.badge{background:#22d3ee;color:#04121a;font-weight:800;font-size:11px;
+  letter-spacing:.02em;border-radius:0 16px 0 12px}
+.tier-note,.audit-note,.rnote,.micro,.hint{color:var(--muted2);font-size:14.5px}
+
+/* Блоки с фиолетовой заливкой в старом стиле: тот же приём, что и у карточек —
+   волосяная линия и лёгкий цианистый подсвет вместо сиреневого градиента. */
+.roi,.proofbox{border:1px solid var(--bd);border-radius:20px;
+  background:linear-gradient(160deg,rgba(34,211,238,.06),transparent 60%)}
+.proofbox .eyebrow{display:none}
+.roi h3,.proofbox h2{font-weight:800;letter-spacing:-.02em}
+.roi .rsub,.proofbox p{color:var(--muted)}
+
+/* «в цифрах» */
+.rcard .rh{color:var(--muted2);text-transform:none;letter-spacing:.01em;font-size:14.5px}
+.rcard .rv{font-family:var(--font-head);font-weight:800;letter-spacing:-.02em}
+.rcard.good .rv{color:#22d3ee}
+.rcard .rd{color:var(--muted)}
+
+/* метки, списки */
+.tag{background:transparent;border:1px solid var(--bd);color:var(--muted);border-radius:999px;
+  font-size:13.5px;padding:7px 15px}
+.checklist li{color:var(--muted)}
+.checklist li b{color:var(--ink)}
+/* Градиентный текст — запрещённый приём и главный признак старого сайта.
+   Сбрасываем и подложку, и text-fill: иначе буквы остаются прозрачными. */
+.grad-text,.acc{color:#22d3ee;background:none;-webkit-background-clip:border-box;
+  background-clip:border-box;-webkit-text-fill-color:#22d3ee}
+
+/* финальный блок и подвал */
+.cta-box{background:transparent;border:1px solid var(--bd);border-radius:22px;
+  padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,4vw,2.5rem)}
+.cta-box h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:800}
+.cta-box p{color:var(--muted)}
+footer{border-top:1px solid var(--bd);color:var(--muted2);padding:clamp(2.5rem,5vw,3.5rem) 0}
+footer .fl{color:var(--muted2)}
+footer a:hover{color:#22d3ee}
+
+@media(max-width:760px){
+  .nav-in{height:64px;gap:12px}
+  /* Кнопка в шапке рвалась на две строки и наезжала на логотип. */
+  .nav .btn,nav .btn,header .bar .btn{padding:10px 14px;font-size:13px;white-space:nowrap}
+  header .bar{gap:12px}
+  /* Заголовки страниц со своим инлайновым размером (РЕЗИДЕНТ) на телефоне
+     разъезжались на восемь строк — общий потолок для всех внутренних. */
+  h1{font-size:clamp(1.75rem,7.2vw,2.4rem);line-height:1.06}
+  h2{font-size:clamp(1.5rem,5.6vw,2rem)}
+  .logo{font-size:14px;letter-spacing:.06em;gap:8px}
+  .nav-links{background:rgba(6,6,13,.97);border-bottom:1px solid var(--bd)}
+  .m-cta{background:linear-gradient(to top,var(--bg) 60%,transparent)}
+}
+@media(prefers-reduced-motion:reduce){
+  .btn:hover{transform:none}
+}
