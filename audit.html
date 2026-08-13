@@ -103,6 +103,24 @@
     <h2>Начните с AI-аудита</h2>
     <p>Оставьте заявку — согласуем созвон, разберём ваши процессы и за 3–5 дней покажем, где AI окупится первым.</p>
     <a href="https://t.me/aletheia_support_bot" class="btn">Получить AI-аудит за 29 000 ₽</a>
+    <div class="alt-lead">
+      <details>
+        <summary>Не пользуетесь Telegram? Оставьте контакты</summary>
+        <form class="lead-form" action="https://formsubmit.co/ajax/4b3161726d7d10b677bca885c62c8395" method="POST">
+          <input type="hidden" name="_subject" value="Заявка с сайта — AI-аудит">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="Страница" value="AI-аудит">
+          <input type="text" name="Имя" placeholder="Ваше имя" required>
+          <input type="text" name="Контакт" placeholder="Телефон или email" required>
+          <button type="submit" class="btn ghost">Отправить заявку</button>
+          <div class="micro">Ответим в течение дня. Данные не передаём третьим лицам.</div>
+        </form>
+        <p class="lead-ok" hidden><b>Заявка отправлена.</b> Свяжемся с вами в течение дня.</p>
+        <p class="lead-fail" hidden>Не удалось отправить. Напишите нам в Telegram — ответим сразу.</p>
+      </details>
+    </div>
+
   </div>
 </div></section>
 
@@ -120,6 +138,7 @@
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
 </script>
 <div class="m-cta"><a href="https://t.me/aletheia_support_bot" class="btn">Получить консультацию</a></div>
+<script src="lead-form.js"></script>
 <script src="nn-bg.js"></script>
 </body>
 </html>

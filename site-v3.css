@@ -426,3 +426,24 @@ h2{max-width:min(100%,22ch);
 @media(prefers-reduced-motion:reduce) and (max-width:900px){
   .hero-visual{transform:none}
 }
+
+/* ---------- ЗАПАСНОЙ КАНАЛ ЗАЯВКИ (13.08) ----------
+   Под главной кнопкой, свёрнут. Нужен тем, у кого Telegram закрыт политикой
+   компании: банки, госорганы, юристы. Иначе для них кнопка — тупик. */
+.alt-lead{margin-top:20px;max-width:520px}
+.alt-lead summary{cursor:pointer;color:var(--muted-dim);font-size:15px;list-style:none;
+  display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
+.alt-lead summary::-webkit-details-marker{display:none}
+.alt-lead summary::before{content:"+";color:var(--accent);font-size:17px;line-height:1}
+.alt-lead details[open] summary::before{content:"–"}
+.alt-lead summary:hover{color:var(--ink)}
+.lead-form{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.lead-form input{width:100%;padding:14px 16px;border-radius:12px;background:transparent;
+  border:1px solid var(--hair-strong);color:var(--ink);font:inherit;font-size:16px}
+.lead-form input::placeholder{color:var(--muted-dim)}
+.lead-form input:focus{outline:none;border-color:var(--accent)}
+.lead-form input.err{border-color:#f0616d}
+.lead-form .btn{align-self:flex-start}
+.lead-form .micro,.lead-ok,.lead-fail{color:var(--muted-dim);font-size:14.5px}
+.lead-ok,.lead-fail{margin-top:14px}
+.lead-ok b{color:var(--accent)}

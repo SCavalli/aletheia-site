@@ -171,3 +171,23 @@ body::before{z-index:-3}
 /* Якорные переходы: шапка липкая, без отступа заголовок секции уезжает под неё.
    Ловится только при клике по «Тарифы»/«Как работает» в меню. */
 section[id],header[id]{scroll-margin-top:96px}
+
+/* ---------- ЗАПАСНОЙ КАНАЛ ЗАЯВКИ (13.08) ----------
+   Живёт под главной кнопкой, свёрнут. Тем, кто идёт в Telegram, не мешает;
+   тем, у кого мессенджер закрыт корпоративной политикой, даёт дверь. */
+.alt-lead{margin-top:18px;max-width:520px;margin-left:auto;margin-right:auto}
+.alt-lead summary{cursor:pointer;color:var(--muted2);font-size:15px;list-style:none;
+  display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
+.alt-lead summary::-webkit-details-marker{display:none}
+.alt-lead summary::before{content:"+";color:#22d3ee;font-size:17px;line-height:1}
+.alt-lead details[open] summary::before{content:"–"}
+.alt-lead summary:hover{color:var(--ink)}
+.lead-form{display:flex;flex-direction:column;gap:12px;margin-top:16px;text-align:left}
+.lead-form input{width:100%;padding:14px 16px;border-radius:12px;background:transparent;
+  border:1px solid var(--bd);color:var(--ink);font:inherit;font-size:16px}
+.lead-form input::placeholder{color:var(--muted2)}
+.lead-form input:focus{outline:none;border-color:#22d3ee}
+.lead-form input.err{border-color:#f0616d}
+.lead-form .btn{align-self:flex-start}
+.lead-ok,.lead-fail{margin-top:14px;color:var(--muted);font-size:15.5px;text-align:left}
+.lead-ok b{color:#22d3ee}
