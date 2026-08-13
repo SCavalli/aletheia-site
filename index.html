@@ -395,7 +395,12 @@
         mx=(e.clientX/innerWidth-.5)*38; my=(e.clientY/innerHeight-.5)*24; queue();
       },{passive:true});
     }
-    addEventListener('scroll',()=>{ sy=Math.min(scrollY,900)*0.06; queue(); },{passive:true});
+    // Параллакс на скролле — только для мыши. На телефоне он давал дрожь: каждое
+    // событие скролла перезапускало полусекундный переход, плюс на iOS сворачивание
+    // адресной строки шлёт свои события. Пальцем крутят быстро — картинку трясло.
+    if(matchMedia('(hover:hover)').matches){
+      addEventListener('scroll',()=>{ sy=Math.min(scrollY,900)*0.06; queue(); },{passive:true});
+    }
   })();
 
   // Живая нейросеть — единственный вау-момент страницы, ДНК бренда.

@@ -111,8 +111,8 @@ a{color:inherit;text-decoration:none}
 .hero-visual.live img{opacity:0;transition:opacity .8s var(--ease)}
 .hero-visual img,.hero-visual video,.hero-visual canvas{width:100%;height:100%;object-fit:cover;display:block;
   background:#06060d;
-  /* период равен длине лупа: иначе два движения расходятся фазой и кристалл «плавает» */
-  animation:crystal-float 10.08s ease-in-out infinite;
+  /* Анимация «дыхания» снята 13.08: она осталась от статичного кристалла, а видео
+     двигается само. Наложение двух движений на телефоне читалось как дрожь кадра. */
   /* Растворяем ВСЕ края, а не только левый: иначе виден прямоугольник картинки.
      Эллипс гасит верх, низ и правый край, линейка добавляет уход в текстовую зону. */
   -webkit-mask-image:radial-gradient(closest-side ellipse at 50% 50%,#000 46%,rgba(0,0,0,.5) 72%,transparent 98%),
