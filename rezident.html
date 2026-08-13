@@ -4,500 +4,253 @@
 <script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>РЕЗИДЕНТ — приватный AI для конфиденциальных документов</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  /* ФИРМЕННАЯ ПАЛИТРА ALETHEIA (из site.css первого сайта) */
-  :root{
-    --bg:#070710; --bg2:#0b0b18;
-    --ink:#f2f4fb; --muted:#aab1c9; --muted2:#7a829c;
-    --v1:#22d3ee; --v2:#22d3ee; --c1:#22d3ee; --gold:#22d3ee;
-    --card:rgba(255,255,255,0.04); --bd:rgba(255,255,255,0.10);
-  }
-  html{ scroll-behavior:smooth; }
-  body{ font-family:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif; background:var(--bg); color:var(--ink);
-    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative; }
-  body::before{ content:""; position:fixed; inset:0; z-index:-2;
-    background:radial-gradient(60% 50% at 50% 0%, #0b0b18 0%, transparent 70%), var(--bg); }
-  .wrap{ max-width:1140px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
-  h1,h2,h3{ font-weight:800; line-height:1.12; color:#fff; letter-spacing:-.4px; }
-  section{ padding:120px 0; position:relative; }
-  .eyebrow{ color:var(--c1); font-weight:600; letter-spacing:2px; text-transform:uppercase; font-size:13px; margin-bottom:16px; display:inline-block; }
-  .lead{ color:var(--muted); }
-  .grad-text{ background:linear-gradient(100deg,var(--v1),var(--v2) 45%,var(--c1)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  svg.ic{ width:26px; height:26px; stroke:var(--c1); fill:none; stroke-width:1.5; }
-
-  /* анимированные blob'ы (как на первом сайте) */
-  .blobs{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
-  .blob{ position:absolute; border-radius:50%; filter:blur(100px); opacity:.30; animation:float 22s ease-in-out infinite; }
-  .blob.b1{ width:520px; height:520px; background:#0e7490; top:-120px; left:-80px; }
-  .blob.b2{ width:480px; height:480px; background:#0e7490; top:40%; right:-120px; animation-delay:-6s; }
-  .blob.b3{ width:440px; height:440px; background:#0e7490; bottom:-160px; left:30%; animation-delay:-11s; }
-  @keyframes float{ 0%,100%{ transform:translate(0,0) scale(1) } 33%{ transform:translate(40px,-30px) scale(1.08) } 66%{ transform:translate(-30px,20px) scale(.95) } }
-
-  /* header */
-  header{ position:fixed; top:0; left:0; right:0; z-index:60; transition:.3s; padding:20px 0; border-bottom:1px solid transparent; }
-  header.scrolled{ background:rgba(7,7,16,.65); backdrop-filter:blur(14px); border-bottom:1px solid var(--bd); padding:12px 0; }
-  header .bar{ display:flex; align-items:center; justify-content:space-between; }
-  .logo{ display:flex; align-items:center; gap:11px; font-weight:800; font-size:21px; color:#fff; letter-spacing:.5px; }
-  .logo .mark{ width:30px; height:30px; border-radius:9px; background:linear-gradient(135deg,var(--v1),var(--c1)); box-shadow:0 0 22px rgba(34,211,238,.6); }
-  .btn{ display:inline-flex; align-items:center; gap:9px; background:linear-gradient(120deg,var(--v1),var(--v2)); color:#fff;
-    font-weight:700; padding:15px 30px; border-radius:12px; text-decoration:none; font-size:15px; cursor:pointer;
-    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s; box-shadow:0 8px 26px rgba(34,211,238,.32); border:none; }
-  .btn:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 16px 44px rgba(34,211,238,.45); }
-  .btn-ghost{ background:rgba(255,255,255,.05); color:#fff; border:1px solid var(--bd); box-shadow:none; }
-  .btn-ghost:hover{ border-color:var(--c1); background:rgba(34,211,238,.07); box-shadow:none; }
-  a{ color:var(--c1); }
-
-  /* reveal */
-  .reveal{ opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
-  .reveal.in{ opacity:1; transform:none; }
-  .reveal.d1{ transition-delay:.08s } .reveal.d2{ transition-delay:.16s } .reveal.d3{ transition-delay:.24s } .reveal.d4{ transition-delay:.32s }
-
-  /* hero */
-  .hero{ min-height:100vh; display:flex; align-items:center; padding:140px 0 90px; }
-  .hero h1{ font-size:clamp(38px,6vw,74px); max-width:940px; }
-  .hero .lead{ font-size:clamp(18px,2.2vw,23px); max-width:680px; margin-top:28px; line-height:1.55; }
-  .hero .cta-row{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; }
-  .pill{ display:inline-flex; align-items:center; gap:9px; border:1px solid var(--bd); border-radius:30px; padding:9px 18px; font-size:14px; color:var(--muted); background:rgba(255,255,255,.03); margin-bottom:26px; }
-  .pill .dot{ width:8px; height:8px; border-radius:50%; background:var(--c1); box-shadow:0 0 10px var(--c1); }
-  .hero .punch{ margin-top:22px; font-size:clamp(17px,2vw,21px); font-weight:700; color:#fff; max-width:680px; line-height:1.5; }
-  .hero .punch span{ color:var(--muted); font-weight:400; }
-  .trustbar{ margin-top:52px; display:flex; gap:30px; flex-wrap:wrap; color:var(--muted); font-size:14px; }
-  .trustbar .t{ display:flex; align-items:center; gap:9px; }
-  .trustbar svg{ width:19px; height:19px; stroke:var(--c1); fill:none; stroke-width:1.7; }
-
-  /* stats */
-  .stats{ padding:72px 0; border-top:1px solid var(--bd); border-bottom:1px solid var(--bd); background:rgba(255,255,255,.02); }
-  .stats .row{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center; }
-  .stat .num{ font-size:clamp(34px,4.5vw,52px); font-weight:800; line-height:1; }
-  .stat .lbl{ color:var(--muted); font-size:14px; margin-top:8px; }
-
-  /* enemy */
-  .enemy h2{ font-size:clamp(28px,4vw,46px); max-width:860px; }
-  .pains{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:50px; }
-  .pain{ background:var(--card); border:1px solid var(--bd); border-radius:20px; padding:30px; transition:transform .3s, border-color .3s, box-shadow .3s; }
-  .pain:hover{ transform:translateY(-6px); border-color:rgba(34,211,238,.5); box-shadow:0 18px 44px rgba(0,0,0,.4); }
-  .pain .h{ display:flex; align-items:center; gap:13px; margin-bottom:10px; }
-  .pain b{ font-size:19px; color:#fff; font-weight:700; }
-  .pain p{ color:var(--muted); font-size:15px; }
-
-  .reframe h2{ font-size:clamp(28px,4.2vw,50px); max-width:900px; }
-  .reframe .lead{ font-size:19px; max-width:680px; margin-top:20px; }
-
-  .defiance{ text-align:center; }
-  .defiance .q{ color:var(--muted2); font-style:italic; font-size:clamp(20px,2.6vw,28px); }
-  .defiance h2{ font-size:clamp(28px,4.6vw,54px); max-width:840px; margin:14px auto 0; }
-  .defiance .lead{ font-size:19px; max-width:640px; margin:20px auto 0; }
-
-  .props h2{ font-size:clamp(28px,4vw,48px); margin-bottom:60px; }
-  .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
-  .feat{ display:flex; gap:20px; align-items:flex-start; padding:8px; transition:transform .3s; }
-  .feat:hover{ transform:translateX(6px); }
-  .feat .ico{ flex:0 0 54px; width:54px; height:54px; border-radius:14px; background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(34,211,238,.16)); border:1px solid var(--bd); display:flex; align-items:center; justify-content:center; }
-  .feat h3{ font-size:23px; }
-  .feat p{ color:var(--muted); margin-top:7px; font-size:15px; }
-
-  .edge{ text-align:center; }
-  .edge h2{ font-size:clamp(28px,4.4vw,52px); max-width:800px; margin:0 auto; }
-  .edge .lead{ font-size:19px; max-width:700px; margin:20px auto 0; }
-  .edge .pull{ font-size:clamp(22px,3vw,30px); font-weight:800; margin-top:28px; }
-
-  .how h2{ font-size:clamp(28px,4vw,48px); margin-bottom:54px; }
-  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
-  .step{ background:var(--card); border:1px solid var(--bd); border-radius:18px; padding:34px; transition:transform .3s, box-shadow .3s; }
-  .step:hover{ transform:translateY(-8px); box-shadow:0 22px 54px rgba(0,0,0,.45); }
-  .step .n{ font-size:40px; font-weight:800; }
-  .step b{ font-size:20px; color:#fff; display:block; margin:14px 0 9px; font-weight:700; }
-  .step p{ color:var(--muted); font-size:15px; }
-
-  .who h2{ font-size:clamp(26px,3.8vw,44px); max-width:900px; }
-  .who-group{ margin-top:40px; }
-  .who-label{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; margin-bottom:16px; }
-  .who-label.law{ color:#fff; } .who-label.law .b{ background:linear-gradient(120deg,var(--v1),var(--v2)); color:#fff; font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; }
-  .who-label.risk{ color:var(--muted); } .who-label.risk .b{ background:rgba(255,255,255,.06); border:1px solid var(--bd); color:var(--muted); font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; }
-  .who-label .hint{ color:var(--muted2); font-weight:400; font-size:14px; }
-  .tags{ display:flex; flex-wrap:wrap; gap:13px; }
-  .tag{ background:var(--card); border:1px solid var(--bd); border-radius:30px; padding:11px 22px; font-size:15px; color:#fff; font-weight:600; transition:transform .25s, border-color .25s; }
-  .tag:hover{ transform:scale(1.05); border-color:var(--c1); }
-  .tag.hot{ border-color:rgba(34,211,238,.55); background:linear-gradient(135deg,rgba(34,211,238,.14),rgba(34,211,238,.08)); }
-
-  .offer h2{ font-size:clamp(28px,4vw,48px); margin-bottom:50px; }
-  .stack{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
-  .item{ border:1px solid var(--bd); border-radius:20px; padding:32px; background:var(--card); transition:transform .3s, border-color .3s; }
-  .item:hover{ transform:translateY(-6px); border-color:rgba(34,211,238,.5); }
-  .item .h{ display:flex; align-items:center; gap:13px; margin-bottom:11px; }
-  .item b{ font-size:20px; color:#fff; font-weight:700; }
-  .item p{ color:var(--muted); font-size:15px; }
-
-  .pricing h2{ font-size:clamp(28px,4vw,48px); margin-bottom:54px; text-align:center; }
-  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1060px; margin:0 auto; }
-  .plan{ background:var(--card); border:1px solid var(--bd); border-radius:22px; padding:44px 38px; transition:transform .3s, box-shadow .3s; }
-  .plan:hover{ transform:translateY(-8px); box-shadow:0 24px 60px rgba(0,0,0,.45); }
-  .plan.featured{ border:1px solid rgba(34,211,238,.6); position:relative; box-shadow:0 0 60px rgba(34,211,238,.14); }
-  .plan.featured::after{ content:'Рекомендуем'; position:absolute; top:-13px; right:28px; background:linear-gradient(120deg,var(--v1),var(--v2)); color:#fff; font-size:12px; font-weight:700; padding:5px 14px; border-radius:20px; }
-  .plan .name{ font-size:23px; color:#fff; font-weight:800; }
-  .plan .price{ font-size:38px; color:var(--gold); margin:16px 0 4px; font-weight:800; }
-  .plan .mo{ color:var(--muted); font-size:15px; }
-  .plan p{ color:var(--muted); font-size:15px; margin-top:18px; }
-
-  .faq h2{ font-size:clamp(28px,4vw,48px); margin-bottom:44px; text-align:center; }
-  details{ border-bottom:1px solid var(--bd); padding:24px 0; }
-  summary{ font-size:20px; color:#fff; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; font-weight:700; transition:color .2s; }
-  summary:hover{ color:var(--c1); }
-  summary::-webkit-details-marker{ display:none; }
-  summary::after{ content:'+'; color:var(--c1); font-size:28px; transition:transform .3s; font-weight:400; }
-  details[open] summary::after{ transform:rotate(45deg); }
-  details .a{ color:var(--muted); margin-top:15px; font-size:16px; max-width:800px; }
-
-  .final{ text-align:center; }
-  .final h2{ font-size:clamp(34px,6vw,64px); }
-  .final .lead{ max-width:640px; margin:22px auto 0; font-size:19px; }
-  .final .btn{ margin-top:34px; font-size:17px; padding:18px 42px; }
-  .final .micro{ color:var(--muted2); font-size:14px; margin-top:16px; }
-
-  footer{ border-top:1px solid var(--bd); padding:46px 0; text-align:center; color:var(--muted2); font-size:14px; }
-
-  /* модалка с формой заявки */
-  .modal{ position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:20px;
-    background:rgba(4,4,12,.72); backdrop-filter:blur(6px); }
-  .modal.open{ display:flex; animation:fade .25s ease; }
-  @keyframes fade{ from{ opacity:0 } to{ opacity:1 } }
-  .modal-card{ width:100%; max-width:440px; background:#0d0d1c; border:1px solid var(--bd); border-radius:22px; padding:36px 32px; position:relative;
-    box-shadow:0 30px 80px rgba(0,0,0,.6); animation:pop .3s cubic-bezier(.2,.9,.3,1.2); }
-  @keyframes pop{ from{ transform:translateY(20px) scale(.96); opacity:0 } to{ transform:none; opacity:1 } }
-  .modal-card h3{ font-size:26px; }
-  .modal-card .sub{ color:var(--muted); font-size:15px; margin-top:8px; margin-bottom:24px; }
-  .modal-card .close{ position:absolute; top:18px; right:20px; background:none; border:none; color:var(--muted2); font-size:26px; cursor:pointer; line-height:1; transition:color .2s; }
-  .modal-card .close:hover{ color:#fff; }
-  .field{ margin-bottom:14px; }
-  .field input{ width:100%; padding:14px 16px; border-radius:11px; border:1px solid var(--bd); background:rgba(255,255,255,.04); color:#fff; font-size:15px; font-family:inherit; transition:border-color .2s; }
-  .field input::placeholder{ color:var(--muted2); }
-  .field input:focus{ outline:none; border-color:var(--v1); }
-  .field input.err{ border-color:#ef4444; }
-  .modal-card .btn{ width:100%; justify-content:center; margin-top:6px; }
-  .modal-card .priv{ color:var(--muted2); font-size:12px; text-align:center; margin-top:14px; }
-  .modal-ok{ text-align:center; padding:14px 0; }
-  .modal-ok .ic{ width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--v1),var(--c1)); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:30px; }
-  .modal-ok h3{ margin-bottom:8px; } .modal-ok p{ color:var(--muted); font-size:15px; }
-
-  @media(prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } .blob{ animation:none; } * { scroll-behavior:auto; } }
-  @media(max-width:760px){
-    .pains,.stack,.plans,.grid{ grid-template-columns:1fr; }
-    .steps{ grid-template-columns:1fr; }
-    .stats .row{ grid-template-columns:repeat(2,1fr); gap:30px 14px; }
-    .stat .num{ font-size:clamp(22px,6vw,28px); white-space:nowrap; }
-    .stat .lbl{ font-size:13px; }
-    section{ padding:72px 0; }
-    .wrap{ padding:0 18px; }
-    header{ padding:14px 0; } header.scrolled{ padding:10px 0; }
-    header .btn{ padding:11px 18px; font-size:14px; }
-    .logo{ font-size:18px; } .logo .mark{ width:26px; height:26px; }
-    .hero{ padding:120px 0 70px; min-height:auto; }
-    .hero h1{ font-size:clamp(30px,8vw,42px); }
-    .hero .lead{ font-size:17px; }
-    .hero .cta-row{ flex-direction:column; align-items:stretch; }
-    .hero .cta-row .btn{ justify-content:center; }
-    .trustbar{ gap:14px 22px; margin-top:38px; }
-    .stat .num{ font-size:34px; }
-    .feat{ gap:14px; } .feat .ico{ flex-basis:46px; width:46px; height:46px; }
-    .who-label{ flex-wrap:wrap; } .who-label .hint{ flex-basis:100%; }
-    .plan{ padding:34px 26px; }
-    .modal-card{ padding:30px 22px; }
-  }
-  @media(max-width:420px){
-    .hero h1{ font-size:clamp(26px,8.5vw,34px); }
-    h2{ font-size:26px !important; }
-    .trustbar{ flex-direction:column; gap:12px; }
-  }
-</style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aletheia — AI-агентство полного цикла">
-<meta property="og:description" content="Внедряем AI и нанимаем вам AI-сотрудников: учёт, продажи, поддержка, документы. Аудит с гарантией результата.">
-<meta property="og:image" content="https://aletheia-ai.ru/og.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<title>РЕЗИДЕНТ — приватный AI для конфиденциальных документов | ALETHEIA</title>
+<meta name="description" content="РЕЗИДЕНТ работает в вашем офисе и анализирует договоры, дела и отчёты без интернета, без VPN, без облака. Документ не покидает устройство. Соответствие 152-ФЗ и адвокатской тайне, тарифы от 290 000 ₽ под ключ.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="site-inner-v3.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="РЕЗИДЕНТ — приватный AI, который не отдаёт документы наружу">
+<meta property="og:description" content="Загрузите самый секретный документ. AI разберёт его за минуты. Наружу не уйдёт ничего: без интернета, без VPN, без облака.">
+<meta property="og:image" content="https://aletheia-ai.ru/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <canvas id="nn-canvas" aria-hidden="true"></canvas>
-<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 
-<header id="hdr">
-  <div class="wrap bar">
-    <div class="logo"><span class="mark"></span>РЕЗИДЕНТ</div>
-    <a href="#" class="btn js-demo">Записаться на демо</a>
+<div class="bg-fx"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grain"></div>
+
+<nav><div class="wrap nav-in">
+  <input type="checkbox" id="nav-t" class="nav-toggle">
+  <a class="logo" href="index.html"><span class="mark"></span> Aletheia</a>
+  <div class="nav-links">
+    <a href="index.html#more">Все продукты</a>
+    <a href="#how">Как работает</a>
+    <a href="#tariffs">Тарифы</a>
   </div>
-</header>
+  <a href="https://t.me/aletheia_support_bot" class="btn">Записаться на демо</a>
+  <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
+</div></nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="wrap">
-    <div class="pill reveal"><span class="dot"></span> ALETHEIA · Приватный AI для конфиденциальных документов</div>
-    <h1 class="reveal d1">Загрузите самый секретный документ. AI разберёт его за минуты. <span class="grad-text">Наружу не уйдёт ничего.</span></h1>
-    <p class="lead reveal d2">РЕЗИДЕНТ работает в вашем офисе и анализирует договоры, дела и отчёты без интернета, без VPN, без облака. Документ не покидает устройство. Физически.</p>
-    <p class="punch reveal d2">Железо — ваше. Интернет — не нужен. Счёт за токены — не придёт. <span>Один раз поставили, дальше он просто работает.</span></p>
-    <div class="cta-row reveal d3">
-      <a href="#" class="btn js-demo">Записаться на демо</a>
-      <a href="#how" class="btn btn-ghost">Как это работает</a>
+<header class="subhero"><div class="wrap">
+  <a href="index.html" class="backlink">← Все продукты Aletheia</a>
+  <div class="eyebrow">РЕЗИДЕНТ · приватный AI для конфиденциальных документов</div>
+  <h1>Загрузите самый секретный документ. AI разберёт его за минуты. <span class="grad-text">Наружу не уйдёт ничего</span></h1>
+  <p class="lead">РЕЗИДЕНТ работает в вашем офисе и анализирует договоры, дела и отчёты без интернета, без VPN, без облака. Документ не покидает устройство. Физически.</p>
+  <p class="lead">Железо — ваше. Интернет — не нужен. Счёт за токены — не придёт. Один раз поставили, дальше он просто работает.</p>
+  <div class="tag-row">
+    <span class="tag">Соответствие 152-ФЗ</span>
+    <span class="tag">Адвокатская тайна</span>
+    <span class="tag">Полный air-gap</span>
+    <span class="tag">Демо за 15 минут</span>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Как это устроено у всех</div>
+    <h2>Каждый раз, когда вы загружаете договор в ChatGPT, он уходит на сервер OpenAI. <span class="grad-text">Навсегда</span></h2>
+    <p>Облачный AI устроен так, что ваш файл обязан покинуть вашу компанию. Дальше вы полагаетесь на обещание, которое невозможно проверить.</p>
+  </div>
+  <div class="bnfts">
+    <div class="bnft reveal"><b>Сервер в чужой стране</b><span>Вы не знаете, кто и когда прочитает то, что вы загрузили.</span></div>
+    <div class="bnft reveal"><b>Нарушение тайны и 152-ФЗ</b><span>Штраф, а следом — ушедший клиент, который доверил вам тайну.</span></div>
+    <div class="bnft reveal"><b>Только через VPN</b><span>Ваша тайна идёт ещё и через посредника, о котором вы ничего не знаете.</span></div>
+    <div class="bnft reveal"><b>Удалить нельзя</b><span>Что попало в облако, остаётся в облаке. Кнопки «забыть» там нет.</span></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="proofbox reveal">
+    <div class="eyebrow">Это не сервис</div>
+    <h2>РЕЗИДЕНТ — не подписка на чужой сервер. Это ваш AI под вашим замком</h2>
+    <p>Он стоит у вас в офисе. Включили в розетку, отрезали интернет, работаете. Данные остаются в той же комнате, где стоит устройство — не «где-то на серверах», а в трёх метрах от вас.</p>
+    <p class="proof-stats">«Да это же безопасно, все так пользуются». <b class="acc">Безопасно — это когда документ физически не покидает ваше устройство.</b> Всё остальное называется надеждой. А надежда плохо защищает коммерческую тайну в суде.</p>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Что вы получаете</div>
+    <h2>Четыре причины, по которым это <span class="grad-text">работает</span></h2>
+  </div>
+  <div class="feat-grid">
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h4>Анализ за минуты</h4><p>Загружаете том дела или папку договоров — через пару минут получаете сводку, риски и нужные пункты. Руками это часы вычитки.</p></div>
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><h4>Без утечки</h4><p>Документ остаётся на устройстве, ни один байт не уходит в сеть. Соответствие тайне и 152-ФЗ — по факту архитектуры.</p></div>
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><h4>Без VPN</h4><p>Никаких посредников и обходных путей. AI стоит у вас — гонять запрос через полмира не нужно.</p></div>
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><line x1="2" y1="2" x2="22" y2="22"/></svg></div><h4>Без интернета</h4><p>Отрезали кабель — устройство работает дальше. Снаружи в него не зайти, потому что снаружи его нет в сети.</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="twocol">
+    <div class="panel reveal">
+      <h3>Облако продаёт веру</h3>
+      <ul class="checklist">
+        <li><b>Поверьте</b>, что ваши данные никто не читает</li>
+        <li><b>Проверить</b> вы это не можете — сервер не ваш</li>
+        <li><b>Удалить</b> загруженное по-настоящему тоже не можете</li>
+        <li><b>Счёт</b> приходит каждый месяц и растёт вместе со штатом</li>
+      </ul>
     </div>
-    <div class="trustbar reveal d4">
-      <div class="t"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg> Соответствие 152-ФЗ</div>
-      <div class="t"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Адвокатская тайна</div>
-      <div class="t"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><line x1="2" y1="2" x2="22" y2="22"/></svg> Полный air-gap</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats">
-  <div class="wrap">
-    <div class="row">
-      <div class="stat reveal"><div class="num grad-text" data-count="15" data-suffix=" мин">0</div><div class="lbl">демо на вашем документе</div></div>
-      <div class="stat reveal d1"><div class="num grad-text" data-count="0" data-suffix=" утечек">0</div><div class="lbl">данные не уходят в сеть</div></div>
-      <div class="stat reveal d2"><div class="num grad-text" data-count="100" data-suffix="%">0</div><div class="lbl">соответствие 152-ФЗ</div></div>
-      <div class="stat reveal d3"><div class="num grad-text" data-count="1" data-prefix="за " data-suffix=" час">0</div><div class="lbl">внедрение в офис</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ENEMY -->
-<section class="enemy">
-  <div class="wrap">
-    <span class="eyebrow reveal">Как это устроено у всех</span>
-    <h2 class="reveal d1">Каждый раз, когда вы загружаете договор в ChatGPT, он уходит на сервер OpenAI. <span class="grad-text">Навсегда.</span></h2>
-    <div class="pains">
-      <div class="pain reveal"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M3 15a4 4 0 014-4 5 5 0 019.5-1.5A4.5 4.5 0 0119 19H7a4 4 0 01-4-4z"/></svg><b>Сервер в чужой стране</b></div><p>Вы не знаете, кто и когда прочитает то, что вы загрузили.</p></div>
-      <div class="pain reveal d1"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9l-8 14A2 2 0 004 21h16a2 2 0 001.7-3l-8-14a2 2 0 00-3.4 0z"/></svg><b>Нарушение тайны и 152-ФЗ</b></div><p>Штраф, а следом — ушедший клиент, который доверил вам тайну.</p></div>
-      <div class="pain reveal d2"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><line x1="2" y1="2" x2="22" y2="22"/></svg><b>Только через VPN</b></div><p>Ваша тайна идёт ещё и через посредника, о котором вы ничего не знаете.</p></div>
-      <div class="pain reveal d3"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m-9 0v14a2 2 0 002 2h6a2 2 0 002-2V6"/><line x1="2" y1="2" x2="22" y2="22"/></svg><b>Удалить нельзя</b></div><p>Что попало в облако, остаётся в облаке. Кнопки «забыть» там нет.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- REFRAME -->
-<section class="reframe">
-  <div class="wrap">
-    <span class="eyebrow reveal">Это не сервис</span>
-    <h2 class="reveal d1">РЕЗИДЕНТ — не подписка на чужой сервер. Это ваш AI под вашим замком.</h2>
-    <p class="lead reveal d2">Он стоит у вас в офисе. Включили в розетку, отрезали интернет, работаете. Данные остаются в той же комнате, где стоит устройство — не «где-то на серверах», а в трёх метрах от вас.</p>
-  </div>
-</section>
-
-<!-- DEFIANCE -->
-<section class="defiance">
-  <div class="wrap">
-    <p class="q reveal">«Да это же безопасно, все так пользуются»</p>
-    <h2 class="reveal d1">Безопасно — это когда документ физически не покидает ваше устройство.</h2>
-    <p class="lead reveal d2">Всё остальное называется надеждой. А надежда плохо защищает коммерческую тайну в суде.</p>
-  </div>
-</section>
-
-<!-- PROPS -->
-<section class="props">
-  <div class="wrap">
-    <span class="eyebrow reveal">Что вы получаете</span>
-    <h2 class="reveal d1">Четыре причины, по которым это работает</h2>
-    <div class="grid">
-      <div class="feat reveal"><div class="ico"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h3>Анализ за минуты</h3><p>Загружаете том дела или папку договоров — через пару минут получаете сводку, риски и нужные пункты. Руками это часы вычитки.</p></div></div>
-      <div class="feat reveal d1"><div class="ico"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><div><h3>Без утечки</h3><p>Документ остаётся на устройстве, ни один байт не уходит в сеть. Соответствие тайне и 152-ФЗ — по факту архитектуры.</p></div></div>
-      <div class="feat reveal d2"><div class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div><h3>Без VPN</h3><p>Никаких посредников и обходных путей. AI стоит у вас — гонять запрос через полмира не нужно.</p></div></div>
-      <div class="feat reveal d3"><div class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><line x1="2" y1="2" x2="22" y2="22"/></svg></div><div><h3>Без интернета</h3><p>Отрезали кабель — устройство работает дальше. Снаружи в него не зайти, потому что снаружи его нет в сети.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- EDGE -->
-<section class="edge">
-  <div class="wrap">
-    <span class="eyebrow reveal">Почему мы, а не облако</span>
-    <h2 class="reveal d1">Вам все обещают безопасность. Мы её показываем.</h2>
-    <p class="lead reveal d2">Облачный AI продаёт веру: поверьте, что ваши данные никто не читает. Проверить вы это не можете.</p>
-    <p class="lead reveal d3">Мы продаём то, что можно проверить: привезём устройство, загрузим ваш документ при вас, отрежем интернет на ваших глазах и покажем разбор. Бесплатно, за 15 минут.</p>
-    <p class="pull grad-text reveal d4">Веру оставьте конкурентам.</p>
-  </div>
-</section>
-
-<!-- ECONOMY -->
-<section class="how">
-  <div class="wrap">
-    <span class="eyebrow reveal">Экономика</span>
-    <h2 class="reveal d1">Облако выставляет счёт каждый месяц. <span class="grad-text">РЕЗИДЕНТ — один раз.</span></h2>
-    <div class="steps">
-      <div class="step reveal"><div class="n grad-text">₽0</div><b>За каждого сотрудника</b><p>Облачный AI считает места: взяли человека — счёт вырос. Здесь заводите хоть весь отдел, платы за место нет.</p></div>
-      <div class="step reveal d1"><div class="n grad-text">₽0</div><b>За каждый вопрос</b><p>Разбирайте хоть тысячу страниц в день. Счётчик токенов не тикает — считает ваше железо, а не чужой сервер.</p></div>
-      <div class="step reveal d2"><div class="n grad-text">1</div><b>Регулярный платёж</b><p>Только сопровождение. Это не «поддержка на всякий случай», а подписка на то, чтобы он оставался рабочим: свежая модель, новые документы в базе, бэкапы.</p></div>
+    <div class="panel reveal">
+      <h3>Мы показываем то, что можно проверить</h3>
+      <ul class="checklist">
+        <li><b>Привезём устройство</b> к вам в офис</li>
+        <li><b>Загрузим ваш документ</b> при вас, а не на своём стенде</li>
+        <li><b>Отрежем интернет</b> на ваших глазах и покажем разбор</li>
+        <li><b>Бесплатно, за 15 минут</b> — веру оставьте конкурентам</li>
+      </ul>
     </div>
   </div>
-</section>
+</div></section>
 
-<!-- HOW -->
-<section class="how" id="how">
-  <div class="wrap">
-    <span class="eyebrow reveal">Как это работает</span>
-    <h2 class="reveal d1">Три шага до приватного AI в офисе</h2>
-    <div class="steps">
-      <div class="step reveal"><div class="n grad-text">01</div><b>Привозим и подключаем</b><p>Устройство встаёт в вашу сеть за час. Заводим доступ каждому сотруднику, у каждого свой логин.</p></div>
-      <div class="step reveal d1"><div class="n grad-text">02</div><b>Учим на ваших документах</b><p>Договоры, шаблоны, архив. РЕЗИДЕНТ понимает вашу специфику, а не отвечает общими словами из интернета.</p></div>
-      <div class="step reveal d2"><div class="n grad-text">03</div><b>Отрезаем интернет</b><p>Дальше он работает сам, внутри офиса. Вы загружаете документ — он отвечает. Связи с внешним миром у него нет.</p></div>
+<section style="padding-top:0"><div class="wrap">
+  <div class="roi reveal">
+    <h3>Облако выставляет счёт каждый месяц. РЕЗИДЕНТ — один раз</h3>
+    <p class="rsub">Считайте за год, как при планировании: в облаке платёж растёт вместе с числом людей и вопросов, здесь — нет.</p>
+    <div class="roi-grid">
+      <div class="rcard"><div class="rh">₽0</div><div class="rv">За каждого сотрудника</div><div class="rd">Облачный AI считает места: взяли человека — счёт вырос. Здесь заводите хоть весь отдел, платы за место нет.</div></div>
+      <div class="rcard"><div class="rh">₽0</div><div class="rv">За каждый вопрос</div><div class="rd">Разбирайте хоть тысячу страниц в день. Счётчик токенов не тикает — считает ваше железо, а не чужой сервер.</div></div>
+      <div class="rcard good"><div class="rh">1</div><div class="rv">Регулярный платёж</div><div class="rd">Только сопровождение: свежая модель, новые документы в базе, бэкапы. Подписка на то, чтобы он оставался рабочим.</div></div>
     </div>
   </div>
-</section>
+</div></section>
 
-<!-- WHO -->
-<section class="who">
-  <div class="wrap">
-    <span class="eyebrow reveal">Для кого</span>
-    <h2 class="reveal d1">Если утечка документа стоит вам клиента, штрафа или статьи — это для вас.</h2>
+<section id="how" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Как это работает</div>
+    <h2>Три шага до приватного AI <span class="grad-text">в офисе</span></h2>
+  </div>
+  <div class="feat-grid">
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h4>01. Привозим и подключаем</h4><p>Устройство встаёт в вашу сеть за час. Заводим доступ каждому сотруднику, у каждого свой логин.</p></div>
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21 8 14 2 9.4h7.6z"/></svg></div><h4>02. Учим на ваших документах</h4><p>Договоры, шаблоны, архив. РЕЗИДЕНТ понимает вашу специфику, а не отвечает общими словами из интернета.</p></div>
+    <div class="feat reveal"><div class="fi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><line x1="2" y1="2" x2="22" y2="22"/></svg></div><h4>03. Отрезаем интернет</h4><p>Дальше он работает сам, внутри офиса. Вы загружаете документ — он отвечает. Связи с внешним миром у него нет.</p></div>
+  </div>
+</div></section>
 
-    <div class="who-group reveal d2">
-      <div class="who-label law"><span class="b">Обязаны по закону</span> <span class="hint">— им зарубежное облако запрещено (152-ФЗ, 187-ФЗ о КИИ, гостайна)</span></div>
-      <div class="tags">
-        <span class="tag hot">Госорганы и госконтракты</span>
-        <span class="tag hot">Банки и финансовые организации</span>
-        <span class="tag hot">Объекты КИИ (энергетика, транспорт, связь)</span>
-        <span class="tag hot">Оборонка и ВПК</span>
-        <span class="tag hot">Медицина (спецкатегория ПД)</span>
-        <span class="tag hot">Госкорпорации и импортозамещение</span>
-      </div>
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Для кого</div>
+    <h2>Если утечка документа стоит вам клиента, штрафа или статьи — это для вас</h2>
+    <p><b>Обязаны по закону</b> — им зарубежное облако запрещено: 152-ФЗ, 187-ФЗ о КИИ, гостайна.</p>
+  </div>
+  <div class="tags" style="display:flex;flex-wrap:wrap;gap:13px">
+    <span class="tag hot">Госорганы и госконтракты</span>
+    <span class="tag hot">Банки и финансовые организации</span>
+    <span class="tag hot">Объекты КИИ (энергетика, транспорт, связь)</span>
+    <span class="tag hot">Оборонка и ВПК</span>
+    <span class="tag hot">Медицина (спецкатегория ПД)</span>
+    <span class="tag hot">Госкорпорации и импортозамещение</span>
+  </div>
+  <div class="sec-head reveal" style="margin-top:44px">
+    <p><b>Критично по риску</b> — утечка означает потерю клиента, штраф и репутацию.</p>
+  </div>
+  <div class="tags" style="display:flex;flex-wrap:wrap;gap:13px">
+    <span class="tag">Юристы и адвокаты</span>
+    <span class="tag">Нотариусы</span>
+    <span class="tag">Бухгалтеры и аудиторы</span>
+    <span class="tag">Психологи и психотерапевты</span>
+    <span class="tag">Страховые компании</span>
+    <span class="tag">Патентные поверенные и R&amp;D</span>
+    <span class="tag">M&amp;A, due diligence, инвестфонды</span>
+    <span class="tag">HR и кадровые агентства</span>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Под ключ</div>
+    <h2>Что входит</h2>
+  </div>
+  <div class="twocol">
+    <div class="panel reveal">
+      <h3>Железо и модель</h3>
+      <ul class="checklist">
+        <li><b>Устройство</b> с закрытым AI-модулем нашей сборки: тихое, мощное, всегда в розетке</li>
+        <li><b>Модель под вас</b> — обучаем на ваших документах и задачах, а не отвечает шаблоном</li>
+      </ul>
     </div>
-
-    <div class="who-group reveal d3">
-      <div class="who-label risk"><span class="b">Критично по риску</span> <span class="hint">— утечка = потеря клиента, штраф, репутация</span></div>
-      <div class="tags">
-        <span class="tag">Юристы и адвокаты</span>
-        <span class="tag">Нотариусы</span>
-        <span class="tag">Бухгалтеры и аудиторы</span>
-        <span class="tag">Психологи и психотерапевты</span>
-        <span class="tag">Страховые компании</span>
-        <span class="tag">Патентные поверенные и R&D</span>
-        <span class="tag">M&A, due diligence, инвестфонды</span>
-        <span class="tag">HR и кадровые агентства</span>
-      </div>
+    <div class="panel reveal">
+      <h3>Внедрение и сопровождение</h3>
+      <ul class="checklist">
+        <li><b>Внедрение за час</b> — привозим, подключаем к сети, заводим сотрудников, учим пользоваться</li>
+        <li><b>Подписка на работоспособность</b> — обновления модели, новые документы в базу, бэкапы, разбор вопросов сотрудников</li>
+      </ul>
     </div>
   </div>
-</section>
+</div></section>
 
-<!-- OFFER -->
-<section class="offer">
-  <div class="wrap">
-    <span class="eyebrow reveal">Под ключ</span>
-    <h2 class="reveal d1">Что входит</h2>
-    <div class="stack">
-      <div class="item reveal"><div class="h"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><b>Устройство</b></div><p>Готовое устройство с закрытым AI-модулем нашей сборки. Тихое, мощное, всегда в розетке. Поставили один раз — и забыли про технику.</p></div>
-      <div class="item reveal d1"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21 8 14 2 9.4h7.6z"/></svg><b>Модель под вас</b></div><p>Обучаем AI на ваших документах и задачах. Он знает ваши договоры и вашу отрасль, а не отвечает шаблоном.</p></div>
-      <div class="item reveal d2"><div class="h"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><b>Внедрение за час</b></div><p>Привозим, подключаем к офисной сети, заводим сотрудников, показываем как пользоваться. В тот же день в работе.</p></div>
-      <div class="item reveal d3"><div class="h"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3.5"/></svg><b>Подписка на работоспособность</b></div><p>Не «поддержка на всякий случай»: обновления модели, новые документы в базу, бэкапы, разбор вопросов сотрудников. Устройство всегда свежее, голова у вас свободна.</p></div>
+<section id="tariffs" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Тарифы</div>
+    <h2>Прозрачная стоимость <span class="grad-text">под ключ</span></h2>
+    <p>Разовое внедрение + ежемесячное сопровождение. Платы за место и за запрос нет ни в одном тарифе.</p>
+  </div>
+  <div class="tiers t3">
+    <div class="tmini reveal">
+      <div class="tn">РЕЗИДЕНТ Базовый</div>
+      <div class="tp">от 290 000 ₽</div>
+      <div class="tsub">+ 15 000 ₽/мес сопровождение</div>
+      <div class="td2">До 10 сотрудников. Анализ документов, своя база знаний, мультидоступ.</div>
+    </div>
+    <div class="tmini hot reveal">
+      <div class="badge">Популярное</div>
+      <div class="tn">РЕЗИДЕНТ Бизнес</div>
+      <div class="tp">от 590 000 ₽</div>
+      <div class="tsub">+ 30 000 ₽/мес сопровождение</div>
+      <div class="td2">Большой архив, интеграции, приоритетная поддержка, расширенная модель.</div>
+    </div>
+    <div class="tmini reveal">
+      <div class="tn">РЕЗИДЕНТ Сейф</div>
+      <div class="tp">от 800 000 ₽</div>
+      <div class="tsub">+ сопровождение индивидуально</div>
+      <div class="td2">Полный air-gap, выезд инженера, отдельный защищённый контур. Под гостайну, КИИ и госконтракты, где нужен максимальный уровень изоляции.</div>
     </div>
   </div>
-</section>
+  <div class="tier-note">Точную конфигурацию и цену фиксируем после демо — под ваш объём документов и число сотрудников.</div>
+</div></section>
 
-<!-- PRICING -->
-<section class="pricing">
-  <div class="wrap">
-    <span class="eyebrow reveal" style="display:block;text-align:center">Тарифы</span>
-    <h2 class="reveal d1">Прозрачная стоимость под ключ</h2>
-    <div class="plans">
-      <div class="plan reveal"><div class="name">РЕЗИДЕНТ Базовый</div><div class="price">от 290 000 ₽</div><div class="mo">под ключ + 15 000 ₽/мес сопровождение</div><p>До 10 сотрудников. Анализ документов, своя база знаний, мультидоступ.</p></div>
-      <div class="plan featured reveal d1"><div class="name">РЕЗИДЕНТ Бизнес</div><div class="price">от 590 000 ₽</div><div class="mo">под ключ + 30 000 ₽/мес</div><p>Большой архив, интеграции, приоритетная поддержка, расширенная модель.</p></div>
-      <div class="plan reveal d2"><div class="name">РЕЗИДЕНТ Сейф</div><div class="price">от 800 000 ₽</div><div class="mo">под ключ + сопровождение индивидуально</div><p>Полный air-gap, выезд инженера, отдельный защищённый контур. Под гостайну, КИИ и госконтракты, где нужен максимальный уровень изоляции.</p></div>
-    </div>
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Вопросы</div>
+    <h2>Что обычно спрашивают</h2>
   </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq">
-  <div class="wrap">
-    <h2 class="reveal">Частые вопросы</h2>
-    <div class="reveal d1">
-    <details open><summary>Как его обновлять, если он без интернета?</summary><div class="a">Вы сами открываете короткое защищённое окно (кнопкой или ночью на 15 минут). Мы обновляем модель и добавляем документы, вы закрываете. Всё остальное время — полная изоляция. Контроль у вас, не у нас.</div></details>
-    <details><summary>А если устройство украдут?</summary><div class="a">Диск зашифрован. Без вашего ключа это бесполезная коробка — данные не достать.</div></details>
-    <details><summary>Это законно?</summary><div class="a">Да. Документы не покидают устройство, значит передачи третьим лицам нет. Соответствие коммерческой тайне и 152-ФЗ заложено в саму архитектуру.</div></details>
-    <details><summary>Что будет со счётом, когда сотрудников станет больше?</summary><div class="a">Ничего. Платы за место и за запрос у РЕЗИДЕНТА нет: вы платите за устройство и сопровождение, а не за количество людей и вопросов. В облаке каждый новый человек — плюс к ежемесячному счёту, здесь — просто ещё один логин.</div></details>
-    <details><summary>Он умнее ChatGPT?</summary><div class="a">Для анализа ваших документов — точнее: он обучен на них и не отвлекается. Для общих вопросов берите облако. РЕЗИДЕНТ сделан для работы с тайной.</div></details>
-    </div>
+  <div class="faq reveal">
+    <details class="qa"><summary>Как его обновлять, если он без интернета?</summary><p>Вы сами открываете короткое защищённое окно — кнопкой или ночью на 15 минут. Мы обновляем модель и добавляем документы, вы закрываете. Всё остальное время — полная изоляция. Контроль у вас, не у нас.</p></details>
+    <details class="qa"><summary>А если устройство украдут?</summary><p>Диск зашифрован. Без вашего ключа это бесполезная коробка — данные не достать.</p></details>
+    <details class="qa"><summary>Это законно?</summary><p>Да. Документы не покидают устройство, значит передачи третьим лицам нет. Соответствие коммерческой тайне и 152-ФЗ заложено в саму архитектуру.</p></details>
+    <details class="qa"><summary>Что будет со счётом, когда сотрудников станет больше?</summary><p>Ничего. Платы за место и за запрос у РЕЗИДЕНТА нет: вы платите за устройство и сопровождение, а не за количество людей и вопросов. В облаке каждый новый человек — плюс к ежемесячному счёту, здесь — просто ещё один логин.</p></details>
+    <details class="qa"><summary>Он умнее ChatGPT?</summary><p>Для анализа ваших документов — точнее: он обучен на них и не отвлекается. Для общих вопросов берите облако. РЕЗИДЕНТ сделан для работы с тайной.</p></details>
   </div>
-</section>
+</div></section>
 
-<!-- FINAL -->
-<section class="final" id="cta">
-  <div class="wrap">
-    <h2 class="reveal">Выйдите из <span class="grad-text">чужого облака</span></h2>
-    <p class="lead reveal d1">Покажем живое демо на вашем документе. Бесплатно, 15 минут, без обязательств. Принесёте файл — при вас отрежем интернет, при вас получите анализ. Дальше решаете сами.</p>
-    <a href="#" class="btn js-demo reveal d2">Записаться на демо</a>
-    <div class="micro reveal d2">Ответим в течение дня. Демо ни к чему не обязывает.</div>
+<section id="cta" style="padding-top:0"><div class="wrap">
+  <div class="cta-box reveal">
+    <h2>Выйдите из чужого облака</h2>
+    <p>Покажем живое демо на вашем документе. Бесплатно, 15 минут, без обязательств. Принесёте файл — при вас отрежем интернет, при вас получите анализ. Дальше решаете сами.</p>
+    <a href="https://t.me/aletheia_support_bot" class="btn">Записаться на демо</a>
   </div>
-</section>
+</div></section>
 
-<footer>ALETHEIA · РЕЗИДЕНТ · Приватный AI для бизнеса · 2026<br><a href="oferta.html" style="color:inherit">Оферта</a> · <a href="privacy.html" style="color:inherit">Политика конфиденциальности</a><br><a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener" style="color:inherit">Instagram: @aletheia_ai</a></footer>
-
-<!-- МОДАЛКА ЗАЯВКИ -->
-<div class="modal" id="demoModal">
-  <div class="modal-card">
-    <button class="close" id="modalClose" aria-label="Закрыть">&times;</button>
-    <div id="modalForm">
-      <h3>Записаться на демо</h3>
-      <p class="sub">Покажем разбор на вашем документе. Бесплатно, 15 минут. Оставьте контакты — свяжемся в течение дня.</p>
-      <form id="demoForm" action="https://formsubmit.co/ajax/4b3161726d7d10b677bca885c62c8395" method="POST">
-        <input type="hidden" name="_subject" value="Заявка на демо РЕЗИДЕНТ">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <div class="field"><input type="text" name="Имя" placeholder="Ваше имя" required></div>
-        <div class="field"><input type="email" name="Email" placeholder="Email" required></div>
-        <div class="field"><input type="tel" name="Телефон" placeholder="Телефон" required></div>
-        <button type="submit" class="btn" id="demoSubmit">Отправить заявку</button>
-        <div class="priv">Нажимая кнопку, вы соглашаетесь на обработку данных. Мы не передаём их третьим лицам.</div>
-      </form>
-    </div>
-    <div class="modal-ok" id="modalOk" style="display:none">
-      <div class="ic">✓</div>
-      <h3>Заявка отправлена</h3>
-      <p>Спасибо! Свяжемся с вами в течение дня и договоримся о демо.</p>
-    </div>
-  </div>
-</div>
+<footer><div class="wrap">
+  <a class="logo" href="index.html"><span class="mark"></span> Aletheia</a>
+  <div>ALETHEIA — от греч. ἀλήθεια, «истина». AI, который показывает, как есть.</div>
+  <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener">@aletheia_ai</a></div>
+  <div class="fl">© 2026 Aletheia · <a href="audit.html">AI-аудит</a> · <a href="security.html">Безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
+  <div class="fl"><a href="oferta.html">Публичная оферта</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
+  <div class="fl freq">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</div>
+</div></footer>
 
 <script>
-  const hdr=document.getElementById('hdr');
-  addEventListener('scroll',()=>{ hdr.classList.toggle('scrolled', scrollY>40); }, {passive:true});
-  const io=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:.14});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  const cio=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(!e.isIntersecting) return; const el=e.target; const to=+el.dataset.count; const pre=el.dataset.prefix||''; const suf=el.dataset.suffix||''; let cur=0; const step=Math.max(1,Math.ceil(to/40)); const t=setInterval(()=>{ cur+=step; if(cur>=to){cur=to;clearInterval(t);} el.textContent=pre+cur+suf; },28); cio.unobserve(el); }); }, {threshold:.5});
-  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
-
-  // модалка заявки
-  const modal=document.getElementById('demoModal');
-  const openModal=(e)=>{ if(e) e.preventDefault(); modal.classList.add('open'); document.body.style.overflow='hidden'; };
-  const closeModal=()=>{ modal.classList.remove('open'); document.body.style.overflow=''; };
-  document.querySelectorAll('.js-demo').forEach(b=>b.addEventListener('click', openModal));
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
-  addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
-
-  // отправка формы (formsubmit ajax → email Сергею, без бэкенда)
-  const form=document.getElementById('demoForm');
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const btn=document.getElementById('demoSubmit');
-    let ok=true;
-    form.querySelectorAll('input[required]').forEach(i=>{ if(!i.value.trim()){ i.classList.add('err'); ok=false; } else i.classList.remove('err'); });
-    if(!ok) return;
-    btn.textContent='Отправляем…'; btn.style.opacity=.7;
-    try{
-      const res=await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
-      if(res.ok){ document.getElementById('modalForm').style.display='none'; document.getElementById('modalOk').style.display='block'; }
-      else throw new Error('fail');
-    }catch(err){
-      btn.textContent='Отправить заявку'; btn.style.opacity=1;
-      alert('Не удалось отправить. Напишите нам напрямую или попробуйте ещё раз.');
-    }
-  });
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
 </script>
+<div class="m-cta"><a href="https://t.me/aletheia_support_bot" class="btn">Записаться на демо</a></div>
 <script src="nn-bg.js"></script>
 </body>
 </html>

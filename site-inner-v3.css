@@ -29,10 +29,10 @@ section{padding:clamp(4rem,9vw,7rem) 0}
 /* ---------- фон: тот же графит, что на главной, без фиолетовой дымки ---------- */
 .bg-fx{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
 .blob,.blobs,.grain{display:none}
-/* РЕЗИДЕНТ рисует фон через body::before своим инлайновым стилем */
+/* 13.08: РЕЗИДЕНТ переписан на общий каркас v3 — своего инлайнового фона и
+   своей шапки у него больше нет, правила ниже держались только ради него.
+   Оставлен лишь body::before: на случай, если старая разметка где-то всплывёт. */
 body::before{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
-/* его же шапка и заголовки — под тот же язык */
-header.scrolled{background:rgba(6,6,13,.72);border-bottom:1px solid var(--bd)}
 .eyebrow{color:var(--muted2);font-weight:500;letter-spacing:.01em;font-size:15px;
   text-transform:none;font-family:var(--font-body)}
 
@@ -167,3 +167,7 @@ footer a:hover{color:#22d3ee}
    position:fixed холст встаёт обычным блоком в поток и раздвигает страницу. */
 #nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.85}
 body::before{z-index:-3}
+
+/* Якорные переходы: шапка липкая, без отступа заголовок секции уезжает под неё.
+   Ловится только при клике по «Тарифы»/«Как работает» в меню. */
+section[id],header[id]{scroll-margin-top:96px}
