@@ -46,7 +46,9 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
 
 /* ---------- фон: ровно два слоя вместо четырёх ---------- */
-#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.5}
+/* 13.08: было .5 — точки едва читались. Сергей: «ярче и в большем количестве».
+   Плотность и альфы подняты в nn-bg.js, здесь снят общий приглушитель холста. */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.85}
 /* линза только под первым экраном — держит контраст заголовка */
 .veil{position:fixed;top:0;left:0;right:0;height:105vh;z-index:-1;pointer-events:none;
   background:radial-gradient(72% 52% at 50% 34%,rgba(6,6,13,.72),rgba(6,6,13,.34) 58%,transparent 86%)}

@@ -158,3 +158,12 @@ footer a:hover{color:#22d3ee}
 @media(prefers-reduced-motion:reduce){
   .btn:hover{transform:none}
 }
+
+/* ---------- ЖИВОЙ ФОН НА ВНУТРЕННИХ (13.08, просьба Сергея) ----------
+   Холст объявлен в site.css с z-index:-2; здесь только прозрачность,
+   как на главной. РЕЗИДЕНТ красит фон своим body::before на том же -2 —
+   уводим его глубже, иначе он закрывает точки. */
+/* Правило полное, а не только opacity: РЕЗИДЕНТ не подключает site.css, и без
+   position:fixed холст встаёт обычным блоком в поток и раздвигает страницу. */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.85}
+body::before{z-index:-3}
