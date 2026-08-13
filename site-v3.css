@@ -103,16 +103,10 @@ a{color:inherit;text-decoration:none}
   transform:translate3d(var(--px),calc(-50% + var(--py)),0);
   transition:transform .6s cubic-bezier(.16,1,.3,1);
   will-change:transform}
-/* Подложка и живая сфера лежат друг на друге и меняются кроссфейдом: пока код не
-   отрисовал первый кадр, виден статичный кадр той же сферы, поэтому пустоты нет. */
-.hero-visual img,.hero-visual canvas{position:absolute;inset:0}
-.hero-visual canvas{opacity:0;transition:opacity .8s var(--ease)}
-.hero-visual.live canvas{opacity:1}
-.hero-visual.live img{opacity:0;transition:opacity .8s var(--ease)}
-.hero-visual img,.hero-visual video,.hero-visual canvas{width:100%;height:100%;object-fit:cover;display:block;
+.hero-visual img,.hero-visual video{width:100%;height:100%;object-fit:cover;display:block;
   background:#06060d;
-  /* Анимация «дыхания» снята 13.08: она осталась от статичного кристалла, а видео
-     двигается само. Наложение двух движений на телефоне читалось как дрожь кадра. */
+  /* период равен длине лупа: иначе два движения расходятся фазой и кристалл «плавает» */
+  animation:crystal-float 10.08s ease-in-out infinite;
   /* Растворяем ВСЕ края, а не только левый: иначе виден прямоугольник картинки.
      Эллипс гасит верх, низ и правый край, линейка добавляет уход в текстовую зону. */
   -webkit-mask-image:radial-gradient(closest-side ellipse at 50% 50%,#000 46%,rgba(0,0,0,.5) 72%,transparent 98%),
@@ -142,9 +136,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   max-width:min(100%,15ch);
   font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
-  letter-spacing:-.028em;                /* выше пола -.04em, буквы не слипаются */
-  /* 13.08: было 800 — Сергей: «очень жирный». У Unbounded 800 это плакатный вес,
-     на крупном кегле он давит. 500 даёт тот же характер, но дышит. */
+  letter-spacing:-.032em;                /* выше пола -.04em, буквы не слипаются */
   font-weight:500;
   text-wrap:balance;
 }
@@ -179,7 +171,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   /* та же ловушка, что была в h1: ch должен считаться по размеру самого заголовка */
   max-width:min(100%,22ch);
   font-size:clamp(1.55rem,3.1vw,2.4rem);line-height:1.14;letter-spacing:-.022em;
-  font-weight:500;text-wrap:balance}
+  font-weight:800;text-wrap:balance}
 .flagship .flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
 
 /* строки ролей: hairline-разделители, без рамок и плашек */
@@ -353,12 +345,10 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
     /* 13.08: было 142% — камень раздувался и обрезался краями экрана, читался
        как абстрактная текстура, а не как кристалл. Сузили до ~112%: силуэт
        узнаётся целиком, маска по-прежнему растворяет края в фон. */
-    /* 13.08 вечер: планета в исходном кадре стоит правее середины, поэтому
-       контейнер сдвинут влево — иначе её правый бок срезает край экрана. */
-    top:-1%;left:21%;right:auto;
-    width:120%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.95;
+    top:-1%;left:50%;right:auto;
+    width:112%;max-width:none;aspect-ratio:16/9;max-height:none;opacity:.92;
     transform:translate3d(calc(-50% + var(--px)),var(--py),0)}
-  .hero-visual img,.hero-visual video,.hero-visual canvas{
+  .hero-visual img,.hero-visual video{
     /* Одна радиальная маска вместо двухслойной десктопной: гасит верх, низ и оба
        бока по эллипсу, поэтому кристалл растворяется в фоне без единого стыка. */
     -webkit-mask-image:radial-gradient(closest-side ellipse at 50% 50%,
@@ -402,7 +392,7 @@ h1,h2,h3,.brand,.btn{font-family:var(--font-head)}
   /* Полный покой: ни дыхания, ни параллакса, ни пульса свечения.
      Видео снимает скрипт, здесь гасим всё остальное движение. */
   .hero-visual{transition:none;transform:translate3d(0,-50%,0)}
-  .hero-visual img,.hero-visual video,.hero-visual canvas{animation:none;transition:none}
+  .hero-visual img,.hero-visual video{animation:none;transition:none}
   .hero-visual::after{animation:none}
 }
 @media(prefers-reduced-motion:reduce) and (max-width:900px){
