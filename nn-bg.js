@@ -1,13 +1,16 @@
-/* Живая нейросеть — фон всего сайта и ДНК бренда.
-   13.08: вынесено из index.html в общий файл, чтобы тот же фон жил на всех
-   страницах, а не только на главной (просьба Сергея).
+/* Живой фон — сеть AI-сотрудников. Общий для всех страниц сайта.
    Ничего не прячет и ни на что не влияет: если скрипт не выполнится,
-   страница остаётся полностью читаемой. Единой точки отказа здесь нет.
+   страница остаётся полностью читаемой.
 
-   Плотность и яркость: Сергей 13.08 — «точки ярче и в большем количестве».
-   Делитель площади уменьшен вдвое (24000 → 12000), потолок 120 → 170,
-   альфы узлов, ореолов и связей подняты. Прозрачность самого холста
-   задаётся в CSS (#nn-canvas), там же поднято с .5 до .85. */
+   13.08, Сергей: «выглядит как созвездия, а не как агенты». Так и было —
+   точки соединялись по принципу «кто рядом», а это ровно алгоритм звёздного
+   неба. Смысла в картинке ноль. Здесь структура другая и повторяет то, что
+   мы продаём: ОРКЕСТРАТОР, вокруг него на орбите свои АГЕНТЫ, между
+   оркестраторами — магистраль, по связям бегут ПАКЕТЫ данных.
+   Связи рисуются только по этой топологии, случайных линий «по близости» нет.
+
+   13.08, он же: «движений мало» — скорость орбит, дрейфа и частота пакетов
+   подняты, мерцание узлов ускорено. */
 (function(){
   var cv=document.getElementById('nn-canvas');
   if(!cv){                                  // на внутренних страницах холста в разметке может не быть
@@ -16,70 +19,143 @@
     document.body.insertBefore(cv,document.body.firstChild);
   }
   const ctx=cv.getContext('2d'); if(!ctx) return;
-  let W,H,DPR,nodes=[],pulses=[],mouse={x:-9999,y:-9999,active:false},raf;
+  let W,H,DPR,hubs=[],packets=[],mouse={x:-9999,y:-9999,active:false},raf,last=0;
   let ACC=[34,211,238]; const DIM=[109,94,252];
-  let densityK=1, glowK=1;   // ручки панели Tweaks
+  let densityK=1, glowK=1;                  // ручки панели Tweaks
   const hex2rgb=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');
     return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
   window.__nnAccent=h=>{ACC=hex2rgb(h);build();};
   window.__nnDensity=k=>{densityK=k;build();};
   window.__nnGlow=k=>{glowK=k;};
-  const mix=(a,b,t)=>[Math.round(a[0]+(b[0]-a[0])*t),Math.round(a[1]+(b[1]-a[1])*t),Math.round(a[2]+(b[2]-a[2])*t)];
   const rgba=(c,a)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  const rnd=(a,b)=>a+Math.random()*(b-a);
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
   function build(){
-    /* Плотность считается от площади экрана. У телефона площадь в 4 раза меньше
-       десктопной, и на общем делителе выходило ~27 точек на весь экран — пусто.
-       Сергей смотрит с телефона, поэтому для узких экранов делитель мельче. */
-    const div = W<700 ? 7000 : 12000;
-    const count=Math.round(Math.min(170,Math.max(10,((W*H)/div)*densityK)));
-    nodes=[];
-    for(let i=0;i<count;i++){
-      const hub=Math.random()<0.14;
-      nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*0.16,vy:(Math.random()-.5)*0.16,
-        r:hub?(2.2+Math.random()*1.3):(0.9+Math.random()*1),hub,
-        col:Math.random()<.62?ACC:DIM,ph:Math.random()*Math.PI*2});
+    /* Оркестраторов немного — иначе каша. У телефона площадь вчетверо меньше,
+       поэтому делитель для узких экранов мельче, иначе на экране один узел. */
+    const div = W<700 ? 105000 : 190000;
+    const n = Math.round(Math.min(9, Math.max(3, (W*H/div)*densityK)));
+    hubs=[];
+    for(let i=0;i<n;i++){
+      const hub={
+        x:rnd(W*.1,W*.9), y:rnd(H*.1,H*.9),
+        vx:rnd(-.22,.22), vy:rnd(-.18,.18),      // дрейф самого оркестратора
+        r:rnd(3.2,4.4), ph:Math.random()*Math.PI*2,
+        col:i%3===2?DIM:ACC, agents:[]
+      };
+      const count=Math.round(rnd(5,9)*densityK);
+      const orbit=rnd(64,130);
+      for(let k=0;k<count;k++){
+        hub.agents.push({
+          a:Math.random()*Math.PI*2,                    // угол на орбите
+          sp:rnd(0.00022,0.00055)*(Math.random()<.5?-1:1), // рад/мс, знак = направление
+          rad:orbit*rnd(.62,1.25),
+          size:rnd(2.2,3.4), ph:Math.random()*Math.PI*2,
+          col:Math.random()<.72?hub.col:(hub.col===ACC?DIM:ACC)
+        });
+      }
+      hubs.push(hub);
     }
+    packets=[];
   }
   function resize(){
     DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
     cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';
     ctx.setTransform(DPR,0,0,DPR,0,0);build();
   }
-  const LINK=155;
-  function step(t){
-    ctx.clearRect(0,0,W,H);
-    for(const n of nodes){
-      n.x+=n.vx;n.y+=n.vy;
-      if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
-      if(mouse.active){const dx=mouse.x-n.x,dy=mouse.y-n.y,d=Math.hypot(dx,dy);if(d<170){n.x+=dx/d*0.5;n.y+=dy/d*0.5;}}
+  /* Позиция агента считается каждый кадр — храним только угол, так орбита
+     остаётся ровной и не накапливает ошибку. */
+  function agentXY(hub,ag){
+    return {x:hub.x+Math.cos(ag.a)*ag.rad, y:hub.y+Math.sin(ag.a)*ag.rad*0.58}; // сплюснуто — читается как орбита, а не как круг
+  }
+  function diamond(x,y,s,fill){
+    ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);
+    ctx.fillStyle=fill;ctx.fillRect(-s/2,-s/2,s,s);ctx.restore();
+  }
+  function spawnPacket(){
+    if(!hubs.length) return;
+    const hub=hubs[(Math.random()*hubs.length)|0];
+    if(Math.random()<.28 && hubs.length>1){           // магистраль между оркестраторами
+      let other=hubs[(Math.random()*hubs.length)|0];
+      if(other===hub) return;
+      packets.push({type:'trunk',a:hub,b:other,t:0,sp:rnd(.006,.013),col:ACC});
+    }else{                                            // задача оркестратор → агент и обратно
+      if(!hub.agents.length) return;
+      const ag=hub.agents[(Math.random()*hub.agents.length)|0];
+      packets.push({type:'spoke',hub,ag,t:0,sp:rnd(.012,.026),
+        back:Math.random()<.5,col:ag.col});
     }
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
-        if(d<LINK){const al=1-d/LINK,c=mix(a.col,b.col,.5);
-          /* Сергей просил ярче ТОЧКИ. Связи при выросшей плотности сами по себе
-             дают сетку гуще, поэтому их альфу держим тише исходной — иначе
-             паутина ложится поверх текста карточек и мешает читать. */
-          ctx.strokeStyle=rgba(c,al*0.26*glowK);ctx.lineWidth=al*1.05+0.25;
-          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+  }
+  function step(t){
+    const dt=last?Math.min(t-last,50):16; last=t;
+    ctx.clearRect(0,0,W,H);
+
+    for(const hub of hubs){
+      hub.x+=hub.vx*dt/16; hub.y+=hub.vy*dt/16;
+      const m=140;
+      if(hub.x<-m||hub.x>W+m)hub.vx*=-1;
+      if(hub.y<-m||hub.y>H+m)hub.vy*=-1;
+      if(mouse.active){                               // курсор чуть притягивает узел — интерактив был и остаётся
+        const dx=mouse.x-hub.x,dy=mouse.y-hub.y,d=Math.hypot(dx,dy);
+        if(d<220&&d>1){hub.x+=dx/d*0.6;hub.y+=dy/d*0.6;}
+      }
+      for(const ag of hub.agents) ag.a+=ag.sp*dt;
+    }
+
+    // магистраль между оркестраторами — рисуется первой, лежит глубже
+    for(let i=0;i<hubs.length;i++){
+      for(let j=i+1;j<hubs.length;j++){
+        const a=hubs[i],b=hubs[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<Math.max(W,H)*0.62){
+          ctx.strokeStyle=rgba(ACC,0.10*glowK);ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        }
       }
     }
-    for(const n of nodes){
-      const glow=(0.6+0.4*Math.sin(t*0.0015+n.ph))*glowK;
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r+(n.hub?5:2.6),0,7);ctx.fillStyle=rgba(n.col,(n.hub?0.22:0.15)*glow);ctx.fill();
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,7);ctx.fillStyle=rgba(n.hub?[255,255,255]:n.col,(n.hub?1:.88)*glow);ctx.fill();
+    // спицы оркестратор → агент
+    for(const hub of hubs){
+      for(const ag of hub.agents){
+        const p=agentXY(hub,ag);
+        ctx.strokeStyle=rgba(ag.col,0.20*glowK);ctx.lineWidth=.9;
+        ctx.beginPath();ctx.moveTo(hub.x,hub.y);ctx.lineTo(p.x,p.y);ctx.stroke();
+      }
     }
-    if(Math.random()<0.05&&nodes.length>2){
-      const a=nodes[(Math.random()*nodes.length)|0];let best=null,bd=1e9;
-      for(const b of nodes){if(b===a)continue;const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<LINK&&d<bd){bd=d;best=b;}}
-      if(best)pulses.push({a,b:best,t:0,sp:0.011+Math.random()*0.016});
+    // агенты
+    for(const hub of hubs){
+      for(const ag of hub.agents){
+        const p=agentXY(hub,ag);
+        const tw=(0.62+0.38*Math.sin(t*0.0032+ag.ph))*glowK;
+        ctx.beginPath();ctx.arc(p.x,p.y,ag.size+3.2,0,7);
+        ctx.fillStyle=rgba(ag.col,0.14*tw);ctx.fill();
+        diamond(p.x,p.y,ag.size*1.7,rgba(ag.col,0.92*tw));
+      }
     }
-    for(let k=pulses.length-1;k>=0;k--){
-      const p=pulses[k];p.t+=p.sp;if(p.t>=1){pulses.splice(k,1);continue;}
-      const x=p.a.x+(p.b.x-p.a.x)*p.t,y=p.a.y+(p.b.y-p.a.y)*p.t;
-      ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fillStyle=rgba(ACC,.12);ctx.fill();
-      ctx.beginPath();ctx.arc(x,y,1.8,0,7);ctx.fillStyle=rgba(ACC,.95);ctx.fill();
+    // оркестраторы — кольцо + белое ядро, читаются как центры, а не как звёзды
+    for(const hub of hubs){
+      const tw=(0.7+0.3*Math.sin(t*0.0022+hub.ph))*glowK;
+      ctx.beginPath();ctx.arc(hub.x,hub.y,hub.r+9,0,7);
+      ctx.fillStyle=rgba(hub.col,0.10*tw);ctx.fill();
+      ctx.strokeStyle=rgba(hub.col,0.5*tw);ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.arc(hub.x,hub.y,hub.r+5,0,7);ctx.stroke();
+      ctx.beginPath();ctx.arc(hub.x,hub.y,hub.r,0,7);
+      ctx.fillStyle=rgba([255,255,255],0.95*tw);ctx.fill();
+    }
+
+    // пакеты данных
+    if(Math.random()<0.22) spawnPacket();
+    for(let k=packets.length-1;k>=0;k--){
+      const p=packets[k];p.t+=p.sp*dt/16;
+      if(p.t>=1){packets.splice(k,1);continue;}
+      let x,y;
+      if(p.type==='trunk'){
+        x=p.a.x+(p.b.x-p.a.x)*p.t; y=p.a.y+(p.b.y-p.a.y)*p.t;
+      }else{
+        const e=agentXY(p.hub,p.ag), tt=p.back?1-p.t:p.t;
+        x=p.hub.x+(e.x-p.hub.x)*tt; y=p.hub.y+(e.y-p.hub.y)*tt;
+      }
+      ctx.beginPath();ctx.arc(x,y,4.6,0,7);ctx.fillStyle=rgba(p.col,.12);ctx.fill();
+      diamond(x,y,3.4,rgba(p.col,.98));
     }
     raf=requestAnimationFrame(step);
   }
