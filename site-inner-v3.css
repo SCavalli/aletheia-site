@@ -108,6 +108,9 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 .tmini .badge,.badge{background:#22d3ee;color:#04121a;font-weight:800;font-size:11px;
   letter-spacing:.02em;border-radius:0 16px 0 12px}
 .tier-note,.audit-note,.rnote,.micro,.hint{color:var(--muted2);font-size:14.5px}
+/* Оговорка под тарифами стала абзацем, а не строкой: центрированный текст в четыре
+   строки на всю ширину не читается — держим узкую меру и выравнивание по левому краю. */
+.tier-note{max-width:76ch;margin-inline:0;text-align:left;line-height:1.65;text-wrap:pretty}
 
 /* Блоки с фиолетовой заливкой в старом стиле: тот же приём, что и у карточек —
    волосяная линия и лёгкий цианистый подсвет вместо сиреневого градиента. */
