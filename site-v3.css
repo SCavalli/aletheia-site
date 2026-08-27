@@ -447,3 +447,52 @@ h2{max-width:min(100%,22ch);
 .lead-form .micro,.lead-ok,.lead-fail{color:var(--muted-dim);font-size:14.5px}
 .lead-ok,.lead-fail{margin-top:14px}
 .lead-ok b{color:var(--accent)}
+
+/* ---------- ЦЕНЫ ----------
+   Ритм строк, а не карточек: карточки-клоны из системы выведены осознанно, и на
+   agents.html прайс уже стоит карточками — главная не должна её дублировать.
+   Цена набрана дисплейной семьёй: это единственное место, где число важнее слова. */
+.pricing{padding:var(--gap-xl) 0;border-top:1px solid var(--hair);scroll-margin-top:84px}
+.pricing h2{max-width:20ch}
+.price-lede{margin-top:var(--gap-s);color:var(--muted);max-width:60ch;text-wrap:pretty}
+
+.tiers-list{margin-top:var(--gap-l)}
+.tier{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,17rem) minmax(0,1fr);
+  gap:var(--gap-s) var(--gap-m);align-items:baseline;
+  padding:clamp(1.4rem,3vw,2.1rem) 0;border-bottom:1px solid var(--hair);
+  transition:transform .4s var(--ease)}
+.tier:hover{transform:translateX(12px)}
+.tier dt{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:500;letter-spacing:-.015em}
+.tier .mark-dot{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);margin-right:12px;vertical-align:middle;opacity:0;
+  transition:opacity .35s var(--ease)}
+.tier:hover .mark-dot{opacity:1}
+.tier-price{font-family:var(--font-head);font-weight:300;
+  font-size:clamp(1.1rem,1.8vw,1.32rem);letter-spacing:-.02em;line-height:1.3}
+.tier-price span{display:block;margin-top:6px;font-family:var(--font-body);
+  font-size:15px;font-weight:400;color:var(--muted);letter-spacing:0}
+.tier-desc{color:var(--muted);max-width:52ch;font-size:16px;text-wrap:pretty}
+
+/* Вход в воронку. Единственный акцентный контур на секции — здесь принимают решение. */
+.price-entry{margin-top:var(--gap-l);display:grid;
+  grid-template-columns:minmax(0,1fr) auto;gap:var(--gap-m);align-items:center;
+  padding:clamp(1.6rem,3vw,2.4rem);background:rgba(34,211,238,.05);
+  box-shadow:inset 0 0 0 1px var(--hair-strong)}
+.pe-price{font-family:var(--font-head);font-weight:400;
+  font-size:clamp(1.4rem,2.6vw,1.9rem);letter-spacing:-.025em}
+.pe-desc{margin-top:10px;color:var(--muted);max-width:56ch;font-size:16px;text-wrap:pretty}
+.pe-act{display:flex;flex-direction:column;gap:12px}
+
+.price-note{margin-top:var(--gap-m);color:var(--muted-dim);font-size:15px;max-width:70ch;
+  text-wrap:pretty}
+.price-note a{color:var(--accent);text-decoration:none;white-space:nowrap}
+.price-note a:hover{text-decoration:underline}
+
+@media(max-width:900px){
+  .tier{grid-template-columns:1fr;gap:8px}
+  /* Ховера на телефоне не существует, а отступ от невидимой точки сдвигал название вправо. */
+  .tier .mark-dot{display:none}
+  .tier-desc{font-size:15px}
+  .price-entry{grid-template-columns:1fr}
+  .pe-act{flex-direction:row;flex-wrap:wrap}
+}
