@@ -161,6 +161,16 @@ h2{max-width:min(100%,22ch);
 .hero .lede{margin-top:var(--gap-m);max-width:min(48ch,52%);font-size:clamp(1.1rem,1.8vw,1.35rem);
   color:var(--muted);line-height:1.58;font-weight:400;text-wrap:pretty}
 .hero .actions{margin-top:clamp(1.6rem,3.2vh,2.4rem);display:flex;gap:14px;flex-wrap:wrap}
+/* Панч-отстройка: тот же кегль, что у лида, но светлее по цвету — это удар,
+   а не пояснение. Отделён воздухом, чтобы читался отдельной мыслью. */
+.hero .lede-punch{margin-top:clamp(1rem,2.2vh,1.5rem);color:var(--fg);font-weight:500}
+/* Микрокопия под кнопкой: снимает три возражения разом (деньги, канал, время). */
+.cta-note{margin-top:.9rem;font-size:14px;color:var(--muted-dim);letter-spacing:.01em}
+/* Охват ниш: снимает возражение «а у меня бизнес другой», но НЕ спорит с хуком —
+   мельче лида, тише по цвету, одной строкой. Секции для этого сознательно не делаем. */
+.hero-scope{margin-top:.8rem;font-size:14px;color:var(--muted-dim);max-width:min(52ch,50%);line-height:1.5;text-wrap:balance}
+
+
 /* Доказательство, а не сноска: тот же вес, что у лида, только тише по цвету.
    Раньше жило 15-м кеглем самым тусклым цветом под кнопками — читалось как дисклеймер. */
 .hero-proof{margin-top:clamp(1.4rem,3vh,2rem);font-size:17px;color:var(--muted);
@@ -393,16 +403,23 @@ h2{max-width:min(100%,22ch);
   .hero{align-items:flex-end;padding-top:clamp(9rem,30vh,14rem)}
   .hero .lede{max-width:min(60ch,100%);font-size:1.05rem}
   .hero-proof{max-width:100%;font-size:16px}
+  .hero-scope{max-width:min(60ch,100%)}
+  .hero .lede-punch{max-width:min(60ch,100%)}
   .hero h1{max-width:100%}
 }
 @media(max-width:520px){
-  .hero{padding-top:clamp(8rem,26vh,12rem)}
+  .hero{padding-top:clamp(5.5rem,17vh,8rem)}
+  .hero .lede{margin-top:.9rem}
+  .hero .lede-punch{margin-top:.75rem}
+  .hero-proof{margin-top:.75rem}
+  .hero-scope{margin-top:.6rem}
+  .hero .actions{margin-top:1.1rem}
   /* 13.08: было 158% (камень обрезан краями). 124% — узкий экран, силуэт целиком. */
   /* opacity держим 1: приглушала именно эта строка — она перебивала правило
      блока 900px, поэтому на телефоне планета оставалась в дымке. */
   .hero-visual{width:124%;opacity:1}
   .hero .actions{gap:10px}
-  .scroll-hint{margin-top:clamp(.8rem,2vh,1.4rem)}
+  .scroll-hint{margin-top:clamp(.6rem,1.4vh,1rem)}
 }
 /* Низкие экраны — бюджетные Android 360×640 и айфоны в ландшафте.
    Единственный критерий здесь: главная кнопка и строка-доказательство обязаны
@@ -413,6 +430,9 @@ h2{max-width:min(100%,22ch);
   .hero h1{font-size:clamp(1.7rem,7.4vw,2.15rem)}
   .hero .lede{margin-top:1.1rem;font-size:1rem;line-height:1.5}
   .hero-proof{margin-top:.9rem;font-size:15px}
+  .hero .lede-punch{margin-top:.9rem}
+  .cta-note{font-size:13px;margin-top:.75rem}
+  .hero-scope{font-size:13px;margin-top:.7rem}
   .hero .actions{margin-top:1.1rem}
   .scroll-hint{margin-top:1rem}
 }
