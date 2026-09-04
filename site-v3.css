@@ -71,10 +71,14 @@ a{color:inherit;text-decoration:none}
 .btn{max-width:100%;text-align:center}
 @media(max-width:520px){
   .nav-in{height:64px;gap:12px}
-  .nav .btn{padding:10px 14px;font-size:13px}
+  .nav .btn{padding:12px 14px;font-size:13px} /* 04.09: высота ≥44px под палец */
   .brand{font-size:14px;letter-spacing:.06em;gap:8px}
   .brand .mark{width:10px;height:10px}
 }
+
+/* якоря не должны прятаться под sticky-шапку при переходе по #hash-ссылкам */
+section[id],[id^="tw-"]{scroll-margin-top:96px}
+@media(max-width:900px){section[id],[id^="tw-"]{scroll-margin-top:80px}}
 
 /* ---------- кнопки: одна форма на весь сайт ---------- */
 .btn{display:inline-flex;align-items:center;gap:10px;
@@ -217,6 +221,7 @@ h2{max-width:min(100%,22ch);
 @media(max-width:760px){
   .role{grid-template-columns:1fr;gap:6px}
   .role dd{font-size:16px}
+  .role .mark-dot{display:none} /* 04.09: точка сдвигала заголовки роли на 18px относительно текста */
 }
 
 .flag-foot{margin-top:var(--gap-l);display:flex;align-items:center;gap:var(--gap-m);flex-wrap:wrap}

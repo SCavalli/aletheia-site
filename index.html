@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="site-v3.css">
 <!-- Постер планеты тянем первым приоритетом: он держит первый экран,
      пока грузится видео. Пустого места быть не должно ни секунды. -->
-<link rel="preload" as="image" href="assets/globe-poster.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/globe-poster.webp" fetchpriority="high">
 </head>
 <body>
 
@@ -64,8 +64,8 @@
       <!-- Постер — кадр 0 этого же ролика, поэтому подмены глазом не видно.
            Он виден сразу и остаётся при любом сбое: нет автоплея, экономия трафика,
            отключено движение, не догрузилось видео. Пустоты не бывает никогда. -->
-      <video class="globe" poster="assets/globe-poster.jpg"
-             autoplay muted loop playsinline preload="auto"
+      <video class="globe" poster="assets/globe-poster.webp"
+             autoplay muted loop playsinline preload="metadata"
              width="1920" height="1080">
         <!-- 1080p, потому что на ретине первый экран показывает планету шириной
              в 1720 точек: файл должен быть КРУПНЕЕ показа, иначе мыло. Телефону
@@ -96,12 +96,11 @@
       <!-- Единственное доказательство, которое конкурент не скопирует. Стоит НАД кнопками
            осознанно: человек должен увидеть его до решения, а не после. -->
       <p class="hero-proof rise">Этой компанией управляет команда AI-сотрудников. Та&nbsp;же самая может работать у&nbsp;вас.</p>
-      <p class="hero-scope rise">Подстраивается под любую нишу: торговля, услуги, юристы, блогеры, частные лица.</p>
       <div class="actions rise">
         <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Показать на моей задаче</a>
         <a class="btn btn-ghost" href="#flagship">Что он умеет</a>
       </div>
-      <p class="cta-note rise">Бесплатно, в&nbsp;Telegram, без созвона</p>
+      <p class="cta-note rise">Бесплатно, в&nbsp;Telegram, без созвона. Любая ниша: торговля, услуги, юристы, блогеры.</p>
       <a class="scroll-hint rise" href="#flagship">Что именно он закрывает</a>
     </div>
   </section>
