@@ -48,7 +48,12 @@ a{color:inherit;text-decoration:none}
 /* ---------- фон: ровно два слоя вместо четырёх ---------- */
 /* 13.08: было .5 — точки едва читались. Сергей: «ярче и в большем количестве».
    Плотность и альфы подняты в nn-bg.js, здесь снят общий приглушитель холста. */
-#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.85}
+/* 08.09: сеть приглушена с .85 до .45 — под текстом она мешала читать.
+   Ниже ещё и затемняющая подложка, чтобы контраст не зависел от того,
+   какой узор сети окажется под абзацем в конкретный момент анимации. */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.45}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  pointer-events:none;background:radial-gradient(120% 80% at 50% 40%,rgba(6,6,13,.35),rgba(6,6,13,.72))}
 /* линза только под первым экраном — держит контраст заголовка */
 .veil{position:fixed;top:0;left:0;right:0;height:105vh;z-index:-1;pointer-events:none;
   background:radial-gradient(72% 52% at 50% 34%,rgba(6,6,13,.72),rgba(6,6,13,.34) 58%,transparent 86%)}
@@ -93,7 +98,7 @@ section[id],[id^="tw-"]{scroll-margin-top:96px}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:none}
 
 /* ---------- HERO: один экран, одна мысль ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;
+.hero{position:relative;min-height:min(100svh,760px);display:flex;align-items:center;
   padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem);overflow:hidden}
 .hero-wrap{position:relative;z-index:2;width:100%}
 
@@ -169,7 +174,7 @@ h2{max-width:min(100%,22ch);
    а не пояснение. Отделён воздухом, чтобы читался отдельной мыслью. */
 .hero .lede-punch{margin-top:clamp(1rem,2.2vh,1.5rem);color:var(--fg);font-weight:500}
 /* Микрокопия под кнопкой: снимает три возражения разом (деньги, канал, время). */
-.cta-note{margin-top:.9rem;font-size:14px;color:var(--muted-dim);letter-spacing:.01em}
+.cta-note{margin-top:.9rem;font-size:15px;color:var(--muted);letter-spacing:.01em}
 /* Охват ниш: снимает возражение «а у меня бизнес другой», но НЕ спорит с хуком —
    мельче лида, тише по цвету, одной строкой. Секции для этого сознательно не делаем. */
 .hero-scope{margin-top:.8rem;font-size:14px;color:var(--muted-dim);max-width:min(52ch,50%);line-height:1.5;text-wrap:balance}
@@ -508,7 +513,7 @@ h2{max-width:min(100%,22ch);
 .pe-desc{margin-top:10px;color:var(--muted);max-width:56ch;font-size:16px;text-wrap:pretty}
 .pe-act{display:flex;flex-direction:column;gap:12px}
 
-.price-note{margin-top:var(--gap-m);color:var(--muted-dim);font-size:15px;max-width:70ch;
+.price-note{margin-top:var(--gap-m);color:var(--muted);font-size:15px;max-width:70ch;
   text-wrap:pretty}
 .price-note a{color:var(--accent);text-decoration:none;white-space:nowrap}
 .price-note a:hover{text-decoration:underline}
@@ -521,3 +526,12 @@ h2{max-width:min(100%,22ch);
   .price-entry{grid-template-columns:1fr}
   .pe-act{flex-direction:row;flex-wrap:wrap}
 }
+
+
+/* Зачёт диагностики во внедрение: главное коммерческое условие страницы,
+   поэтому у него своя рамка, а не серый мелкий текст рядом с описанием. */
+.pe-credit{margin-top:14px;padding:12px 14px;border:1px solid rgba(34,211,238,.28);
+  border-radius:10px;background:rgba(34,211,238,.06);color:var(--fg);
+  font-size:15px;line-height:1.55;max-width:56ch;text-wrap:pretty}
+.pe-credit b{font-weight:600}
+@media (max-width:640px){.pe-credit{font-size:14px;padding:11px 12px}}
