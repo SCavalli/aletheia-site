@@ -6,7 +6,7 @@
 <title>Smart Result — юридические услуги для бизнеса · Москва</title>
 <meta name="description" content="Smart Result — полное юридическое сопровождение бизнеса, крупных сделок, судебных споров и отдельных проектов. Более 13 лет, 100+ компаний, рейтинг ПРАВО-300.">
 <link rel="icon" href="emblem-indigo.png" type="image/png">
-<meta name="theme-color" content="#34295A">
+<meta name="theme-color" content="#2F235D">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Smart Result — юридические услуги для бизнеса">
 <meta property="og:description" content="Полное юридическое сопровождение бизнеса, крупных сделок, судебных споров и отдельных проектов. 13+ лет, 100+ компаний, рейтинг ПРАВО-300.">
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 :root{
@@ -23,49 +23,70 @@
   --surface: oklch(96.4% 0.006 275);
   --line: oklch(85% 0.012 275);
   --ink: oklch(24% 0.035 285);
-  --ink-2: oklch(46% 0.025 285);
+  --ink-2: oklch(44% 0.025 285);
   --accent: oklch(32% 0.085 291);
   --accent-2: oklch(38% 0.095 291);
   --on-accent: oklch(97% 0.008 285);
+  --tile: oklch(99.4% 0.002 275);
   --wrap: 1240px;
   --pad: clamp(20px, 5vw, 64px);
   --ease: cubic-bezier(.22,1,.36,1);
+  --z-bg: -2;
+  --z-veil: -1;
   --z-sticky: 50;
+  --serif: "Source Serif 4", "PT Serif", Georgia, "Times New Roman", serif;
 }
 *{box-sizing:border-box}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
 .skip{position:absolute; left:-9999px; top:0; background:var(--accent); color:var(--on-accent); padding:12px 18px; border-radius:0 0 8px 0; z-index:100}
 .skip:focus{left:0}
-html{scroll-behavior:smooth; scroll-padding-top:86px}
+html{scroll-behavior:smooth; scroll-padding-top:86px; background:var(--bg)}
 body{
-  margin:0; background:var(--bg); color:var(--ink);
+  margin:0; background:transparent; color:var(--ink);
   font-family:"Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size:1.0625rem; line-height:1.62; -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,.num{font-family:"Overpass", system-ui, sans-serif; margin:0}
-h1{font-weight:300; font-size:clamp(2.6rem,6vw,5rem); line-height:1.02; letter-spacing:-.025em; text-wrap:balance}
-h2{font-weight:300; font-size:clamp(1.9rem,3.6vw,3rem); line-height:1.1; letter-spacing:-.02em; text-wrap:balance}
-h3{font-weight:600; font-size:1.2rem; line-height:1.3; letter-spacing:-.01em}
+h1,h2,h3,.num,.brand b{font-family:var(--serif); margin:0; color:var(--accent)}
+h1{font-weight:700; font-size:clamp(2.5rem,5.2vw,4.4rem); line-height:1.04; letter-spacing:-.022em; text-wrap:balance}
+h2{font-weight:600; font-size:clamp(1.85rem,3.3vw,2.85rem); line-height:1.12; letter-spacing:-.018em; text-wrap:balance}
+h3{font-weight:600; font-size:1.18rem; line-height:1.32; letter-spacing:-.008em}
 p{margin:0}
 a{color:inherit}
 img{max-width:100%; display:block}
 .wrap{max-width:var(--wrap); margin-inline:auto; padding-inline:var(--pad)}
 
-/* ---------- header ---------- */
+/* ---------- фиксированный фон на всю страницу ---------- */
+.page-bg{position:fixed; inset:0; z-index:var(--z-bg); overflow:hidden}
+.page-bg img{width:100%; height:100%; object-fit:cover; object-position:58% 46%}
+.page-veil{position:fixed; inset:0; z-index:var(--z-veil); pointer-events:none;
+  background:linear-gradient(104deg,
+    oklch(98.6% 0.003 275 / .90) 0%,
+    oklch(98.6% 0.003 275 / .72) 30%,
+    oklch(98.6% 0.003 275 / .30) 62%,
+    oklch(98.6% 0.003 275 / .12) 88%);
+}
+.sun, .rays{position:fixed; inset:0; z-index:var(--z-veil); pointer-events:none}
+.sun{background:radial-gradient(56% 64% at 86% 16%, oklch(99% 0.02 90 / .20), transparent 64%); mix-blend-mode:screen}
+.rays{
+  background:repeating-linear-gradient(104deg, transparent 0 130px, oklch(100% 0 0 / .13) 130px 168px, transparent 168px 320px);
+  opacity:.40; mix-blend-mode:screen;
+}
+
+/* ---------- шапка ---------- */
 .site{
   position:sticky; top:0; z-index:var(--z-sticky);
-  background:color-mix(in oklch, var(--bg) 88%, transparent);
-  backdrop-filter:saturate(1.4) blur(12px);
+  background:color-mix(in oklch, var(--bg) 84%, transparent);
+  backdrop-filter:saturate(1.4) blur(14px);
   border-bottom:1px solid var(--line);
 }
 .site .wrap{display:flex; align-items:center; gap:28px; min-height:86px}
 .brand{display:flex; align-items:center; gap:14px; text-decoration:none; margin-right:auto}
 .brand img{width:30px; height:auto}
-.brand b{font-family:"Overpass",sans-serif; font-weight:600; font-size:1.06rem; letter-spacing:.08em; display:block; line-height:1.15}
+.brand b{font-weight:600; font-size:1.22rem; letter-spacing:.005em; display:block; line-height:1.15}
 .brand span{font-size:.78rem; color:var(--ink-2); letter-spacing:.02em}
-.nav{display:flex; align-items:center; gap:30px}
+.nav{display:flex; align-items:center; gap:28px}
 .nav a{text-decoration:none; color:var(--ink-2); font-size:.97rem; padding-block:10px; transition:color .25s var(--ease)}
-.nav a:hover{color:var(--ink)}
+.nav a:hover{color:var(--accent)}
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
   background:var(--accent); color:var(--on-accent); text-decoration:none;
@@ -74,77 +95,86 @@ img{max-width:100%; display:block}
   transition:background .25s var(--ease), transform .25s var(--ease);
 }
 .btn:hover{background:var(--accent-2); transform:scale(1.02)}
-.btn.sm{padding:11px 20px; font-size:.95rem}
+.btn.sm{padding:11px 20px; font-size:.95rem; letter-spacing:.01em}
+.btn svg{width:17px; height:17px; flex:none}
 
-/* ---------- hero ---------- */
-.hero{position:relative; min-height:min(92svh,860px); display:flex; align-items:center; overflow:hidden; border-bottom:1px solid var(--line)}
-.hero-img{position:absolute; inset:0; z-index:0}
-.hero-img img{width:100%; height:100%; object-fit:cover; object-position:64% 50%}
-.hero-veil{position:absolute; inset:0; z-index:1;
-  background:linear-gradient(100deg, oklch(98.6% 0.003 275 / .92) 0%, oklch(98.6% 0.003 275 / .78) 34%, oklch(98.6% 0.003 275 / .18) 62%, transparent 82%);
-}
-.sun, .rays{position:absolute; inset:0; z-index:2; pointer-events:none}
-.sun{background:radial-gradient(56% 64% at 88% 18%, oklch(99% 0.02 90 / .22), transparent 64%); mix-blend-mode:screen}
-.rays{
-  background:repeating-linear-gradient(104deg, transparent 0 130px, oklch(100% 0 0 / .14) 130px 168px, transparent 168px 320px);
-  opacity:.42; mix-blend-mode:screen;
-}
-.hero .wrap{position:relative; z-index:3; width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:48px; padding-block:clamp(72px,10vw,120px)}
-.hero p.lead{margin-top:28px; max-width:36ch; font-size:clamp(1.05rem,1.5vw,1.25rem); color:var(--ink-2)}
+/* ---------- герой ---------- */
+.hero{position:relative; min-height:min(88svh,820px); display:flex; align-items:center; border-bottom:1px solid var(--line)}
+.hero .wrap{position:relative; z-index:1; width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:48px; padding-block:clamp(72px,10vw,120px)}
+.hero p.lead{margin-top:28px; max-width:34ch; font-size:clamp(1.05rem,1.5vw,1.25rem); color:var(--ink-2)}
 .rating{
-  background:color-mix(in oklch, var(--bg) 96%, transparent);
-  border:1px solid oklch(72% 0.02 275 / .55); border-radius:14px;
+  background:color-mix(in oklch, var(--bg) 92%, transparent);
+  backdrop-filter:blur(6px);
+  border:1px solid oklch(72% 0.02 275 / .5); border-radius:14px;
   box-shadow:0 18px 40px -28px oklch(24% 0.035 285 / .45);
   padding:26px 28px; max-width:290px;
 }
-.rating .mark{font-family:"Overpass",sans-serif; font-weight:600; font-size:1.55rem; letter-spacing:.06em; color:var(--accent)}
+.rating .mark{font-family:var(--serif); font-weight:600; font-size:1.5rem; letter-spacing:.03em; color:var(--accent)}
 .rating .sub{font-size:.84rem; color:var(--ink-2); margin-top:4px}
 .rating .txt{font-size:.95rem; margin-top:16px; padding-top:16px; border-top:1px solid var(--line)}
 
-/* ---------- about + services ---------- */
-.about{padding-block:clamp(88px,10vw,168px)}
+/* ---------- о компании + направления ---------- */
+.about{padding-block:clamp(88px,10vw,160px); background:color-mix(in oklch, var(--bg) 82%, transparent)}
 .about .head{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:start}
 .about .head h2{max-width:17ch}
 .about .head p{color:var(--ink-2); max-width:62ch; text-wrap:pretty}
-.services{margin-top:clamp(56px,6vw,88px); display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--line); border-block:1px solid var(--line)}
-.svc{background:var(--bg); padding:clamp(28px,3vw,40px) clamp(24px,2.4vw,34px)}
-.svc h3{margin-bottom:12px}
+.services{margin-top:clamp(56px,6vw,88px); display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:clamp(16px,1.6vw,22px)}
+.svc{
+  background:var(--tile); border:1px solid var(--line); border-radius:14px;
+  padding:clamp(26px,2.6vw,34px);
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+.svc:hover{border-color:color-mix(in oklch, var(--accent) 45%, var(--line)); box-shadow:0 20px 44px -34px oklch(24% 0.035 285 / .6); transform:translateY(-2px)}
+.ico{
+  width:46px; height:46px; border-radius:11px; display:grid; place-items:center;
+  background:color-mix(in oklch, var(--accent) 8%, var(--bg));
+  border:1px solid color-mix(in oklch, var(--accent) 18%, var(--line));
+  color:var(--accent); margin-bottom:20px;
+}
+.ico svg{width:22px; height:22px}
+.svc h3{margin-bottom:11px}
 .svc p{color:var(--ink-2); font-size:.99rem}
-.after-svc{margin-top:clamp(40px,4vw,56px); display:flex; flex-wrap:wrap; align-items:center; gap:24px 32px}
-.after-svc p{color:var(--ink-2); max-width:52ch}
+.svc-cta{
+  grid-column:1/-1; background:var(--accent); color:var(--on-accent); border:0;
+  border-radius:14px; padding:clamp(30px,3vw,42px) clamp(26px,2.6vw,44px);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:22px 36px;
+}
+.svc-cta h3{color:var(--on-accent); font-size:clamp(1.3rem,2vw,1.7rem); margin-bottom:8px}
+.svc-cta p{color:oklch(97% 0.008 285 / .8); max-width:46ch; font-size:1rem}
+.svc-cta .btn{background:var(--bg); color:var(--accent)}
+.svc-cta .btn:hover{background:#fff}
 
-/* ---------- numbers (единственная акцентная секция) ---------- */
+/* ---------- цифры (единственная акцентная секция) ---------- */
 .numbers{background:var(--accent); color:var(--on-accent); padding-block:clamp(80px,9vw,140px)}
 .numbers h2{color:var(--on-accent)}
 .nums{margin-top:clamp(48px,5vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:clamp(32px,3.4vw,52px); align-items:stretch}
 .n-item{border-top:1px solid oklch(97% 0.008 285 / .42); padding-top:24px; display:flex; flex-direction:column}
-.n-item .num{font-weight:300; font-size:clamp(2.3rem,3.4vw,3.1rem); line-height:1.02; letter-spacing:-.03em; text-wrap:balance}
-.n-item p{margin-top:16px; font-size:.98rem; color:oklch(97% 0.008 285 / .84)}
-.n-item .tag{margin-top:auto; padding-top:20px; font-size:.86rem; color:oklch(97% 0.008 285 / .58)}
+.n-item .num{color:var(--on-accent); font-weight:600; font-size:clamp(2.2rem,3.2vw,2.95rem); line-height:1.04; letter-spacing:-.022em; text-wrap:balance}
+.n-item p{margin-top:16px; font-size:.98rem; color:oklch(97% 0.008 285 / .86)}
+.n-item .tag{margin-top:auto; padding-top:20px; font-size:.86rem; color:oklch(97% 0.008 285 / .6)}
 
-/* ---------- cta ---------- */
-.cta{padding-block:clamp(72px,8vw,124px); text-align:center}
+/* ---------- финальный призыв ---------- */
+.cta{padding-block:clamp(72px,8vw,124px); text-align:center; background:color-mix(in oklch, var(--bg) 82%, transparent)}
 .cta .inner{max-width:720px; margin-inline:auto}
 .cta p{margin-top:22px; color:var(--ink-2); font-size:clamp(1rem,1.3vw,1.15rem); text-wrap:pretty; max-width:60ch; margin-inline:auto}
 .cta .btn{margin-top:38px}
 
-/* ---------- footer ---------- */
-footer{background:var(--surface); border-top:1px solid var(--line); padding-block:clamp(64px,7vw,104px)}
+/* ---------- подвал ---------- */
+footer{background:color-mix(in oklch, var(--surface) 94%, transparent); border-top:1px solid var(--line); padding-block:clamp(64px,7vw,104px)}
 footer .cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,4vw,64px)}
 footer h2{margin-bottom:clamp(30px,3.4vw,48px)}
-footer .addr .row{align-items:baseline}
 footer .contact-list{display:grid; gap:14px; font-style:normal}
-footer .phone a{font-family:"Overpass",sans-serif; font-weight:300; font-size:clamp(1.45rem,2.2vw,1.9rem); line-height:1.1; letter-spacing:-.02em; border-bottom:0}
+footer .phone a{font-family:var(--serif); font-weight:600; font-size:clamp(1.4rem,2.1vw,1.85rem); line-height:1.1; letter-spacing:-.015em; border-bottom:0; color:var(--accent)}
 footer .phone{align-items:baseline}
 footer .row{display:flex; gap:10px; flex-wrap:wrap}
 footer .k{color:var(--ink-2); min-width:132px}
-footer a{display:inline-block; padding-block:4px; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); transition:border-color .25s var(--ease)}
+footer a{display:inline-block; padding-block:8px; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); transition:border-color .25s var(--ease)}
 footer a:hover{border-color:var(--accent)}
 .map{margin-top:26px; display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-weight:600; text-decoration:none; border:0}
 .map:hover{text-decoration:underline}
 .legal{margin-top:clamp(40px,5vw,64px); padding-top:24px; border-top:1px solid var(--line); color:var(--ink-2); font-size:.86rem; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
 
-/* ---------- reveal (только поверх видимого) ---------- */
+/* ---------- появление (только поверх видимого) ---------- */
 .js .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s var(--ease), transform .8s var(--ease)}
 .js .reveal.in{opacity:1; transform:none}
 
@@ -153,26 +183,29 @@ footer a:hover{border-color:var(--accent)}
   .rating{max-width:none}
 }
 @media (max-width:760px){
-  html{scroll-padding-top:132px}
-  .site .wrap{flex-wrap:wrap; gap:12px 14px; padding-block:12px; min-height:0}
+  html{scroll-padding-top:190px}
+  .site .wrap{flex-wrap:wrap; gap:10px 14px; padding-block:10px; min-height:0}
   .brand{flex:1 1 auto; min-width:0; margin-right:0; gap:10px}
   .brand img{width:26px}
-  .brand b{font-size:.94rem; letter-spacing:.06em}
+  .brand b{font-size:1.05rem}
   .brand span{font-size:.72rem}
-  .btn.sm{flex:0 0 auto; padding:10px 16px; font-size:.9rem}
-  .nav{order:3; width:100%; gap:16px 18px; flex-wrap:wrap; padding-top:10px; border-top:1px solid var(--line)}
+  .btn.sm{flex:0 0 auto; padding:11px 16px; min-height:44px; font-size:.88rem}
+  .nav{order:3; width:100%; gap:12px 18px; flex-wrap:wrap; padding-top:8px; border-top:1px solid var(--line)}
   .nav a{font-size:.92rem}
-  .hero{min-height:min(88svh,720px)}
-  .hero-img img{object-position:66% 46%}
-  .hero-veil{background:linear-gradient(180deg, oklch(98.6% 0.003 275 / .88) 0%, oklch(98.6% 0.003 275 / .66) 54%, oklch(98.6% 0.003 275 / .3) 100%)}
-  .after-svc{flex-direction:column; align-items:flex-start}
+  .hero{min-height:min(86svh,700px)}
+  .page-bg img{object-position:62% 44%}
+  .page-veil{background:linear-gradient(180deg,
+    oklch(98.6% 0.003 275 / .88) 0%,
+    oklch(98.6% 0.003 275 / .70) 50%,
+    oklch(98.6% 0.003 275 / .40) 100%)}
+  .svc-cta{flex-direction:column; align-items:flex-start}
   .legal{flex-direction:column}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .sun,.rays{animation:none !important}
   .js .reveal{opacity:1 !important; transform:none !important; transition:none}
-  .btn{transition:none}
+  .btn,.svc{transition:none}
 }
 @media (prefers-reduced-motion:no-preference){
   .sun{animation:sunDrift 26s ease-in-out infinite alternate}
@@ -186,30 +219,35 @@ footer a:hover{border-color:var(--accent)}
 
 <a class="skip" href="#top">Перейти к содержанию</a>
 
+<div class="page-bg" aria-hidden="true">
+  <img src="hero.jpg" srcset="hero-m.jpg 1000w, hero.jpg 2560w" sizes="100vw" alt="" width="2560" height="1433" fetchpriority="high" decoding="async">
+</div>
+<div class="page-veil" aria-hidden="true"></div>
+<div class="sun" aria-hidden="true"></div>
+<div class="rays" aria-hidden="true"></div>
+
 <header class="site">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Smart Result — на главный экран">
       <img src="emblem-indigo.png" alt="" width="30" height="28">
-      <span><b>SMART RESULT</b><span>Юридические услуги для бизнеса</span></span>
+      <span><b>Smart Result</b><span>Юридические услуги для бизнеса</span></span>
     </a>
     <nav class="nav" aria-label="Основная навигация">
       <a href="#about">О компании</a>
       <a href="#services">Услуги</a>
       <a href="#results">Результаты</a>
+      <a href="#contacts">Контакты</a>
     </nav>
-    <a class="btn sm" href="#contacts">Контакты</a>
+    <a class="btn sm" href="tel:+79683091111" aria-label="Позвонить: +7 968 309-11-11">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      +7 (968) 309-11-11
+    </a>
   </div>
 </header>
 
 <main id="top">
 
   <section class="hero">
-    <div class="hero-img">
-      <img src="hero.jpg" srcset="hero-m.jpg 1000w, hero.jpg 2560w" sizes="(max-width:760px) 120vw, 100vw" alt="Светлый офисный атриум: высокие окна и солнечные лучи на каменном полу" width="2560" height="1098" fetchpriority="high" decoding="async">
-    </div>
-    <div class="hero-veil"></div>
-    <div class="sun"></div>
-    <div class="rays"></div>
     <div class="wrap">
       <div>
         <h1>Работаем<br>на результат</h1>
@@ -232,34 +270,43 @@ footer a:hover{border-color:var(--accent)}
 
       <div class="services" id="services">
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 11h2M13 11h2"/></svg></div>
           <h3>Недвижимость и строительство</h3>
           <p>Сопровождаем сделки купли-продажи земельных участков, коммерческой и жилой недвижимости, проводим правовую экспертизу объектов, оспариваем кадастровую стоимость, занимаемся вопросами страхования и управления имуществом.</p>
         </article>
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
           <h3>Юридическое сопровождение бизнеса</h3>
           <p>Полностью берём на себя текущие юридические вопросы, в том числе работу с договорами, внутренними документами и международными сделками.</p>
         </article>
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-3.4 8-10V5.4L12 2 4 5.4V12c0 6.6 8 10 8 10z"/><path d="M9.2 12.1l2 2 3.6-3.9"/></svg></div>
           <h3>Судебная защита</h3>
           <p>Представляем интересы клиентов в арбитражных судах и судах общей юрисдикции, помогаем урегулировать споры до суда.</p>
         </article>
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="5" rx="1.2"/><rect x="2.5" y="16.5" width="6" height="5" rx="1.2"/><rect x="15.5" y="16.5" width="6" height="5" rx="1.2"/><path d="M12 7.5v4.5M5.5 16.5V12h13v4.5"/></svg></div>
           <h3>Корпоративное право</h3>
           <p>Сопровождаем создание, реорганизацию и продажу бизнеса, корпоративные изменения, выпуск ценных бумаг и сделки слияния &amp; поглощения.</p>
         </article>
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M14.8 9.4a3.6 3.6 0 1 0 0 5.2"/></svg></div>
           <h3>ИТ и интеллектуальная собственность</h3>
           <p>Занимаемся правовым сопровождением текущей деятельности компаний, в том числе вопросами аккредитации, персональных данных и разработки ПО. Представляем интересы при регистрации товарных знаков, знаков обслуживания и в Суде по интеллектуальным правам.</p>
         </article>
         <article class="svc reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M6 20v-6M11 20V9M16 20v-9M21 20V4"/><path d="M4 11l6-5 4 3 6-6"/></svg></div>
           <h3>Инвестиционные проекты</h3>
           <p>Комплексное сопровождение бизнеса на всех этапах проекта, включая тендеры, оценку рисков и представление интересов в государственных органах.</p>
         </article>
-      </div>
 
-      <div class="after-svc reveal">
-        <p>Не нашли свою задачу? Позвоните нам, и мы подберём для вас индивидуальное решение.</p>
-        <a class="btn" href="tel:+79683091111">Позвонить</a>
+        <div class="svc-cta reveal">
+          <div>
+            <h3>Не нашли свою задачу?</h3>
+            <p>Позвоните нам — обсудим ситуацию и подберём для вас индивидуальное решение.</p>
+          </div>
+          <a class="btn" href="tel:+79683091111">Позвонить</a>
+        </div>
       </div>
     </div>
   </section>
@@ -290,7 +337,7 @@ footer a:hover{border-color:var(--accent)}
         </div>
         <div class="n-item reveal">
           <span class="num">10 млн ₽</span>
-          <p>не удалось взыскать с клиента — резидента «Сколково» в споре о праве на полезную модель благодаря нашей продуманной защите.</p>
+          <p>иск, который мы отбили для клиента — резидента «Сколково», в споре о праве на полезную модель.</p>
           <div class="tag">ИТ и интеллектуальная собственность</div>
         </div>
         <div class="n-item reveal">
@@ -302,7 +349,7 @@ footer a:hover{border-color:var(--accent)}
     </div>
   </section>
 
-  <section class="cta" id="contacts">
+  <section class="cta">
     <div class="wrap">
       <div class="inner reveal">
         <h2>Готовы обсудить задачу?</h2>
@@ -314,14 +361,13 @@ footer a:hover{border-color:var(--accent)}
 
 </main>
 
-<footer>
+<footer id="contacts">
   <div class="wrap">
     <h2>Контакты</h2>
     <div class="cols">
       <address class="contact-list">
         <p class="row phone"><span class="k">Телефон:</span><a href="tel:+79683091111">+7 (968) 309-11-11</a></p>
         <p class="row"><span class="k">Электронная почта:</span><a href="mailto:info@smart-result.ru">info@smart-result.ru</a></p>
-        <p class="row"><span class="k">Отправить резюме:</span><a href="mailto:info@smart-result.ru">info@smart-result.ru</a></p>
       </address>
       <div class="addr">
         <p class="row"><span class="k">Адрес офиса:</span><span>г. Москва,<br>ул. Профсоюзная, д. 76</span></p>
