@@ -57,7 +57,7 @@ img{max-width:100%; display:block}
 
 /* ---------- фиксированный фон на всю страницу ---------- */
 .page-bg{position:fixed; inset:0; z-index:var(--z-bg); overflow:hidden}
-.page-bg img{width:100%; height:100%; object-fit:cover; object-position:58% 46%}
+.page-bg img{width:100%; height:100%; object-fit:cover; object-position:26% 50%}
 .page-veil{position:fixed; inset:0; z-index:var(--z-veil); pointer-events:none;
   background:linear-gradient(104deg,
     oklch(98.6% 0.003 275 / .90) 0%,
@@ -81,11 +81,12 @@ img{max-width:100%; display:block}
 }
 .site .wrap{display:flex; align-items:center; gap:28px; min-height:86px}
 .brand{display:flex; align-items:center; gap:14px; text-decoration:none; margin-right:auto}
-.brand img{width:30px; height:auto}
-.brand b{font-weight:600; font-size:1.22rem; letter-spacing:.005em; display:block; line-height:1.15}
-.brand span{font-size:.78rem; color:var(--ink-2); letter-spacing:.02em}
+.brand img{width:32px; height:auto; flex:none}
+.brand .title{display:flex; flex-direction:column; justify-content:center; gap:2px}
+.brand b{font-weight:600; font-size:1.22rem; letter-spacing:.005em; display:block; line-height:1.28}
+.brand .title span{font-size:.78rem; line-height:1.4; color:var(--ink-2); letter-spacing:.02em; display:block}
 .nav{display:flex; align-items:center; gap:28px}
-.nav a{text-decoration:none; color:var(--ink-2); font-size:.97rem; padding-block:10px; transition:color .25s var(--ease)}
+.nav a{text-decoration:none; color:var(--ink-2); font-size:.97rem; font-weight:600; padding-block:10px; transition:color .25s var(--ease)}
 .nav a:hover{color:var(--accent)}
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -100,14 +101,14 @@ img{max-width:100%; display:block}
 
 /* ---------- герой ---------- */
 .hero{position:relative; min-height:min(88svh,820px); display:flex; align-items:center; border-bottom:1px solid var(--line)}
-.hero .wrap{position:relative; z-index:1; width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:48px; padding-block:clamp(72px,10vw,120px)}
+.hero .wrap{position:relative; z-index:1; width:100%; padding-block:clamp(72px,10vw,120px)}
 .hero p.lead{margin-top:28px; max-width:34ch; font-size:clamp(1.05rem,1.5vw,1.25rem); color:var(--ink-2)}
 .rating{
   background:color-mix(in oklch, var(--bg) 92%, transparent);
   backdrop-filter:blur(6px);
   border:1px solid oklch(72% 0.02 275 / .5); border-radius:14px;
   box-shadow:0 18px 40px -28px oklch(24% 0.035 285 / .45);
-  padding:26px 28px; max-width:290px;
+  padding:24px 26px; max-width:390px; margin-top:36px;
 }
 .rating .mark{font-family:var(--serif); font-weight:600; font-size:1.5rem; letter-spacing:.03em; color:var(--accent)}
 .rating .sub{font-size:.84rem; color:var(--ink-2); margin-top:4px}
@@ -118,6 +119,9 @@ img{max-width:100%; display:block}
 .about .head{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(28px,5vw,80px); align-items:start}
 .about .head h2{max-width:17ch}
 .about .head p{color:var(--ink-2); max-width:62ch; text-wrap:pretty}
+.about .head .sub2{margin-top:16px; font-family:var(--serif); font-weight:400;
+  font-size:clamp(1.15rem,1.7vw,1.5rem); line-height:1.28; letter-spacing:-.01em;
+  color:var(--ink-2); max-width:34ch}
 .services{margin-top:clamp(56px,6vw,88px); display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:clamp(16px,1.6vw,22px)}
 .svc{
   background:var(--tile); border:1px solid var(--line); border-radius:14px;
@@ -148,7 +152,7 @@ img{max-width:100%; display:block}
 .numbers{background:var(--accent); color:var(--on-accent); padding-block:clamp(80px,9vw,140px)}
 .numbers h2{color:var(--on-accent)}
 .nums{margin-top:clamp(48px,5vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:clamp(32px,3.4vw,52px); align-items:stretch}
-.n-item{border-top:1px solid oklch(97% 0.008 285 / .42); padding-top:24px; display:flex; flex-direction:column}
+.n-item{border-top:1px solid oklch(97% 0.008 285 / .42); padding-top:24px; display:flex; flex-direction:column; align-items:center; text-align:center}
 .n-item .num{color:var(--on-accent); font-weight:600; font-size:clamp(2.2rem,3.2vw,2.95rem); line-height:1.04; letter-spacing:-.022em; text-wrap:balance}
 .n-item p{margin-top:16px; font-size:.98rem; color:oklch(97% 0.008 285 / .86)}
 .n-item .tag{margin-top:auto; padding-top:20px; font-size:.86rem; color:oklch(97% 0.008 285 / .6)}
@@ -163,14 +167,14 @@ img{max-width:100%; display:block}
 footer{background:color-mix(in oklch, var(--surface) 94%, transparent); border-top:1px solid var(--line); padding-block:clamp(64px,7vw,104px)}
 footer .cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,4vw,64px)}
 footer h2{margin-bottom:clamp(30px,3.4vw,48px)}
-footer .contact-list{display:grid; gap:14px; font-style:normal}
-footer .phone a{font-family:var(--serif); font-weight:600; font-size:clamp(1.4rem,2.1vw,1.85rem); line-height:1.1; letter-spacing:-.015em; border-bottom:0; color:var(--accent)}
-footer .phone{align-items:baseline}
-footer .row{display:flex; gap:10px; flex-wrap:wrap}
-footer .k{color:var(--ink-2); min-width:132px}
+footer .contact-list{display:grid; gap:12px; font-style:normal}
+footer .row{display:grid; grid-template-columns:200px minmax(0,1fr); gap:6px 18px; align-items:baseline}
+footer .k{color:var(--ink-2)}
+footer .row a, footer .row > span:last-child{font-size:1.0625rem; line-height:1.62}
+footer .row a{justify-self:start}
 footer a{display:inline-block; padding-block:8px; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); transition:border-color .25s var(--ease)}
 footer a:hover{border-color:var(--accent)}
-.map{margin-top:26px; display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-weight:600; text-decoration:none; border:0}
+.map{display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-weight:600; text-decoration:none; border:0}
 .map:hover{text-decoration:underline}
 .legal{margin-top:clamp(40px,5vw,64px); padding-top:24px; border-top:1px solid var(--line); color:var(--ink-2); font-size:.86rem; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
 
@@ -179,7 +183,6 @@ footer a:hover{border-color:var(--accent)}
 .js .reveal.in{opacity:1; transform:none}
 
 @media (max-width:980px){
-  .hero .wrap{grid-template-columns:1fr; gap:36px}
   .rating{max-width:none}
 }
 @media (max-width:760px){
@@ -201,6 +204,9 @@ footer a:hover{border-color:var(--accent)}
     oklch(98.6% 0.003 275 / .70) 50%,
     oklch(98.6% 0.003 275 / .40) 100%)}
   .svc-cta{flex-direction:column; align-items:flex-start}
+  footer .row{grid-template-columns:1fr; gap:2px}
+  footer .k{font-size:.92rem}
+  .map{margin-top:10px}
   .legal{flex-direction:column}
 }
 @media (prefers-reduced-motion:reduce){
@@ -222,7 +228,7 @@ footer a:hover{border-color:var(--accent)}
 <a class="skip" href="#top">Перейти к содержанию</a>
 
 <div class="page-bg" aria-hidden="true">
-  <img src="hero.jpg" srcset="hero-m.jpg 1000w, hero.jpg 2560w" sizes="100vw" alt="" width="2560" height="1433" fetchpriority="high" decoding="async">
+  <img src="hero.jpg" srcset="hero-m.jpg 1000w, hero.jpg 2560w" sizes="100vw" alt="" width="2560" height="1098" fetchpriority="high" decoding="async">
 </div>
 <div class="page-veil" aria-hidden="true"></div>
 <div class="sun" aria-hidden="true"></div>
@@ -231,8 +237,8 @@ footer a:hover{border-color:var(--accent)}
 <header class="site">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Smart Result — на главный экран">
-      <img src="emblem-indigo.png" alt="" width="30" height="28">
-      <span><b>Smart Result</b><span>Юридические услуги для бизнеса</span></span>
+      <img src="emblem-indigo.png" alt="" width="409" height="425">
+      <span class="title"><b>Smart Result</b><span>Юридические услуги для бизнеса</span></span>
     </a>
     <nav class="nav" aria-label="Основная навигация">
       <a href="#about">О компании</a>
@@ -254,19 +260,22 @@ footer a:hover{border-color:var(--accent)}
       <div>
         <h1>Работаем<br>на результат</h1>
         <p class="lead">Полное юридическое сопровождение бизнеса, крупных сделок, судебных споров и отдельных проектов</p>
+        <aside class="rating">
+          <div class="mark">ПРАВО-300</div>
+          <div class="sub">рейтинг юридических компаний России</div>
+          <p class="txt">Мы в топе компаний, рекомендованных к сотрудничеству</p>
+        </aside>
       </div>
-      <aside class="rating">
-        <div class="mark">ПРАВО-300</div>
-        <div class="sub">рейтинг юридических компаний России</div>
-        <p class="txt">Мы в топе компаний, рекомендованных к сотрудничеству</p>
-      </aside>
     </div>
   </section>
 
   <section class="about" id="about">
     <div class="wrap">
       <div class="head reveal">
-        <h2>Берём ответственность за результат</h2>
+        <div>
+          <h2>О компании</h2>
+          <p class="sub2">Почему работать с нами — выгодно</p>
+        </div>
         <p>Более 13 лет работаем с бизнесом, хорошо понимая не только требования закона, но и задачи, которые стоят перед компанией. Этот опыт позволяет быстро погружаться в специфику проекта, видеть юридические риски и находить решения, которые помогают бизнесу двигаться дальше. На сегодняшний день нам доверилось уже более 100 компаний — и за каждым таким сотрудничеством стоит конкретная задача, которую нам удалось решить.</p>
       </div>
 
@@ -279,7 +288,7 @@ footer a:hover{border-color:var(--accent)}
         <article class="svc reveal">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
           <h3>Юридическое сопровождение бизнеса</h3>
-          <p>Полностью берём на себя текущие юридические вопросы, в том числе работу с договорами, внутренними документами и международными сделками.</p>
+          <p>Полностью берем на себя текущие юридические вопросы, в том числе работу с договорами, внутренними документами и международными сделками.</p>
         </article>
         <article class="svc reveal">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-3.4 8-10V5.4L12 2 4 5.4V12c0 6.6 8 10 8 10z"/><path d="M9.2 12.1l2 2 3.6-3.9"/></svg></div>
@@ -305,7 +314,7 @@ footer a:hover{border-color:var(--accent)}
         <div class="svc-cta reveal">
           <div>
             <h3>Не нашли свою задачу?</h3>
-            <p>Позвоните нам — обсудим ситуацию и подберём для вас индивидуальное решение.</p>
+            <p>Позвоните нам — обсудим ситуацию и подберем для вас индивидуальное решение.</p>
           </div>
           <a class="btn" href="tel:+79683091111">Позвонить</a>
         </div>
@@ -368,13 +377,11 @@ footer a:hover{border-color:var(--accent)}
     <h2>Контакты</h2>
     <div class="cols">
       <address class="contact-list">
-        <p class="row phone"><span class="k">Телефон:</span><a href="tel:+79683091111">+7 (968) 309-11-11</a></p>
+        <p class="row"><span class="k">Телефон:</span><a href="tel:+79683091111">+7 (968) 309-11-11</a></p>
         <p class="row"><span class="k">Электронная почта:</span><a href="mailto:info@smart-result.ru">info@smart-result.ru</a></p>
+        <p class="row"><span class="k">Адрес офиса:</span><span>г. Москва, ул. Профсоюзная, д. 76</span></p>
+        <p class="row"><span class="k" aria-hidden="true"></span><a class="map" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9F%D1%80%D0%BE%D1%84%D1%81%D0%BE%D1%8E%D0%B7%D0%BD%D0%B0%D1%8F%2C%2076" target="_blank" rel="noopener">Открыть в Яндекс.Картах →</a></p>
       </address>
-      <div class="addr">
-        <p class="row"><span class="k">Адрес офиса:</span><span>г. Москва,<br>ул. Профсоюзная, д. 76</span></p>
-        <a class="map" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9F%D1%80%D0%BE%D1%84%D1%81%D0%BE%D1%8E%D0%B7%D0%BD%D0%B0%D1%8F%2C%2076" target="_blank" rel="noopener">Открыть в Яндекс.Картах →</a>
-      </div>
     </div>
     <div class="legal">
       <span>© 2026 Smart Result. Юридические услуги для бизнеса.</span>
@@ -396,7 +403,7 @@ footer a:hover{border-color:var(--accent)}
     });
   }, {rootMargin:'0px 0px -12% 0px', threshold:.05});
   items.forEach(function(el){ io.observe(el); });
-  // страховка: если что-то пошло не так — показать всё через 2.5 с
+  // страховка: если что-то пошло не так — показать все через 2.5 с
   setTimeout(function(){ items.forEach(function(el){ el.classList.add('in'); }); }, 2500);
 })();
 </script>
