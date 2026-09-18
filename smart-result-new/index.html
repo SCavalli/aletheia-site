@@ -75,7 +75,7 @@ img{max-width:100%; display:block}
 /* ---------- шапка ---------- */
 .site{
   position:sticky; top:0; z-index:var(--z-sticky);
-  background:color-mix(in oklch, var(--bg) 84%, transparent);
+  background:color-mix(in oklch, var(--bg) 93%, transparent);
   backdrop-filter:saturate(1.4) blur(14px);
   border-bottom:1px solid var(--line);
 }
@@ -115,7 +115,7 @@ img{max-width:100%; display:block}
 
 /* ---------- о компании + направления ---------- */
 .about{padding-block:clamp(88px,10vw,160px); background:color-mix(in oklch, var(--bg) 82%, transparent)}
-.about .head{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:start}
+.about .head{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(28px,5vw,80px); align-items:start}
 .about .head h2{max-width:17ch}
 .about .head p{color:var(--ink-2); max-width:62ch; text-wrap:pretty}
 .services{margin-top:clamp(56px,6vw,88px); display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:clamp(16px,1.6vw,22px)}
@@ -190,8 +190,10 @@ footer a:hover{border-color:var(--accent)}
   .brand b{font-size:1.05rem}
   .brand span{font-size:.72rem}
   .btn.sm{flex:0 0 auto; padding:11px 16px; min-height:44px; font-size:.88rem}
-  .nav{order:3; width:100%; gap:12px 18px; flex-wrap:wrap; padding-top:8px; border-top:1px solid var(--line)}
-  .nav a{font-size:.92rem}
+  .nav{order:3; width:100%; gap:10px 13px; flex-wrap:wrap; padding-top:8px; border-top:1px solid var(--line)}
+  .nav a{font-size:.86rem; padding-block:6px}
+  .about .head{grid-template-columns:1fr; gap:22px}
+  .about .head h2{max-width:none}
   .hero{min-height:min(86svh,700px)}
   .page-bg img{object-position:62% 44%}
   .page-veil{background:linear-gradient(180deg,
