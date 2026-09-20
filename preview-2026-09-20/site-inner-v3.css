@@ -1,0 +1,406 @@
+/* ALETHEIA — слой v3 для внутренних страниц.
+   Грузится ПОСЛЕ site.css и переодевает старые страницы в язык главной:
+   графит вместо фиолетового, циан как единственный акцент, Unbounded + Onest,
+   плашки-стекло заменены волосяной линией. Разметка страниц не менялась —
+   так пять страниц переодеваются без риска потерять контент.
+   Источник правды по токенам: DESIGN.md и site-v3.css. */
+
+:root{
+  --bg:#06060d; --bg2:#0a0a14;
+  --ink:#f4f6fc; --muted:#a7aec6; --muted2:#828aa6;
+  /* Фиолетовый убит в корне: обе переменные теперь циан, поэтому все градиенты
+     старого стиля, замешанные на v1/v2, автоматически становятся акцентом. */
+  --v1:#22d3ee; --v2:#22d3ee; --c1:#22d3ee; --gold:#22d3ee;
+  --card:transparent; --bd:rgba(255,255,255,.09);
+  --bd-strong:rgba(255,255,255,.16);
+  --maxw:1180px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --font-head:"Unbounded",system-ui,sans-serif;
+  --font-body:"Onest",system-ui,sans-serif;
+}
+
+body{font-family:var(--font-body);font-size:1.125rem;line-height:1.65;background:var(--bg)}
+h1,h2,h3,h4,.logo,.btn{font-family:var(--font-head)}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.032em}
+p{text-wrap:pretty}
+.wrap{max-width:var(--maxw);padding:0 clamp(20px,5vw,40px)}
+section{padding:clamp(4rem,9vw,7rem) 0}
+
+/* ---------- фон: тот же графит, что на главной, без фиолетовой дымки ---------- */
+.bg-fx{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
+.blob,.blobs,.grain{display:none}
+/* 13.08: РЕЗИДЕНТ переписан на общий каркас v3 — своего инлайнового фона и
+   своей шапки у него больше нет, правила ниже держались только ради него.
+   Оставлен лишь body::before: на случай, если старая разметка где-то всплывёт. */
+body::before{background:radial-gradient(70% 46% at 50% 0%,#0b0b18 0%,transparent 68%),var(--bg)}
+.eyebrow{color:var(--muted2);font-weight:500;letter-spacing:.01em;font-size:15px;
+  text-transform:none;font-family:var(--font-body)}
+
+/* ---------- контент виден сразу ----------
+   В старом стиле html.js .reveal{opacity:0} — контент ждал IntersectionObserver.
+   Не сработал скрипт (или это краулер/превью) — страница пустая. Это ровно тот
+   баг, что ломал v2, поэтому здесь гасим сокрытие целиком. */
+html.js .reveal,html.js .reveal.in,html.js .hero .reveal,html.js .pstep.reveal{
+  opacity:1;transform:none;transition:none}
+
+/* ---------- NAV ---------- */
+nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.nav-in{height:76px;gap:2rem}
+.logo{font-weight:500;font-size:17px;letter-spacing:.14em;gap:12px}
+.logo .mark{width:12px;height:12px;border-radius:2px;background:var(--accent,#22d3ee);
+  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+.logo .mark::after{content:none}
+.nav-links{gap:2rem;font-size:15px;color:var(--muted)}
+.nav-burger{border:1px solid var(--bd-strong);border-radius:10px;background:transparent}
+
+/* ---------- кнопки: одна форма на весь сайт ---------- */
+.btn{background:#22d3ee;color:#04121a;font-weight:700;font-size:16px;letter-spacing:.01em;
+  padding:16px 30px;border-radius:999px;box-shadow:none;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn.ghost,.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--bd-strong);
+  font-weight:700;box-shadow:none}
+.btn.ghost:hover,.btn-ghost:hover{background:transparent;border-color:#22d3ee;color:#22d3ee}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.btn.ghost:focus-visible,.btn-ghost:focus-visible,.nav-links a:focus-visible,
+.logo:focus-visible,.backlink:focus-visible{outline:2px solid #22d3ee;outline-offset:4px;border-radius:6px}
+
+/* ---------- заголовки страниц ---------- */
+.subhero{padding:clamp(3rem,7vw,5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+.subhero h1{font-size:clamp(2.05rem,4.4vw,3.5rem);line-height:1.04;font-weight:300;letter-spacing:-.032em}
+.subhero .lead{font-size:clamp(1.1rem,1.8vw,1.35rem);color:var(--muted);line-height:1.58;max-width:min(48ch,100%)}
+/* Ярлык раздела остаётся ОДИН — над заголовком страницы. Над каждой секцией
+   такие же «кикеры» убраны: это самый заметный штамп AI-вёрстки. */
+.subhero .eyebrow{color:var(--muted2);font-weight:500;letter-spacing:.01em;
+  font-size:15px;text-transform:none;margin-bottom:14px;font-family:var(--font-body)}
+.sec-head .eyebrow,.demo-box .eyebrow{display:none}
+.sec-head{text-align:left;margin:0 0 clamp(2rem,4vw,3rem);max-width:760px}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:300;line-height:1.1}
+.sec-head p{color:var(--muted)}
+.backlink{color:var(--muted2);font-size:15px}
+.backlink:hover{color:#22d3ee}
+
+/* ---------- карточки: волосяная линия вместо стекла ---------- */
+.feat,.step,.tmini,.rcard,.panel,.bnft,.acard,.netbox,.qa,.contact-card,.founder-box,.demo-box{
+  background:transparent;border:1px solid var(--bd);border-radius:16px;
+  transition:border-color .3s var(--ease)}
+.feat:hover,.step:hover,.tmini:hover,.bnft:hover,.acard:hover{border-color:var(--bd-strong)}
+.feat h3,.feat h4,.step h3,.step h4,.acard h3,.acard h4{font-size:19px;font-weight:500;letter-spacing:-.01em}
+.feat p,.step p,.acard p{color:var(--muted);font-size:15.5px}
+/* Иконка — квадратный колодец фиксированного размера. Без размера рамка растягивалась
+   на всю карточку и читалась как пустое поле ввода. */
+.feat .fi,.step-ico,.acard .ai,.panel h3 .e{background:transparent;border:1px solid var(--bd);
+  color:#22d3ee;width:46px;height:46px;border-radius:12px;
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 46px}
+.panel h3 .e{width:38px;height:38px;flex-basis:38px;border-radius:10px}
+/* Нумерация шагов оставлена: это настоящая последовательность, а не «01/02/03»
+   ради красоты. Но подана тихо — акцент на самом шаге. */
+.step .n,.step-num,.num{color:#22d3ee;font-weight:700;font-size:14px;letter-spacing:.06em}
+.step-dot{background:#22d3ee}
+
+/* тарифы */
+.tmini.hot,.tmini.flag,.rcard.good{border-color:rgba(34,211,238,.42);
+  background:linear-gradient(160deg,rgba(34,211,238,.07),transparent 62%)}
+.tmini .tn,.tmini.flag .tn,.tmini.hot .tn{color:var(--ink);font-weight:700}
+.tmini .tp{font-family:var(--font-head);font-weight:500;letter-spacing:-.02em}
+.tmini .tsub{color:#22d3ee;font-weight:600}
+.tmini .td,.tmini .td2{color:var(--muted)}
+.tmini .badge,.badge{background:#22d3ee;color:#04121a;font-weight:800;font-size:11px;
+  letter-spacing:.02em;border-radius:0 16px 0 12px}
+.tier-note,.audit-note,.rnote,.micro,.hint{color:var(--muted2);font-size:14.5px}
+/* Оговорка под тарифами стала абзацем, а не строкой: центрированный текст в четыре
+   строки на всю ширину не читается — держим узкую меру и выравнивание по левому краю. */
+.tier-note{max-width:76ch;margin-inline:0;text-align:left;line-height:1.65;text-wrap:pretty}
+
+/* Блоки с фиолетовой заливкой в старом стиле: тот же приём, что и у карточек —
+   волосяная линия и лёгкий цианистый подсвет вместо сиреневого градиента. */
+.roi,.proofbox{border:1px solid var(--bd);border-radius:20px;
+  background:linear-gradient(160deg,rgba(34,211,238,.06),transparent 60%)}
+.proofbox .eyebrow{display:none}
+.roi h3,.proofbox h2{font-weight:400;letter-spacing:-.02em}
+.roi .rsub,.proofbox p{color:var(--muted)}
+
+/* «в цифрах» */
+.rcard .rh{color:var(--muted2);text-transform:none;letter-spacing:.01em;font-size:14.5px}
+.rcard .rv{font-family:var(--font-head);font-weight:500;letter-spacing:-.02em}
+.rcard.good .rv{color:#22d3ee}
+.rcard .rd{color:var(--muted)}
+
+/* метки, списки */
+.tag{background:transparent;border:1px solid var(--bd);color:var(--muted);border-radius:999px;
+  font-size:13.5px;padding:7px 15px}
+.checklist li{color:var(--muted)}
+.checklist li b{color:var(--ink)}
+/* Градиентный текст — запрещённый приём и главный признак старого сайта.
+   Сбрасываем и подложку, и text-fill: иначе буквы остаются прозрачными. */
+.grad-text,.acc{color:#22d3ee;background:none;-webkit-background-clip:border-box;
+  background-clip:border-box;-webkit-text-fill-color:#22d3ee}
+
+/* финальный блок и подвал */
+.cta-box{background:transparent;border:1px solid var(--bd);border-radius:22px;
+  padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,4vw,2.5rem)}
+.cta-box h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:300}
+.cta-box p{color:var(--muted)}
+footer{border-top:1px solid var(--bd);color:var(--muted2);padding:clamp(2.5rem,5vw,3.5rem) 0}
+footer .fl{color:var(--muted2)}
+footer a:hover{color:#22d3ee}
+
+@media(max-width:760px){
+  .nav-in{height:64px;gap:12px}
+  /* Кнопка в шапке рвалась на две строки и наезжала на логотип. */
+  .nav .btn,nav .btn,header .bar .btn{padding:10px 14px;font-size:13px;white-space:nowrap}
+  header .bar{gap:12px}
+  /* Заголовки страниц со своим инлайновым размером (РЕЗИДЕНТ) на телефоне
+     разъезжались на восемь строк — общий потолок для всех внутренних. */
+  h1{font-size:clamp(1.75rem,7.2vw,2.4rem);line-height:1.06}
+  h2{font-size:clamp(1.5rem,5.6vw,2rem)}
+  .logo{font-size:14px;letter-spacing:.06em;gap:8px}
+  .nav-links{background:rgba(6,6,13,.97);border-bottom:1px solid var(--bd)}
+  .m-cta{background:linear-gradient(to top,var(--bg) 60%,transparent)}
+}
+@media(prefers-reduced-motion:reduce){
+  .btn:hover{transform:none}
+}
+
+/* ---------- ЖИВОЙ ФОН НА ВНУТРЕННИХ (13.08, просьба Сергея) ----------
+   Холст объявлен в site.css с z-index:-2; здесь только прозрачность,
+   как на главной. РЕЗИДЕНТ красит фон своим body::before на том же -2 —
+   уводим его глубже, иначе он закрывает точки. */
+/* Правило полное, а не только opacity: РЕЗИДЕНТ не подключает site.css, и без
+   position:fixed холст встаёт обычным блоком в поток и раздвигает страницу. */
+#nn-canvas{position:fixed;inset:0;z-index:-2;display:block;pointer-events:none;opacity:.85}
+body::before{z-index:-3}
+
+/* Якорные переходы: шапка липкая, без отступа заголовок секции уезжает под неё.
+   Ловится только при клике по «Тарифы»/«Как работает» в меню. */
+section[id],header[id]{scroll-margin-top:96px}
+
+/* ---------- ЗАПАСНОЙ КАНАЛ ЗАЯВКИ (13.08) ----------
+   Живёт под главной кнопкой, свёрнут. Тем, кто идёт в Telegram, не мешает;
+   тем, у кого мессенджер закрыт корпоративной политикой, даёт дверь. */
+/* Блок живёт внутри центрированного CTA. Без выравнивания по левому краю
+   значок «+» отрывается от своей строки, а поля выглядят случайно расставленными. */
+.alt-lead{margin-top:18px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left}
+.alt-lead summary{cursor:pointer;color:var(--muted2);font-size:15px;list-style:none;
+  display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
+.alt-lead summary::-webkit-details-marker{display:none}
+.alt-lead summary::before{content:"+";color:#22d3ee;font-size:17px;line-height:1}
+.alt-lead details[open] summary::before{content:"–"}
+.alt-lead summary:hover{color:var(--ink)}
+.lead-form{display:flex;flex-direction:column;gap:12px;margin-top:16px;text-align:left}
+.lead-form input{width:100%;padding:14px 16px;border-radius:12px;background:transparent;
+  border:1px solid var(--bd);color:var(--ink);font:inherit;font-size:16px}
+.lead-form input::placeholder{color:var(--muted2)}
+.lead-form input:focus{outline:none;border-color:#22d3ee}
+.lead-form input.err{border-color:#f0616d}
+.lead-form .btn{align-self:flex-start}
+.lead-ok,.lead-fail{margin-top:14px;color:var(--muted);font-size:15.5px;text-align:left}
+.lead-ok b{color:#22d3ee}
+
+/* ---------- подписи полей формы (20.09, аудит A20) ----------
+   Плейсхолдер исчезает при вводе и не заменяет подпись: человек, заполнивший
+   половину формы, уже не видит, что где. Подпись постоянная и связана с полем
+   через обёртку <label>. */
+.fld{display:block}
+.fld + .fld{margin-top:12px}
+.fld-l{display:block;margin-bottom:6px;color:var(--muted);font-size:14.5px;line-height:1.35}
+.fld-l em{font-style:normal;color:var(--muted2)}
+.lead-form .fld input,.lead-form .fld select,.lead-form .fld textarea{margin:0}
+
+/* ссылка на политику в микротексте формы должна быть видна как ссылка */
+.micro a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+.micro a:hover{border-bottom-color:#22d3ee}
+
+/* ---------- единый порог мобильной шапки (20.09, аудит A09) ----------
+   В site.css бургер включался на ≤760px, а на главной — на ≤1080px: две разные
+   системы навигации на одном сайте. Хуже того, на 768px внутренняя шапка
+   оставалась десктопной и кнопка вылезала за экран (проверено: scrollWidth 889
+   при вьюпорте 758). Здесь расширяем то же самое поведение до 1080px,
+   чтобы порог и вид были общими для всех страниц. */
+@media(min-width:761px) and (max-width:1080px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(6,6,13,.98);border-bottom:1px solid var(--bd);padding:6px 22px 14px}
+  .nav-links a{display:flex;align-items:center;min-height:48px;padding:13px 2px;font-size:16px;
+    color:var(--ink);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    width:44px;height:44px;flex:none}
+  .nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:#dfe3f2;
+    transition:transform .25s var(--ease),opacity .2s var(--ease)}
+  .nav-toggle:checked ~ .nav-links{display:flex}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(2){opacity:0}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav .btn{display:none}
+  .nav-in{position:relative}
+}
+/* Ниже 760px правила живут в site.css — там же липкая нижняя кнопка. */
+@media(max-width:760px){
+  .nav-links{background:rgba(6,6,13,.98);backdrop-filter:none}
+  .nav-links a{color:var(--ink);min-height:48px;display:flex;align-items:center}
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ЭТАП 2 АУДИТА (20.09), флагманская страница:
+   определение продукта, роли «вход→действия→результат→граница»,
+   маршрут задачи, состав поставки, сопровождение, FAQ, границы.
+   Ни одной новой «карточки-клона»: списки и строки, как на главной.
+   ───────────────────────────────────────────────────────────── */
+
+/* Определение продукта */
+.defbox{display:grid;gap:clamp(1.6rem,3vw,2.4rem)}
+.def{font-family:var(--font-head);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.45;color:var(--ink);
+  max-width:60ch;padding-left:clamp(16px,2vw,24px);border-left:2px solid rgba(34,211,238,.45)}
+.deflist{display:grid;gap:clamp(1.2rem,2.4vw,2rem);
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.dl-i h3{font-size:17px;font-weight:500;letter-spacing:-.01em;
+  padding-bottom:12px;border-bottom:1px solid var(--bd-strong)}
+.dl-i p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55}
+
+/* Роли: четыре строки внутри каждой — вход, действия, результат, граница */
+.rolez{display:grid;gap:clamp(1.4rem,2.6vw,2.2rem);
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.rz{padding-top:18px;border-top:1px solid var(--bd-strong)}
+.rz h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;letter-spacing:-.02em}
+.rz dl{margin-top:14px}
+.rz dl>div{display:grid;grid-template-columns:minmax(0,88px) minmax(0,1fr);
+  gap:14px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.rz dl>div:last-child{border-bottom:0}
+.rz dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted2);padding-top:3px}
+.rz dl>div:last-child dt{color:#22d3ee}
+.rz dd{color:var(--muted);font-size:15.5px;line-height:1.5}
+
+/* Маршрут задачи */
+.flow-steps{display:grid;gap:clamp(1.2rem,2.4vw,2rem);list-style:none;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.fs{padding-top:16px;border-top:1px solid var(--bd-strong)}
+.fs-k{display:block;font-size:12.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#22d3ee}
+.fs p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55}
+
+/* Состав поставки и сопровождение: список строк, не сетка плашек */
+.sc-list{list-style:none;max-width:88ch}
+.sc-list li{position:relative;padding:14px 0 14px 24px;border-bottom:1px solid var(--bd);
+  color:var(--muted);font-size:16px;line-height:1.55}
+.sc-list li::before{content:"";position:absolute;left:0;top:1.5em;
+  width:9px;height:1px;background:#22d3ee;opacity:.75}
+.sc-list li b{color:var(--ink);font-weight:500}
+.sc-list.nots li::before{width:9px;height:9px;top:1.15em;border-radius:50%;
+  background:transparent;border:1px solid rgba(240,97,109,.55);opacity:1}
+
+/* FAQ */
+.faq{max-width:88ch;border-top:1px solid var(--bd-strong)}
+.faq details{border-bottom:1px solid var(--bd)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 34px 18px 0;position:relative;
+  font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:15px;
+  color:#22d3ee;font-size:20px;line-height:1;transition:transform .25s var(--ease)}
+.faq details[open] summary::after{content:"–"}
+.faq summary:hover{color:#22d3ee}
+.faq summary:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;border-radius:6px}
+.faq details p{padding:0 0 20px;color:var(--muted);font-size:16px;line-height:1.6;max-width:76ch}
+.faq details p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+.cta-box p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+
+@media(max-width:600px){
+  .rz dl>div{grid-template-columns:1fr;gap:4px}
+  .rz dt{padding-top:0}
+  .flow-steps{grid-template-columns:1fr;gap:1rem}
+}
+
+/* Пять шагов маршрута держим одной лентой: 4+1 читается как обрыв. */
+@media(min-width:1000px){.flow-steps{grid-template-columns:repeat(5,1fr)}}
+
+/* ── Правки по ревью дизайн-критика (20.09, этап 2) ── */
+
+/* Мера строки. `ch` считался от кегля контейнера (18px), а текст набран 16px,
+   поэтому 88ch давали 117 знаков в строке. Перевёл в абсолют. */
+.sc-list{max-width:40rem}
+.faq{max-width:42rem}
+.def{max-width:42rem}
+.tier-note{max-width:34rem}
+
+/* Единственный акцент — циан. Красное кольцо в списке «чего мы не обещаем»
+   вводило второй цвет и при 55% альфы читалось грязным пятном.
+   Негацию несёт заголовок блока, цвет для этого не нужен. */
+.sc-list.nots li::before{width:9px;height:1px;top:1.5em;border-radius:0;
+  background:#22d3ee;border:0;opacity:.75}
+
+/* Плюс в FAQ стоял выше оптического центра первой строки. */
+.faq summary::after{top:18px}
+
+/* Роли: узкая колонка dd ломала «Действия» на пять строк. */
+.rolez{grid-template-columns:repeat(auto-fit,minmax(370px,1fr))}
+.rz dl>div{grid-template-columns:minmax(0,76px) minmax(0,1fr);gap:12px}
+
+/* Ритм секций как на главной: волосяная линия между блоками.
+   Без неё две страницы одного сайта разделяют контент по-разному. */
+main#content>section{border-top:1px solid var(--bd)}
+main#content>section#what{border-top:0}
+
+/* Фон-граф проходил сквозь межстрочья самых плотных текстовых блоков —
+   узлы садились прямо в строку. Локальный скрим гасит его под текстом,
+   не трогая канву на остальной странице. */
+#roles,#faq,#scope,#support,#what{position:relative;isolation:isolate}
+#roles::before,#faq::before,#scope::before,#support::before,#what::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 50%,
+    rgba(6,6,13,.94) 45%,rgba(6,6,13,.7) 78%,rgba(6,6,13,0) 100%)}
+
+/* Липкая мобильная кнопка перекрывала низ футера на 2px. */
+@media(max-width:900px){body{padding-bottom:84px}}
+
+@media(min-width:1000px){.flow-steps{gap:1.6rem}.fs p{font-size:14.8px;line-height:1.5}}
+
+/* Блок вопросов вставал по центру колонки: выравниваю по левому краю, как все секции. */
+.faq{margin-left:0;margin-right:auto}
+
+/* Мобилка: правки выше стоят в файле ПОЗЖЕ медиазапроса и перебивали его.
+   Возвращаю одноколоночные роли и чиню переполнение от minmax(370px). */
+.rolez{grid-template-columns:repeat(auto-fit,minmax(min(370px,100%),1fr))}
+@media(max-width:600px){
+  .rz dl>div{grid-template-columns:1fr;gap:4px}
+  .rz dt{padding-top:0}
+}
+
+/* ─────────────────────────────────────────────────────────────
+   КЕЙСЫ (дополнение к этапу 2, 20.09). Пока живут только в
+   _preview-kejsy.html: на публичный сайт выходят после того, как
+   Сергей согласует объём раскрытия и придут артефакты.
+   ───────────────────────────────────────────────────────────── */
+
+.cases{display:grid;gap:clamp(1.4rem,2.6vw,2.2rem);
+  grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+.case{display:flex;flex-direction:column;padding-top:18px;border-top:1px solid var(--bd-strong)}
+.case h3{font-family:var(--font-head);font-size:1.2rem;font-weight:400;letter-spacing:-.02em}
+.case p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55}
+.case .go{margin-top:auto;padding-top:18px;color:#22d3ee;font-size:14px;font-weight:700}
+.case-tag{display:inline-block;align-self:flex-start;margin-top:12px;padding:5px 11px;border-radius:999px;
+  border:1px solid var(--bd-strong);color:var(--muted2);font-size:12.5px;line-height:1.3}
+.case-tag.own{border-color:rgba(34,211,238,.4);color:#22d3ee}
+
+/* Подробный кейс: та же грамматика, что у ролей — подпись слева, факт справа. */
+.casefull{max-width:56rem}
+.casefull + .casefull{margin-top:clamp(2.4rem,5vw,4rem);padding-top:clamp(2.4rem,5vw,4rem);
+  border-top:1px solid var(--bd)}
+.casefull h3{font-family:var(--font-head);font-size:clamp(1.3rem,2.6vw,1.75rem);
+  font-weight:400;letter-spacing:-.025em}
+.casefull dl{margin-top:18px}
+.casefull dl>div{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);
+  gap:16px;padding:13px 0;border-bottom:1px solid var(--bd)}
+.casefull dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted2);padding-top:3px}
+.casefull dl>div.limit dt{color:#22d3ee}
+.casefull dd{color:var(--muted);font-size:16px;line-height:1.55}
+@media(max-width:640px){
+  .casefull dl>div{grid-template-columns:1fr;gap:4px}
+  .casefull dt{padding-top:0}
+}
+
+/* Подзаголовок внутри секции (например «Подключения» внутри блока о работе). */
+.sub-h{margin-top:clamp(2.4rem,5vw,3.6rem);margin-bottom:clamp(1rem,2vw,1.4rem);
+  font-family:var(--font-head);font-size:1.15rem;font-weight:400;letter-spacing:-.02em}
+#test .def{max-width:46rem}

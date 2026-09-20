@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>document.documentElement.classList.add('js')</script>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пентест сайтов, API и AI-систем для бизнеса | ALETHEIA Security</title>
+<meta name="description" content="Пентест сайтов, веб-приложений, API, внешней инфраструктуры и AI-систем. Ручная и автоматизированная проверка, отчёт, рекомендации и ретест. Только по договору и письменному разрешению.">
+<link rel="canonical" href="https://aletheia-ai.ru/security.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site-inner-v3.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ALETHEIA">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://aletheia-ai.ru/security.html">
+<meta property="og:title" content="ALETHEIA Security — пентест цифрового контура бизнеса">
+<meta property="og:description" content="Проверка сайтов, API, инфраструктуры, интеграций и AI-систем в согласованных границах.">
+<meta property="og:image" content="https://aletheia-ai.ru/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#06060d">
+
+<!-- Локальный слой страницы: компоненты, которых нет в общей системе —
+     сравнительная таблица, две колонки Scope, лента этапов, поля формы.
+     Токены и типографика наследуются от site-inner-v3.css, своих цветов нет. -->
+<style>
+  /* метки под кнопками первого экрана */
+  .sec-marks{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .sec-marks .tag{font-size:13px}
+
+  /* юридическая строка — живёт рядом с кнопками, её нельзя терять на мобиле */
+  .legal-line{margin-top:22px;max-width:70ch;color:var(--muted2);font-size:15px;line-height:1.6;
+    border-left:1px solid var(--bd);padding-left:16px}
+
+  /* сравнение: на десктопе таблица, на телефоне — пары «было/стало» подряд */
+  .cmp{width:100%;border-collapse:collapse;margin-top:8px}
+  .cmp th,.cmp td{text-align:left;vertical-align:top;padding:16px 18px;border-bottom:1px solid var(--bd);
+    font-size:16px;line-height:1.55}
+  .cmp thead th{font-family:var(--font-head);font-weight:500;font-size:15px;letter-spacing:-.01em;
+    color:var(--muted2);border-bottom:1px solid var(--bd-strong)}
+  .cmp thead th:last-child{color:#22d3ee}
+  .cmp td:first-child{color:var(--muted)}
+  .cmp td:last-child{color:var(--ink)}
+  .cmp-note{margin-top:20px;color:var(--muted2);font-size:15px;max-width:76ch}
+  @media(max-width:760px){
+    .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+    .cmp thead{display:none}
+    .cmp tr{border:1px solid var(--bd);border-radius:14px;padding:6px 2px;margin-bottom:14px}
+    .cmp td{border-bottom:none;padding:12px 16px}
+    .cmp td::before{content:attr(data-label);display:block;font-size:13px;letter-spacing:.01em;
+      color:var(--muted2);margin-bottom:6px}
+    .cmp td:first-child{border-bottom:1px solid var(--bd)}
+  }
+
+  /* нумерованные карточки (Scope, этапы) */
+  .num-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(14px,1.6vw,20px)}
+  .ncard{border:1px solid var(--bd);border-radius:16px;padding:clamp(22px,2.4vw,28px);
+    transition:border-color .3s var(--ease)}
+  .ncard:hover{border-color:var(--bd-strong)}
+  .ncard .n{color:#22d3ee;font-weight:700;font-size:14px;letter-spacing:.06em;
+    font-family:var(--font-head);display:block;margin-bottom:12px}
+  .ncard h3{font-size:19px;font-weight:500;letter-spacing:-.01em;margin-bottom:10px}
+  .ncard p{color:var(--muted);font-size:15.5px}
+
+  /* лента этапов: вертикальная линия, по которой идёт проверка */
+  .flow{display:grid;gap:0;margin-top:8px;border-left:1px solid var(--bd);padding-left:clamp(20px,3vw,34px)}
+  .flow .fstep{position:relative;padding:22px 0 24px}
+  .flow .fstep + .fstep{border-top:1px solid var(--bd)}
+  .flow .fstep::before{content:"";position:absolute;left:calc(-1 * clamp(20px,3vw,34px) - 4px);top:30px;
+    width:7px;height:7px;border-radius:50%;background:#22d3ee;box-shadow:0 0 14px rgba(34,211,238,.7)}
+  .flow .fn{color:#22d3ee;font-family:var(--font-head);font-weight:700;font-size:13.5px;letter-spacing:.06em}
+  .flow h3{font-size:19.5px;font-weight:500;letter-spacing:-.015em;margin:8px 0 8px}
+  .flow p{color:var(--muted);font-size:16px;max-width:72ch}
+
+  /* Scope: что входит обычно и что только отдельным приложением */
+  .scope-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(16px,2vw,24px)}
+  .scope-col{border:1px solid var(--bd);border-radius:18px;padding:clamp(24px,2.6vw,32px)}
+  .scope-col.strict{border-color:rgba(34,211,238,.32);
+    background:linear-gradient(160deg,rgba(34,211,238,.05),transparent 60%)}
+  .scope-col h3{font-size:19px;font-weight:500;margin-bottom:6px}
+  .scope-col .sub{color:var(--muted2);font-size:14.5px;margin-bottom:18px}
+  .scope-list{list-style:none;display:grid;gap:11px}
+  .scope-list li{color:var(--muted);font-size:16px;padding-left:24px;position:relative;line-height:1.5}
+  .scope-list li::before{content:"";position:absolute;left:0;top:10px;width:9px;height:1px;background:#22d3ee}
+  .scope-col.strict .scope-list li::before{width:9px;height:9px;top:7px;border:1px solid #22d3ee;
+    background:transparent;border-radius:2px}
+
+  /* короткие пункты «после пентеста» и «почему мы» */
+  .plain-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:12px 28px;margin-top:6px}
+  .plain-list li{color:var(--muted);font-size:16px;padding-left:22px;position:relative;line-height:1.5}
+  .plain-list li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:1px;background:#22d3ee}
+  .disclaimer{margin-top:26px;border:1px solid var(--bd);border-radius:14px;padding:18px 20px;
+    color:var(--muted);font-size:15.5px;max-width:82ch}
+  .disclaimer b{color:var(--ink);font-weight:600}
+
+  /* FAQ берём из общей системы (site.css + site-inner-v3.css): там уже карточка
+     с волосяной линией и «+» справа. Здесь только ширина — вопросов девять,
+     и колонка в 780px рвала длинные заголовки на две строки чаще, чем нужно. */
+  .faq{max-width:880px;margin-inline:0}
+  .faq details.qa{padding:2px 20px;margin-bottom:12px}
+
+  /* форма заявки на пентест: поля шире, чем короткая форма-заглушка */
+  .pt-form{display:grid;gap:14px;margin-top:18px;text-align:left}
+  .pt-form input,.pt-form select,.pt-form textarea{width:100%;padding:14px 16px;border-radius:12px;
+    background:transparent;border:1px solid var(--bd);color:var(--ink);font:inherit;font-size:16px}
+  .pt-form textarea{min-height:104px;resize:vertical}
+  .pt-form select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2322d3ee' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 16px center}
+  .pt-form select option{background:#0a0a14;color:var(--ink)}
+  .pt-form input::placeholder,.pt-form textarea::placeholder{color:var(--muted2)}
+  .pt-form input:focus,.pt-form select:focus,.pt-form textarea:focus{outline:none;border-color:#22d3ee}
+  .pt-form input.err,.pt-form select.err,.pt-form textarea.err{border-color:#f0616d}
+  .pt-consent{display:flex;gap:12px;align-items:flex-start;color:var(--muted2);font-size:14.5px;line-height:1.5}
+  .pt-consent input[type=checkbox]{width:18px;height:18px;flex:none;margin-top:3px;accent-color:#22d3ee}
+  .pt-form .btn{justify-self:start}
+  .secret-warn{margin-top:20px;color:var(--muted);font-size:15px;max-width:66ch;margin-inline:auto;
+    border:1px solid var(--bd);border-radius:14px;padding:16px 18px;text-align:left}
+  .secret-warn b{color:#22d3ee;font-weight:600}
+  .cta-box .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .subhero .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+</style>
+</head>
+<body>
+<div style="background:#22d3ee;color:#04121a;font:600 13px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center;letter-spacing:.02em">
+  ПРЕДПРОСМОТР будущей версии сайта · 20.09.2026 · живой сайт не изменён · <a href="https://aletheia-ai.ru/" target="_blank" rel="noopener" style="color:#04121a;text-decoration:underline">открыть текущий сайт</a>
+</div>
+<canvas id="nn-canvas" aria-hidden="true"></canvas>
+
+<div class="bg-fx"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grain"></div>
+
+<nav><div class="wrap nav-in">
+  <input type="checkbox" id="nav-t" class="nav-toggle">
+  <a class="logo" href="index.html"><span class="mark"></span> ALETHEIA</a>
+  <div class="nav-links">
+    <a href="#scope">Что проверяем</a>
+    <a href="#process">Как проходит пентест</a>
+    <a href="#result">Результат</a>
+    <a href="#ai">AI-безопасность</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="https://t.me/aletheia_support_bot?start=security" class="btn" data-ev="pentest_discuss_nav">Обсудить пентест</a>
+  <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
+</div></nav>
+
+<main id="content">
+<header class="subhero"><div class="wrap">
+  <a href="index.html" class="backlink">← На главную</a>
+  <div class="eyebrow">ALETHEIA SECURITY · PENETRATION TESTING</div>
+  <h1>Найдём уязвимости раньше, чем ими воспользуются</h1>
+  <p class="lead">Проводим пентест сайтов, веб-приложений, API, внешней инфраструктуры, интеграций и AI-систем. Совмещаем автоматизированную проверку с ручным анализом и моделируем реальные сценарии атаки только в заранее согласованных границах.</p>
+  <p class="legal-line">Работаем только по договору, письменному разрешению владельца инфраструктуры и утверждённому Scope — перечню систем и разрешённых действий.</p>
+  <div class="actions">
+    <a href="https://t.me/aletheia_support_bot?start=security" class="btn" data-ev="pentest_discuss">Обсудить пентест</a>
+    <a href="#cta" class="btn ghost" data-ev="pentest_estimate">Получить оценку стоимости</a>
+  </div>
+  <div class="sec-marks">
+    <span class="tag">Согласованный Scope</span>
+    <span class="tag">Rules of Engagement</span>
+    <span class="tag">Технический отчёт</span>
+    <span class="tag">Рекомендации и ретест</span>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Бизнес видит интерфейс. Атакующий ищет путь внутрь.</h2>
+    <p>Уязвимость редко выглядит как очевидная «дыра». Точкой входа может стать забытый поддомен, неверно настроенное API, избыточные права, открытая административная панель, устаревший компонент или цепочка из нескольких небольших ошибок.</p>
+    <p style="margin-top:14px">Задача пентеста — не собрать длинный список предупреждений, а проверить, какие слабые места действительно можно связать в сценарий несанкционированного доступа, утечки данных или воздействия на бизнес-процесс.</p>
+  </div>
+  <div class="bnfts">
+    <div class="bnft reveal"><b>Утечка клиентских данных</b><span>Доступ к анкетам, заказам, документам, контактам или истории взаимодействий.</span></div>
+    <div class="bnft reveal"><b>Захват учётной записи</b><span>Получение прав пользователя, сотрудника или администратора через ошибки авторизации и управления сессиями.</span></div>
+    <div class="bnft reveal"><b>Компрометация интеграций</b><span>Использование API, webhooks, токенов или связей между сервисами как пути к данным и действиям внутри системы.</span></div>
+    <div class="bnft reveal"><b>Нарушение работы бизнеса</b><span>Изменение данных, злоупотребление бизнес-логикой, блокировка процессов или использование инфраструктуры в чужих целях.</span></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Пентест — это не просто запуск сканера</h2>
+    <p>Penetration testing — контролируемая проверка безопасности, при которой команда исследует систему с позиции потенциального атакующего. Цель — определить, можно ли использовать технические и логические слабые места для доступа к данным, функциям или инфраструктуре, которые не должны быть доступны.</p>
+    <p style="margin-top:14px">Автоматизированные инструменты помогают находить известные признаки риска. Ручная проверка нужна, чтобы анализировать бизнес-логику, права доступа, цепочки уязвимостей и отделять реальную проблему от ложного срабатывания.</p>
+    <p style="margin-top:14px">Глубина проверки зависит от согласованного Scope, доступов и ограничений. Пентест снижает неопределённость, но не является обещанием абсолютной защищённости системы в будущем.</p>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Сканирование и пентест решают разные задачи</h2>
+  </div>
+  <div class="reveal" style="overflow-x:auto">
+    <table class="cmp">
+      <thead>
+        <tr><th scope="col">Автоматизированное сканирование</th><th scope="col">Пентест ALETHEIA Security</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Автоматизированное сканирование">Ищет признаки известных проблем по шаблонам</td>
+          <td data-label="Пентест ALETHEIA Security">Проверяет технические и логические сценарии с учётом конкретной системы</td>
+        </tr>
+        <tr>
+          <td data-label="Автоматизированное сканирование">Может создавать ложные срабатывания</td>
+          <td data-label="Пентест ALETHEIA Security">Находки проходят ручную проверку</td>
+        </tr>
+        <tr>
+          <td data-label="Автоматизированное сканирование">Обычно рассматривает проблемы по отдельности</td>
+          <td data-label="Пентест ALETHEIA Security">Анализирует возможные цепочки из нескольких слабых мест</td>
+        </tr>
+        <tr>
+          <td data-label="Автоматизированное сканирование">Даёт технический список предупреждений</td>
+          <td data-label="Пентест ALETHEIA Security">Показывает риск, возможное влияние и приоритет устранения</td>
+        </tr>
+        <tr>
+          <td data-label="Автоматизированное сканирование">Не заменяет экспертную проверку</td>
+          <td data-label="Пентест ALETHEIA Security">Использует автоматизацию как один из этапов работы</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-note reveal">Если клиенту нужен только базовый автоматизированный аудит, это оформляется как отдельная услуга и не называется полноценным пентестом.</p>
+</div></section>
+
+<section id="scope" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Что можно включить в Scope</h2>
+    <p>Набор объектов определяется до начала работ. В пентест включаются только системы, которые указаны в договоре и на проверку которых заказчик имеет право дать разрешение.</p>
+  </div>
+  <div class="num-grid">
+    <article class="ncard reveal"><span class="n">01</span><h3>Сайты и веб-приложения</h3><p>Авторизация, сессии, разграничение ролей, формы, загрузка файлов, административные функции, обработка пользовательских данных и бизнес-логика приложения.</p></article>
+    <article class="ncard reveal"><span class="n">02</span><h3>API и интеграции</h3><p>Методы API, токены, webhooks, права доступа, передача данных между сервисами и возможность выполнять действия от имени другого пользователя или системы.</p></article>
+    <article class="ncard reveal"><span class="n">03</span><h3>Внешняя инфраструктура</h3><p>Домены, поддомены, публичные IP-адреса, открытые сервисы, панели управления, облачные ресурсы и другие элементы, доступные из интернета.</p></article>
+    <article class="ncard reveal"><span class="n">04</span><h3>Учётные записи и доступы</h3><p>Механизмы входа, MFA, восстановление доступа, роли, административные права, управление сессиями и потенциальные пути повышения привилегий.</p></article>
+    <article class="ncard reveal"><span class="n">05</span><h3>Конфигурации и компоненты</h3><p>Устаревшее программное обеспечение, небезопасные настройки, служебные файлы, резервные копии, тестовые среды и известные уязвимости компонентов.</p></article>
+    <article class="ncard reveal"><span class="n">06</span><h3>AI-системы и AI-сотрудники</h3><p>Доступ к данным и инструментам, разделение доверенных и внешних инструкций, журналы действий, хранение секретов, права агента и сценарии воздействия через внешнее содержимое.</p></article>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Подбираем формат под задачу</h2>
+  </div>
+  <div class="num-grid">
+    <article class="ncard reveal"><span class="n">BLACK BOX</span><h3>Взгляд снаружи</h3><p>Проверка с минимальной исходной информацией — максимально близко к позиции внешнего атакующего.</p></article>
+    <article class="ncard reveal"><span class="n">GREY BOX</span><h3>Тестовые учётные записи</h3><p>Проверка с тестовыми учётными записями и ограниченным знанием архитектуры. Позволяет глубже проверить роли, права и бизнес-логику.</p></article>
+    <article class="ncard reveal"><span class="n">WHITE BOX</span><h3>Полная картина</h3><p>Проверка с расширенной технической информацией, документацией и при необходимости доступом к исходному коду. Подходит для наиболее глубокой оценки конкретной системы.</p></article>
+  </div>
+  <p class="cmp-note reveal">Формат, доступы и ограничения фиксируются до начала работ. Не каждый проект требует всех трёх подходов.</p>
+</div></section>
+
+<section id="process" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Пентест проходит в контролируемых границах</h2>
+  </div>
+  <div class="flow reveal">
+    <div class="fstep"><span class="fn">01</span><h3>Предварительная оценка</h3><p>Уточняем цель проверки, состав инфраструктуры, критичные бизнес-процессы и ожидаемый результат.</p></div>
+    <div class="fstep"><span class="fn">02</span><h3>Scope и договор</h3><p>Фиксируем домены, IP-адреса, приложения, API, учётные записи, исключения, временные окна и подтверждение прав заказчика на тестируемые системы.</p></div>
+    <div class="fstep"><span class="fn">03</span><h3>Rules of Engagement</h3><p>Определяем разрешённые и запрещённые действия, допустимую глубину подтверждения, контактных лиц и процедуру немедленной остановки работ.</p></div>
+    <div class="fstep"><span class="fn">04</span><h3>Исследование поверхности атаки</h3><p>Определяем доступные извне элементы контура и потенциальные точки входа в рамках согласованного Scope.</p></div>
+    <div class="fstep"><span class="fn">05</span><h3>Автоматизированная и ручная проверка</h3><p>Используем специализированные инструменты и ручные методы. Проверяем конфигурацию, доступы, бизнес-логику и возможные цепочки уязвимостей.</p></div>
+    <div class="fstep"><span class="fn">06</span><h3>Контролируемое подтверждение риска</h3><p>Подтверждаем влияние найденных проблем только в допустимых границах. Нагрузочные, разрушающие и иные потенциально опасные действия выполняются только при отдельном письменном согласовании либо исключаются полностью.</p></div>
+    <div class="fstep"><span class="fn">07</span><h3>Отчёт, разбор и ретест</h3><p>Передаём технический отчёт и резюме для руководителя, проводим разбор находок и после исправлений повторно проверяем согласованные уязвимости.</p></div>
+  </div>
+</div></section>
+
+<section id="result" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Результат, с которым можно работать</h2>
+  </div>
+  <div class="num-grid">
+    <article class="ncard reveal"><span class="n">01</span><h3>Резюме для руководителя</h3><p>Ключевые риски без лишней технической детализации: что может произойти, какие процессы и данные затронуты и что исправлять в первую очередь.</p></article>
+    <article class="ncard reveal"><span class="n">02</span><h3>Технический отчёт</h3><p>Описание каждой подтверждённой находки, затронутые компоненты, условия воспроизведения, подтверждающие материалы и рекомендации по устранению.</p></article>
+    <article class="ncard reveal"><span class="n">03</span><h3>Приоритизация</h3><p>Уровень критичности, вероятность эксплуатации, потенциальное влияние и рекомендуемая последовательность исправлений.</p></article>
+    <article class="ncard reveal"><span class="n">04</span><h3>План устранения</h3><p>Конкретные меры для разработчиков, системных администраторов и владельцев процессов.</p></article>
+    <article class="ncard reveal"><span class="n">05</span><h3>Разбор результатов</h3><p>Встреча с ответственными сотрудниками заказчика, ответы на вопросы и согласование дальнейших действий.</p></article>
+    <article class="ncard reveal"><span class="n">06</span><h3>Ретест</h3><p>Повторная проверка исправленных уязвимостей в объёме и сроки, установленные договором или пакетом услуги.</p></article>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Что входит только по отдельному согласованию</h2>
+  </div>
+  <div class="scope-cols">
+    <div class="scope-col reveal">
+      <h3>Обычный технический Scope</h3>
+      <p class="sub">Включается в договор на общих основаниях</p>
+      <ul class="scope-list">
+        <li>сайты и веб-приложения</li>
+        <li>API</li>
+        <li>домены и поддомены</li>
+        <li>внешние сервисы</li>
+        <li>административные панели</li>
+        <li>механизмы авторизации</li>
+        <li>роли и права пользователей</li>
+        <li>интеграции</li>
+        <li>публично доступная инфраструктура</li>
+        <li>AI-приложения и агентные системы</li>
+      </ul>
+    </div>
+    <div class="scope-col strict reveal">
+      <h3>Только отдельным приложением к договору</h3>
+      <p class="sub">Требует дополнительных согласований и полномочий</p>
+      <ul class="scope-list">
+        <li>социальная инженерия</li>
+        <li>phishing-симуляции</li>
+        <li>проверка сотрудников</li>
+        <li>внутренний корпоративный контур</li>
+        <li>беспроводные сети</li>
+        <li>физическая безопасность</li>
+        <li>нагрузочное тестирование</li>
+        <li>действия, способные повлиять на доступность или целостность данных</li>
+        <li>проверка систем третьих лиц</li>
+      </ul>
+    </div>
+  </div>
+  <p class="cmp-note reveal">Если система принадлежит внешнему провайдеру, подрядчику или партнёру, одного разрешения заказчика может быть недостаточно. Такие объекты включаются только после подтверждения полномочий и необходимых согласований.</p>
+</div></section>
+
+<section id="ai" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Безопасность AI-сотрудников и AI-инфраструктуры</h2>
+    <p>AI-сотрудник может читать документы, работать с почтой, обращаться к CRM, запускать автоматизации и использовать внешние инструменты. Поэтому риск находится не только внутри модели — он возникает на стыке данных, инструкций, интеграций, прав и действий.</p>
+    <p style="margin-top:14px">Мы проверяем, какие данные доступны AI-системе, где хранятся секреты, какие действия агент может выполнять самостоятельно, как разделены доверенные команды и внешнее содержимое и можно ли ограничить последствия ошибочного или нежелательного действия.</p>
+  </div>
+  <div class="num-grid">
+    <article class="ncard reveal"><span class="n">01</span><h3>Права по минимуму</h3><p>AI-система получает только те доступы и действия, которые нужны для её функции.</p></article>
+    <article class="ncard reveal"><span class="n">02</span><h3>Разделение доверия</h3><p>Команды, пользовательские данные, внешние документы и содержимое сайтов не должны обрабатываться как равнозначные источники инструкций.</p></article>
+    <article class="ncard reveal"><span class="n">03</span><h3>Контроль инструментов</h3><p>Критичные действия требуют ограничений, подтверждения или отдельного канала авторизации.</p></article>
+    <article class="ncard reveal"><span class="n">04</span><h3>Секреты и интеграции</h3><p>API-ключи, токены, webhooks и сервисные учётные записи проверяются как часть общего контура.</p></article>
+    <article class="ncard reveal"><span class="n">05</span><h3>Журналирование</h3><p>Значимые действия должны оставлять проверяемый след: кто инициировал операцию, что было выполнено и с каким результатом.</p></article>
+    <article class="ncard reveal"><span class="n">06</span><h3>Ограничение ущерба</h3><p>Архитектура должна учитывать, что абсолютной защиты от всех классов атак не существует, и снижать возможный масштаб последствий.</p></article>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>После отчёта: устранение и постоянная защита</h2>
+    <p>Пентест показывает состояние выбранных систем на момент проверки. После передачи отчёта ALETHEIA может отдельно помочь с устранением уязвимостей, настройкой защиты и регулярным контролем изменений.</p>
+  </div>
+  <ul class="plain-list reveal">
+    <li>помощь в устранении подтверждённых уязвимостей</li>
+    <li>настройка MFA и политик доступа</li>
+    <li>обновление компонентов и конфигураций</li>
+    <li>защита входа и фильтрация вредоносного трафика</li>
+    <li>резервное копирование и проверка восстановления</li>
+    <li>мониторинг доступности и событий безопасности</li>
+    <li>регулярное сканирование и повторные проверки</li>
+    <li>контроль изменений AI-интеграций и прав агентов</li>
+  </ul>
+  <p class="disclaimer reveal"><b>Устранение уязвимостей и сопровождение — отдельные работы.</b> Они не включаются в пентест автоматически, если это прямо не зафиксировано в выбранном пакете или договоре.</p>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Смотрим на всю цепочку, а не на сайт отдельно</h2>
+    <p>ALETHEIA внедряет AI-сотрудников, автоматизацию, интеграции и управленческие системы. Поэтому при проверке безопасности мы учитываем связи между компонентами: сайт → API → CRM → документы → сотрудники → AI-системы → данные.</p>
+    <p style="margin-top:14px">Такой подход особенно важен там, где одна система сама по себе настроена корректно, но риск возникает на стыке нескольких сервисов, прав и бизнес-процессов.</p>
+  </div>
+  <ul class="plain-list reveal">
+    <li>единый взгляд на AI, автоматизацию и безопасность</li>
+    <li>заранее зафиксированные границы работ</li>
+    <li>ручная проверка значимых находок</li>
+    <li>отдельный результат для руководителя и технической команды</li>
+    <li>возможность ретеста и дальнейшего сопровождения</li>
+    <li>отсутствие работ без письменного разрешения</li>
+  </ul>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Для бизнеса, который зависит от цифровых систем и данных</h2>
+  </div>
+  <div class="num-grid">
+    <article class="ncard reveal"><span class="n">E-COMMERCE</span><h3>Магазины и кабинеты</h3><p>Интернет-магазины, личные кабинеты, CRM, заказы, оплаты, клиентские базы и интеграции.</p></article>
+    <article class="ncard reveal"><span class="n">МЕДИЦИНА</span><h3>Клиники и сервисные компании</h3><p>Записи клиентов, анкеты, документы, внутренние системы и персональные данные.</p></article>
+    <article class="ncard reveal"><span class="n">ПРОФУСЛУГИ</span><h3>Юристы, бухгалтеры, финансы</h3><p>Документы, переписка, кабинеты, конфиденциальные данные и доступы сотрудников.</p></article>
+    <article class="ncard reveal"><span class="n">ОНЛАЙН-СЕРВИСЫ</span><h3>Сервисы и образование</h3><p>Личные кабинеты, подписки, API, платёжные сценарии и пользовательские роли.</p></article>
+    <article class="ncard reveal"><span class="n">AI-КОНТУР</span><h3>Компании с AI и автоматизацией</h3><p>AI-сотрудники, агентные системы, CRM, базы знаний, внешние модели и цепочки интеграций.</p></article>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>Что обычно спрашивают</h2>
+  </div>
+  <div class="faq reveal">
+    <details class="qa"><summary>Законно ли проводить пентест?</summary><p>Мы начинаем работу только после заключения договора, получения письменного разрешения заказчика и утверждения Scope и Rules of Engagement. Проверяются исключительно согласованные системы и действия. Ресурсы третьих лиц не включаются без необходимых полномочий и разрешений.</p></details>
+    <details class="qa"><summary>Может ли проверка повлиять на работу системы?</summary><p>Любое активное тестирование связано с остаточным риском. До начала работ мы согласуем ограничения, временные окна, резервные контакты и процедуру остановки. Нагрузочные, разрушающие и потенциально опасные действия исключаются либо оформляются отдельным письменным согласованием.</p></details>
+    <details class="qa"><summary>Вы гарантируете, что после пентеста систему нельзя будет взломать?</summary><p>Нет. Пентест проверяет согласованный Scope в конкретный период и снижает неопределённость, но не создаёт абсолютной защиты. Инфраструктура, программное обеспечение и методы атак меняются, поэтому безопасность требует устранения находок и регулярного контроля.</p></details>
+    <details class="qa"><summary>Что если уязвимостей не найдут?</summary><p>Клиент всё равно получает отчёт о проверенном Scope, применённых методах, ограничениях и результатах. Оплачивается работа по тестированию, а не количество найденных проблем.</p></details>
+    <details class="qa"><summary>Чем пентест отличается от аудита безопасности?</summary><p>Аудит может включать анализ документов, настроек, процессов и соответствия требованиям. Пентест сфокусирован на практической проверке того, можно ли использовать слабые места в пределах разрешённого сценария. Конкретный состав услуги фиксируется до начала работ.</p></details>
+    <details class="qa"><summary>Нужно ли передавать пароли и исходный код?</summary><p>Не всегда. Это зависит от выбранного формата: Black Box, Grey Box или White Box. Необходимые доступы и способ их безопасной передачи согласуются заранее.</p></details>
+    <details class="qa"><summary>Сколько занимает проверка?</summary><p>Срок зависит от количества систем, ролей, API, интеграций, выбранной глубины и ограничений. Точный срок определяется после предварительной оценки Scope и фиксируется до начала работ.</p></details>
+    <details class="qa"><summary>Вы исправляете найденные проблемы?</summary><p>Да, можем выполнить или сопровождать исправления отдельным этапом. Чтобы сохранить прозрачность результата, сам пентест, устранение уязвимостей и ретест фиксируются как разные этапы работ.</p></details>
+    <details class="qa"><summary>Можно проверить только AI-сотрудника?</summary><p>Да. В этом случае Scope строится вокруг AI-приложения, его источников данных, инструментов, сервисных учётных записей, прав, секретов, журналов и связанных интеграций.</p></details>
+  </div>
+</div></section>
+
+<section id="cta"><div class="wrap">
+  <div class="cta-box reveal">
+    <div class="eyebrow" style="display:block;margin-bottom:14px">ПЕРВЫЙ ШАГ — ОПРЕДЕЛИТЬ ГРАНИЦЫ ПРОВЕРКИ</div>
+    <h2>Узнайте, какие точки входа видны снаружи и что действительно создаёт риск для бизнеса</h2>
+    <p>Опишите инфраструктуру и задачу. Мы предварительно определим возможный Scope, формат проверки, необходимые доступы, сроки и стоимость. Активное тестирование до договора и письменного разрешения не проводится.</p>
+    <div class="actions">
+      <a href="https://t.me/aletheia_support_bot?start=security" class="btn" data-ev="pentest_discuss">Обсудить пентест</a>
+      <a href="#pentest-form" class="btn ghost" data-ev="pentest_estimate">Получить оценку стоимости</a>
+    </div>
+    <p class="secret-warn"><b>Не отправляйте пароли, API-ключи и другие секреты</b> через обычную форму заявки. Безопасный способ передачи доступов согласуем отдельно.</p>
+    <div class="alt-lead">
+      <details id="pentest-form">
+        <summary>Оставить заявку на оценку</summary>
+        <form class="lead-form pt-form" action="https://formsubmit.co/ajax/4b3161726d7d10b677bca885c62c8395" method="POST" data-ev-start="pentest_form_start" data-ev-sent="pentest_form_sent">
+          <input type="hidden" name="_subject" value="Заявка с сайта, Пентест">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="Страница" value="Пентест и безопасность">
+          <label class="fld"><span class="fld-l">Имя</span>
+            <input type="text" name="Имя" placeholder="Как к вам обращаться" required autocomplete="name">
+          </label>
+          <label class="fld"><span class="fld-l">Компания <em>— по желанию</em></span>
+            <input type="text" name="Компания" placeholder="Название компании" autocomplete="organization">
+          </label>
+          <label class="fld"><span class="fld-l">Контакт для связи</span>
+            <input type="text" name="Связь" placeholder="Telegram, телефон или email" required>
+          </label>
+          <label class="fld"><span class="fld-l">Что нужно проверить</span>
+          <select name="Тип системы" required>
+            <option value="">Выберите тип системы</option>
+            <option>Сайт</option>
+            <option>Веб-приложение</option>
+            <option>API</option>
+            <option>Инфраструктура</option>
+            <option>AI-система</option>
+            <option>Другое</option>
+          </select>
+          </label>
+          <label class="fld"><span class="fld-l">Задача <em>— по желанию</em></span>
+            <textarea name="Задача" placeholder="Коротко: что за система и что беспокоит. Детали уточним на созвоне"></textarea>
+          </label>
+          <label class="pt-consent"><input type="checkbox" name="Согласие" value="да" required> Согласен на обработку указанных данных для ответа на заявку. Пароли, ключи и другие секреты через форму не передаю.</label>
+          <button type="submit" class="btn ghost">Отправить заявку</button>
+          <div class="micro">Ответим в течение рабочего дня. Заявка приходит нам на почту через сервис доставки форм — не отправляйте через неё пароли, ключи доступа и закрытые документы. Как обрабатываем данные: <a href="privacy.html">политика конфиденциальности</a>.</div>
+        </form>
+        <p class="lead-ok" hidden><b>Заявка отправлена.</b> Свяжемся с вами в течение рабочего дня.</p>
+        <p class="lead-fail" hidden>Не удалось отправить — текст остался в полях. Попробуйте ещё раз или напишите на <a href="mailto:hello@aletheia-ai.ru">hello@aletheia-ai.ru</a> либо в <a href="https://t.me/aletheia_support_bot?start=security" target="_blank" rel="noopener">Telegram</a>: ответим в течение рабочего дня.</p>
+      </details>
+    </div>
+  </div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">
+  <a class="logo" href="index.html"><span class="mark"></span> ALETHEIA</a>
+  <div>ALETHEIA — AI-сотрудники, управленческие системы и кибербезопасность для бизнеса.</div>
+  <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener">@aletheia_ai</a></div>
+  <div class="fl">© 2026 ALETHEIA · <a href="agents.html">AI-сотрудники</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="security.html">Пентест и безопасность</a> · <a href="rezident.html">РЕЗИДЕНТ</a> · <a href="audit.html">Денежная диагностика</a></div>
+  <div class="fl"><a href="oferta.html">Публичная оферта</a> · <a href="privacy.html">Политика конфиденциальности</a> · <a href="https://t.me/aletheia_support_bot?start=security" target="_blank" rel="noopener">Контакты</a></div>
+  <div class="fl freq">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</div>
+</div></footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+<div class="m-cta"><a href="https://t.me/aletheia_support_bot?start=security" class="btn" data-ev="pentest_discuss_mobile">Обсудить пентест</a></div>
+<script src="lead-form.js"></script>
+<script src="analytics-events.js"></script>
+<script src="nav-menu.js"></script>
+<script src="nn-bg.js"></script>
+</body>
+</html>
