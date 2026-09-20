@@ -535,3 +535,48 @@ h2{max-width:min(100%,22ch);
   font-size:15px;line-height:1.55;max-width:56ch;text-wrap:pretty}
 .pe-credit b{font-weight:600}
 @media (max-width:640px){.pe-credit{font-size:14px;padding:11px 12px}}
+
+
+/* ---------- 20.09: позиционирование и три направления ----------
+   Пентест выведен в самостоятельное направление, поэтому на главной появились
+   надзаголовок над H1, связка в герое и блок из трёх карточек сразу под первым
+   экраном. Карточки повторяют язык .l2-item, но крупнее: это верхний уровень,
+   а не список «остального». */
+
+/* Надстрочник над H1: тише лида, читается как подпись компании, а не как слоган. */
+.hero-kicker{margin-bottom:clamp(.8rem,2vh,1.3rem);font-size:13px;letter-spacing:.055em;
+  color:var(--muted-dim);text-transform:uppercase;font-family:var(--font-body);
+  max-width:100%;line-height:1.45}
+
+/* Связка трёх направлений внутри героя: тот же кегль-минус, что у .hero-proof,
+   чтобы не спорить с хуком про заявку в 23:40. */
+.hero .hero-tie{margin-top:clamp(.8rem,1.8vh,1.2rem);font-size:15.5px;color:var(--muted-dim);
+  max-width:min(62ch,54%);line-height:1.5}
+
+/* Вторая дверь под микрокопией: для тех, кто пришёл за безопасностью. */
+.hero-alt{margin-top:.7rem;font-size:15px;color:var(--muted-dim)}
+.hero-alt a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
+.hero-alt a:hover{border-bottom-color:var(--accent)}
+
+.tri{padding:var(--gap-xl) 0 0;border-top:1px solid var(--hair)}
+.tri h2{max-width:min(100%,22ch)}
+.tri .tri-lede{margin-top:var(--gap-s);max-width:60ch;color:var(--muted);text-wrap:pretty}
+.tri-grid{margin-top:var(--gap-l);display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:clamp(14px,1.6vw,20px)}
+.tri-card{display:flex;flex-direction:column;padding:clamp(24px,2.6vw,32px);
+  border:1px solid var(--hair);border-radius:18px;
+  transition:border-color .3s var(--ease),background .3s var(--ease)}
+.tri-card:hover,.tri-card:focus-visible{border-color:rgba(34,211,238,.42);background:rgba(34,211,238,.05)}
+.tri-card h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;letter-spacing:-.02em}
+.tri-card p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55;text-wrap:pretty}
+.tri-card .go{margin-top:auto;padding-top:18px;color:var(--accent);font-size:14px;font-weight:700}
+
+@media(max-width:900px){
+  /* На телефоне планета уезжает под текст и её светлая часть оказывается ровно
+     под надзаголовком — самый мелкий текст экрана. Поднимаем контраст и кладём
+     тень под буквы, иначе строка позиционирования читается через раз. */
+  .hero-kicker{max-width:100%;font-size:12.5px;color:var(--muted);
+    text-shadow:0 1px 14px rgba(6,6,13,.92),0 0 4px rgba(6,6,13,.8)}
+  .hero .hero-tie{max-width:100%;font-size:16px;color:var(--muted);
+    text-shadow:0 1px 14px rgba(6,6,13,.8)}
+}

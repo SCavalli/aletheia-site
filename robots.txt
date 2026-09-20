@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_tz/
+
+Sitemap: https://aletheia-ai.ru/sitemap.xml

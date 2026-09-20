@@ -16,8 +16,12 @@
       const btn=form.querySelector('button[type=submit]');
       const ok=form.parentElement.querySelector('.lead-ok');
       let valid=true;
-      form.querySelectorAll('input[required]').forEach(function(i){
-        if(!i.value.trim()){ i.classList.add('err'); valid=false; } else i.classList.remove('err');
+      /* 20.09: на странице пентеста у формы появились select, textarea и обязательная
+         галочка согласия. У чекбокса value непустое даже когда он снят, поэтому его
+         проверяем по checked, а не по тексту — иначе заявка уходила бы без согласия. */
+      form.querySelectorAll('input[required],select[required],textarea[required]').forEach(function(i){
+        var ok = (i.type === 'checkbox' || i.type === 'radio') ? i.checked : !!i.value.trim();
+        if(!ok){ i.classList.add('err'); valid=false; } else i.classList.remove('err');
       });
       if(!valid) return;
       const label=btn.textContent;
