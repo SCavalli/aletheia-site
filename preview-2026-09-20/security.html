@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20260920d">
-<link rel="stylesheet" href="site-inner-v3.css?v=20260920d">
+<link rel="stylesheet" href="site.css?v=20260920e">
+<link rel="stylesheet" href="site-inner-v3.css?v=20260920e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ALETHEIA">
@@ -202,7 +202,11 @@
     <div class="bnft reveal"><b>Список допущенных</b><span>У каждого AI-сотрудника закрытый перечень людей, которые могут им командовать. Посторонний в переписку не попадает.</span></div>
     <div class="bnft reveal"><b>Внешний текст — данные, а не приказ</b><span>Сотрудник отличает распоряжение владельца от содержимого, которое он просто читает по работе.</span></div>
     <div class="bnft reveal"><b>Секреты отдельно от работы</b><span>Ключи и токены лежат в отдельном хранилище с закрытым доступом, а не в переписке, не в коде и не в логах.</span></div>
-    <div class="bnft reveal"><b>Каждый видит только своё</b><span>Сотрудник работает в своём каталоге и не имеет доступа к данным других.</span></div>
+    <!-- 20.09, снято через час после публикации: изоляция агентов друг от друга закрыта
+         на клиентском сервере, но НЕ везде — часть клиентских агентов живёт на общей
+         машине под одним системным пользователем. Утверждение звучало про всех, поэтому
+         оно неверно. Вернуть вместе со строкой про изолированный контур, когда владелец
+         инфраструктуры подтвердит, что закрыто на всех контурах. -->
     <div class="bnft reveal"><b>Деньги — только с подтверждением человека</b><span>Действия с деньгами и обязательствами сам он не выполняет: не покупает, не платит и не подписывает.</span></div>
     <div class="bnft reveal"><b>Сторож и скорая</b><span>За каждым сотрудником следит автоматический надзор: упал, завис или потерял связь — поднимаем, обычно раньше, чем заметит владелец.</span></div>
     <div class="bnft reveal"><b>Закрытый периметр серверов</b><span>Наружу открыто только то, что необходимо для работы.</span></div>
@@ -536,9 +540,9 @@
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
 </script>
 <div class="m-cta"><a href="https://t.me/aletheia_support_bot?start=security" class="btn" data-ev="pentest_discuss_mobile">Обсудить пентест</a></div>
-<script src="lead-form.js?v=20260920d"></script>
-<script src="analytics-events.js?v=20260920d"></script>
-<script src="nav-menu.js?v=20260920d"></script>
-<script src="nn-bg.js?v=20260920d"></script>
+<script src="lead-form.js?v=20260920e"></script>
+<script src="analytics-events.js?v=20260920e"></script>
+<script src="nav-menu.js?v=20260920e"></script>
+<script src="nn-bg.js?v=20260920e"></script>
 </body>
 </html>
