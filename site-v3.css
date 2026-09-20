@@ -717,3 +717,9 @@ h2{max-width:min(100%,22ch);
 
 /* Тач-таргет запасной формы: был 25px, ниже минимума. */
 .alt-lead summary{min-height:44px;display:flex;align-items:center;gap:8px}
+
+/* Подзаголовок внутри секции. */
+.sub-h{margin-top:clamp(2.4rem,5vw,3.6rem);margin-bottom:var(--gap-s);
+  font-family:var(--font-head);font-size:1.2rem;font-weight:400;letter-spacing:-.02em}
+/* Роли теперь описывают работу тремя связками — выделяем «получает/делает/выдаёт». */
+.role dd b{color:var(--ink);font-weight:500}

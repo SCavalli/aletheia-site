@@ -399,3 +399,8 @@ main#content>section#what{border-top:0}
   .casefull dl>div{grid-template-columns:1fr;gap:4px}
   .casefull dt{padding-top:0}
 }
+
+/* Подзаголовок внутри секции (например «Подключения» внутри блока о работе). */
+.sub-h{margin-top:clamp(2.4rem,5vw,3.6rem);margin-bottom:clamp(1rem,2vw,1.4rem);
+  font-family:var(--font-head);font-size:1.15rem;font-weight:400;letter-spacing:-.02em}
+#test .def{max-width:46rem}
