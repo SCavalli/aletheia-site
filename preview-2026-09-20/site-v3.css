@@ -723,3 +723,75 @@ h2{max-width:min(100%,22ch);
   font-family:var(--font-head);font-size:1.2rem;font-weight:400;letter-spacing:-.02em}
 /* Роли теперь описывают работу тремя связками — выделяем «получает/делает/выдаёт». */
 .role dd b{color:var(--ink);font-weight:500}
+
+
+/* ---------- ПЕРВЫЙ ЭКРАН НА ТЕЛЕФОНЕ: текст без картинки под ним (20.09 вечер) ----------
+   Фоновый кадр уходил ПОД заголовок, и его светящиеся линии шли сквозь буквы.
+   Затемнять подложку — полумера: кадр движется, на светлых кадрах текст всё равно
+   тонет. Поэтому на узких экранах визуал из первого экрана убран совсем, а сам кадр
+   показан отдельным блоком ниже — там он ничего не перекрывает.
+   Десктоп не трогаем: там визуал стоит справа от текста и не мешает. */
+.hero-media{display:none}
+.hero-media-frame{position:relative;aspect-ratio:16/9;overflow:hidden;
+  border-radius:14px;border:1px solid var(--hair);background:#06060d}
+.hero-media-frame video{width:100%;height:100%;object-fit:cover;display:block}
+
+@media(max-width:900px){
+  .hero .hero-visual{display:none}
+  /* Подложка существовала только ради контраста текста над кадром. Кадра под
+     текстом больше нет — вместе с ним уходит и она, иначе низ героя темнеет зря. */
+  .hero::after{display:none}
+  .hero{align-items:flex-start;min-height:auto;
+    padding-top:clamp(3.2rem,9vh,4.4rem);padding-bottom:clamp(1.4rem,4vh,2.2rem)}
+  .hero-media{display:block;margin-bottom:clamp(2rem,7vh,3.4rem)}
+  /* Воздух между абзацами первого экрана: режем его, а не смысл. Картинки под
+     текстом больше нет, поэтому запас на «дыхание кадра» здесь не нужен. */
+  .hero .lede{margin-top:.62rem}
+  .hero .lede-punch{margin-top:.55rem}
+  /* Абзац про три других направления на телефоне уходит с первого экрана: ровно
+     то же самое ниже развёрнуто карточками в секции «Другие направления ALETHEIA»,
+     то есть режется повтор, а не содержание. Без него кнопка возвращается в первый
+     экран (900px → 770px при высоте вьюпорта 844). Откат — удалить эту строку. */
+  .hero .hero-tie{display:none}
+  .hero .actions{margin-top:.9rem}
+  .hero .cta-note{margin-top:.6rem}
+  .hero .hero-alt{margin-top:.5rem}
+}
+
+
+/* ---------- КАДР ПЕРЕПИСКИ ВМЕСТО ПЛАНЕТЫ (20.09 вечер) ----------
+   Кадр вертикальный (1400×2480), поэтому прежние правила визуала под 16/9 здесь
+   переопределяются целиком: своя ширина, своя пропорция, свой масштаб.
+   Маска мягкая и только по низу: у кадра собственный тёмный фон почти в цвет сайта,
+   растворять все четыре края как планету не нужно — это съело бы рамку телефона. */
+.hero-visual:has(.hero-phone){
+  /* 380px — предел, при котором кадр ещё помещается в первый экран по высоте
+     (380 × 2480/1400 = 673px), а текст в пузырях остаётся различимым. */
+  width:min(30vw,352px);aspect-ratio:1400/2480;right:clamp(0px,4vw,64px)}
+.hero-visual .hero-phone{
+  width:100%;height:100%;object-fit:contain;display:block;background:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,.55) 92%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,.55) 92%,transparent 100%);
+  -webkit-mask-composite:source-over;mask-composite:add}
+/* Свечение под кадром осталось от планеты: оно било ровно в центр телефона и
+   подсвечивало переписку изнутри. Гасим и заменяем мягким ореолом по контуру. */
+.hero-visual:has(.hero-phone)::after{inset:6% -6% 4% -6%;
+  background:radial-gradient(52% 44% at 50% 46%,rgba(34,211,238,.14),transparent 74%);
+  filter:blur(46px)}
+
+@media(max-width:900px){
+  /* На телефоне кадр идёт отдельным блоком под первым экраном. Показываем не весь
+     снимок: при ширине экрана 390 текст в пузырях ужимается до нечитаемых 8px.
+     Поэтому кадрируем нижнюю часть диалога — ту, ради которой он и нужен:
+     голосовое, ответ с цифрами и приложенный файл. */
+  .hero-media-frame{aspect-ratio:4/5;border-radius:16px}
+  /* 132% — компромисс, найденный замером: при 100% текст в пузырях ужимается до
+     нечитаемых ~8px, при 170% пузыри срезаются боками. Здесь текст читается,
+     а сообщения целиком остаются в кадре. Прижимаем к низу: сверху в снимке
+     пустое поле чата, снизу — то, ради чего кадр и нужен. */
+  .hero-media-frame img{position:absolute;left:50%;bottom:-6%;
+    width:132%;max-width:none;height:auto;transform:translateX(-50%)}
+  /* Низ снимка — рамка телефона и пустое поле под вводом: прижимаем её за край
+     кадра, иначе внизу блока висит тёмная полоса ни о чём. */
+  .hero-media-cap{margin:12px 2px 0;color:var(--muted);font-size:14px;line-height:1.45}
+}
