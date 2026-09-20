@@ -193,7 +193,7 @@ h2{max-width:min(100%,22ch);
 .hero h1{
   /* ch считается по СОБСТВЕННОМУ размеру шрифта заголовка, а не по 18px родителя.
      Ограничение на родителе давало 19ch ≈ 178px и ломало заголовок на шесть строк. */
-  max-width:min(100%,15ch);
+  max-width:100%;
   font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
   letter-spacing:-.028em;                /* выше пола -.04em, буквы не слипаются */
@@ -203,6 +203,7 @@ h2{max-width:min(100%,22ch);
   font-weight:300;
   text-wrap:balance;
 }
+.hero h1 span{display:block}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .hero .lede{margin-top:var(--gap-m);max-width:min(48ch,100%);font-size:clamp(1.1rem,1.8vw,1.35rem);
   color:var(--muted);line-height:1.58;font-weight:400;text-wrap:pretty}
