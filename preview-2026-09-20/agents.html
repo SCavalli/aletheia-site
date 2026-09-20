@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20260920i">
-<link rel="stylesheet" href="site-inner-v3.css?v=20260920i">
+<link rel="stylesheet" href="site.css?v=20260920l">
+<link rel="stylesheet" href="site-inner-v3.css?v=20260920l">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI-сотрудники — внедрение и сопровождение | ALETHEIA">
@@ -165,62 +165,23 @@
 
 <!-- КАНАЛ РАБОТЫ И ПОДКЛЮЧЕНИЯ. Чтение и внесение изменений разделены намеренно:
      для покупателя это разные уровни риска. -->
+<!-- 20.09: было четыре колонки перечнями (принимает, выдаёт, читает, меняет).
+     Для решения «брать или нет» важен канал и то, что подключения возможны, а не
+     инвентаризация форматов. Полный состав всё равно согласуется под задачу. -->
 <section id="channel"><div class="wrap">
   <div class="sec-head reveal">
-    <div class="eyebrow">Работа</div>
+    <div class="eyebrow">Канал</div>
     <h2>Как вы с ним работаете</h2>
     <p>Основной канал — личный Telegram-бот с доступом для согласованных пользователей.
-      Для повседневной работы достаточно телефона: отдельная программа и обучение интерфейсу не нужны.</p>
+      Отправляете текст, голосовые, документы, таблицы, PDF и фотографии — получаете сообщения,
+      голос и готовые файлы Word, Excel, PDF, PowerPoint. Для повседневной работы достаточно
+      телефона: отдельная программа и обучение интерфейсу не нужны.</p>
+    <p style="margin-top:14px">Подключения делаем через API и доступные средства интеграции:
+      уже работали с Shopify на чтение, выгрузками кассовых систем, CRM, Google-таблицами,
+      курсами валют и вашими файлами — это примеры, а не предел. Сотрудник ведёт таблицы,
+      готовит и отправляет документы и сводки, ведёт списки задач; запись в Shopify и кассовые
+      системы сейчас не включена.</p>
   </div>
-
-  <div class="scope-grid reveal">
-    <div class="sc-col">
-      <h3>Принимает <span>что вы отправляете</span></h3>
-      <ul class="sc-list">
-        <li>Текст и голосовые сообщения.</li>
-        <li>Документы и таблицы.</li>
-        <li>PDF.</li>
-        <li>Фотографии и чертежи.</li>
-      </ul>
-    </div>
-    <div class="sc-col">
-      <h3>Выдаёт <span>что вы получаете</span></h3>
-      <ul class="sc-list">
-        <li>Сообщения и голос.</li>
-        <li>Word, Excel, PDF, PowerPoint.</li>
-        <li>Изображения и графики.</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3 class="sub-h reveal">Подключения</h3>
-  <div class="scope-grid reveal">
-    <div class="sc-col">
-      <h3>Читает данные <span>без права менять</span></h3>
-      <ul class="sc-list">
-        <li>Shopify — только чтение.</li>
-        <li>Выгрузки кассовых систем.</li>
-        <li>CRM.</li>
-        <li>Google-таблицы.</li>
-        <li>Курсы валют, включая курс ЦБ РФ.</li>
-        <li>Внешние источники объявлений и предложений.</li>
-        <li>Ваши файлы: документы, таблицы, PDF, фотографии, чертежи.</li>
-      </ul>
-    </div>
-    <div class="sc-col">
-      <h3>Вносит изменения <span>там, где согласовано</span></h3>
-      <ul class="sc-list">
-        <li>Ведёт управленческие таблицы.</li>
-        <li>Готовит и отправляет документы, сводки и материалы.</li>
-        <li>Ведёт списки задач и напоминания.</li>
-      </ul>
-      <p class="tier-note" style="margin-top:20px;max-width:34rem"><b>Запись в Shopify и кассовые
-        системы сейчас не включена</b> — оттуда сотрудник только читает.</p>
-    </div>
-  </div>
-  <p class="tier-note" style="margin-top:24px;max-width:34rem">В работу входит согласованный
-    перечень подключений: состав определяется под задачу и фиксируется до начала работ,
-    всё сверх согласованного считается отдельно.</p>
 </div></section>
 
 <!-- КОНТРОЛЬ. Что сотрудник делает сам, а что только с вами. Оговорки «чего мы
@@ -301,21 +262,17 @@
     результат на своих данных. Не подошло — просто расходимся.</p>
 </div></section>
 
+<!-- 20.09: было четыре пронумерованных шага, два из которых дословно повторяли
+     «Три дня тестирования» и состав цен. Осталась своя мысль — когда нужен второй. -->
 <section id="scale"><div class="wrap">
   <div class="sec-head reveal">
     <div class="eyebrow">Масштаб</div>
     <h2>Как это растёт</h2>
-    <p>Начинаем с того, что болит сильнее всего, и расширяем по факту результата, а не авансом.</p>
+    <p>Начинаем с участка, который дороже всего обходится сейчас, и расширяем по факту
+      результата. В работающего сотрудника можно добавлять задачи — это дешевле и быстрее,
+      чем поднимать второго. Отдельный сотрудник нужен там, где другое направление, другие
+      доступы и другие полномочия: в ту же абонплату он не входит и считается отдельно.</p>
   </div>
-  <div class="steps">
-    <div class="step reveal"><div class="n">01</div><h3>Первая задача</h3><p>Берём участок, который дороже всего обходится сейчас, и договариваемся, по чему считаем результат.</p></div>
-    <div class="step reveal"><div class="n">02</div><h3>Три дня в работе</h3><p>Вы работаете с сотрудником на своих данных, мы собираем обратную связь и вносим корректировки.</p></div>
-    <div class="step reveal"><div class="n">03</div><h3>Новые задачи тому же</h3><p>В работающего сотрудника можно добавлять задачи — это дешевле и быстрее, чем поднимать второго.</p></div>
-    <div class="step reveal"><div class="n">04</div><h3>Отдельный сотрудник</h3><p>Для отдельного направления заводим второго: со своими доступами и полномочиями. В ту же абонплату он не входит.</p></div>
-  </div>
-  <p class="tier-note" style="margin-top:26px;max-width:34rem">Масштаб — это не число «сотрудников»
-    в тарифе. Сначала смотрим, можно ли добавить задачу тому, кто уже работает: отдельный сотрудник
-    нужен там, где другое направление, другие доступы и другие полномочия.</p>
 </div></section>
 
 <section id="tariffs"><div class="wrap">
@@ -477,9 +434,9 @@
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
 </script>
 <div class="m-cta"><a href="https://t.me/aletheia_support_bot?start=agent" class="btn">Подобрать AI-сотрудника</a></div>
-<script src="lead-form.js?v=20260920i"></script>
-<script src="nav-menu.js?v=20260920i"></script>
-<script src="analytics-events.js?v=20260920i"></script>
-<script src="nn-bg.js?v=20260920i"></script>
+<script src="lead-form.js?v=20260920l"></script>
+<script src="nav-menu.js?v=20260920l"></script>
+<script src="analytics-events.js?v=20260920l"></script>
+<script src="nn-bg.js?v=20260920l"></script>
 </body>
 </html>
