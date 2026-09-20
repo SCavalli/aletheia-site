@@ -629,3 +629,91 @@ h2{max-width:min(100%,22ch);
 /* ссылка на политику в микротексте формы должна быть видна как ссылка */
 .micro a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
 .micro a:hover{border-bottom-color:var(--accent)}
+
+/* ─────────────────────────────────────────────────────────────
+   ЭТАП 2 АУДИТА (20.09): путь задачи, состав поставки, масштаб.
+   Ни одной новой карточки-клона: маршрут — нумерованная лента,
+   состав — две колонки списков, граница роли — строка внутри dd.
+   ───────────────────────────────────────────────────────────── */
+
+/* Путь задачи: пять шагов лентой. На узком — колонка, счётчик слева. */
+.flow{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.flow h2{max-width:min(100%,20ch)}
+.flow-lede{margin-top:var(--gap-s);max-width:62ch;color:var(--muted);text-wrap:pretty}
+.flow-steps{margin-top:var(--gap-l);display:grid;gap:var(--gap-m);list-style:none;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.fs{position:relative;padding-top:var(--gap-s);border-top:1px solid var(--hair-strong)}
+.fs-k{display:block;font-size:13px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent)}
+.fs p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55;text-wrap:pretty}
+.flow-note{margin-top:var(--gap-m);max-width:70ch;color:var(--muted-dim);
+  font-size:15px;line-height:1.55;text-wrap:pretty}
+
+/* Граница роли: тихая строка под описанием, без рамки — рамка сделала бы
+   из шести ролей шесть карточек, а ритм страницы держится на строках. */
+.role .lim{display:block;margin-top:8px;padding-left:14px;position:relative;
+  color:var(--muted-dim);font-size:15px;line-height:1.5}
+.role .lim::before{content:"";position:absolute;left:0;top:.62em;
+  width:6px;height:1px;background:var(--accent);opacity:.7}
+
+/* Пример ситуации — единственный «врез» в блоке ролей. */
+.role-ex{margin-top:var(--gap-l);max-width:66ch;padding-left:clamp(16px,2vw,24px);
+  border-left:2px solid rgba(34,211,238,.4)}
+.rx-k{display:block;font-size:12.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent)}
+.role-ex p{margin-top:10px;color:var(--muted);text-wrap:pretty}
+
+/* Состав поставки: два столбца — разовое и ежемесячное. */
+.scope{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.scope h2{max-width:min(100%,26ch)}
+.scope-lede{margin-top:var(--gap-s);max-width:64ch;color:var(--muted);text-wrap:pretty}
+.scope-grid{margin-top:var(--gap-l);display:grid;gap:var(--gap-l) var(--gap-m);
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.sc-col h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;
+  letter-spacing:-.02em;padding-bottom:var(--gap-s);border-bottom:1px solid var(--hair-strong)}
+.sc-col h3 span{display:block;margin-top:8px;font-family:var(--font-body);
+  font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.sc-list{margin-top:var(--gap-s);list-style:none}
+.sc-list li{position:relative;padding:12px 0 12px 22px;border-bottom:1px solid var(--hair);
+  color:var(--muted);font-size:16px;line-height:1.55;text-wrap:pretty}
+.sc-list li::before{content:"";position:absolute;left:0;top:1.42em;
+  width:8px;height:1px;background:var(--accent);opacity:.75}
+.sc-list li b{color:var(--ink);font-weight:500}
+.scope-note{margin-top:var(--gap-m);max-width:72ch;color:var(--muted-dim);
+  font-size:15px;line-height:1.55;text-wrap:pretty}
+.scope-note a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
+.scope-note a:hover{border-bottom-color:var(--accent)}
+.price-lede a,.step p a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
+.price-lede a:hover,.step p a:hover{border-bottom-color:var(--accent)}
+
+/* Путь масштабирования переиспользует .steps из блока «как работаем». */
+.scale{padding:var(--gap-xl) 0;border-top:1px solid var(--hair)}
+.scale h2{max-width:min(100%,20ch)}
+
+@media(max-width:760px){
+  .flow-steps{grid-template-columns:1fr;gap:var(--gap-s)}
+  .role-ex{margin-top:var(--gap-m)}
+  .scope-grid{gap:var(--gap-m)}
+}
+
+/* Пять шагов маршрута держим одной лентой: 4+1 читается как обрыв. */
+@media(min-width:1000px){.flow-steps{grid-template-columns:repeat(5,1fr)}}
+
+/* ── Правки по ревью дизайн-критика (20.09, этап 2) ── */
+
+/* .flag-lede был заскоплен на .flagship, и блоки .scale/.how брали класс впустую:
+   без отступа, без меры строки, цветом основного текста. Расскопил. */
+.flag-lede{margin-top:var(--gap-s);max-width:56ch;color:var(--muted);text-wrap:pretty}
+
+/* Лента маршрута: пять колонок по ~195px просят более мелкого кегля,
+   иначе предложение разваливается на семь рваных строк. */
+@media(min-width:1000px){
+  .flow-steps{gap:var(--gap-s) 1.6rem}
+  .fs p{font-size:14.8px;line-height:1.5}
+}
+
+/* Мера строки в сносках: 14.5px на 700px — это 100 знаков, нечитаемо. */
+.scope-note,.flow-note{max-width:34rem}
+
+/* Тач-таргет запасной формы: был 25px, ниже минимума. */
+.alt-lead summary{min-height:44px;display:flex;align-items:center;gap:8px}

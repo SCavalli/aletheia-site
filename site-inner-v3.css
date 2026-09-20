@@ -239,3 +239,129 @@ section[id],header[id]{scroll-margin-top:96px}
   .nav-links{background:rgba(6,6,13,.98);backdrop-filter:none}
   .nav-links a{color:var(--ink);min-height:48px;display:flex;align-items:center}
 }
+
+/* ─────────────────────────────────────────────────────────────
+   ЭТАП 2 АУДИТА (20.09), флагманская страница:
+   определение продукта, роли «вход→действия→результат→граница»,
+   маршрут задачи, состав поставки, сопровождение, FAQ, границы.
+   Ни одной новой «карточки-клона»: списки и строки, как на главной.
+   ───────────────────────────────────────────────────────────── */
+
+/* Определение продукта */
+.defbox{display:grid;gap:clamp(1.6rem,3vw,2.4rem)}
+.def{font-family:var(--font-head);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.45;color:var(--ink);
+  max-width:60ch;padding-left:clamp(16px,2vw,24px);border-left:2px solid rgba(34,211,238,.45)}
+.deflist{display:grid;gap:clamp(1.2rem,2.4vw,2rem);
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.dl-i h3{font-size:17px;font-weight:500;letter-spacing:-.01em;
+  padding-bottom:12px;border-bottom:1px solid var(--bd-strong)}
+.dl-i p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55}
+
+/* Роли: четыре строки внутри каждой — вход, действия, результат, граница */
+.rolez{display:grid;gap:clamp(1.4rem,2.6vw,2.2rem);
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.rz{padding-top:18px;border-top:1px solid var(--bd-strong)}
+.rz h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;letter-spacing:-.02em}
+.rz dl{margin-top:14px}
+.rz dl>div{display:grid;grid-template-columns:minmax(0,88px) minmax(0,1fr);
+  gap:14px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.rz dl>div:last-child{border-bottom:0}
+.rz dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted2);padding-top:3px}
+.rz dl>div:last-child dt{color:#22d3ee}
+.rz dd{color:var(--muted);font-size:15.5px;line-height:1.5}
+
+/* Маршрут задачи */
+.flow-steps{display:grid;gap:clamp(1.2rem,2.4vw,2rem);list-style:none;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.fs{padding-top:16px;border-top:1px solid var(--bd-strong)}
+.fs-k{display:block;font-size:12.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#22d3ee}
+.fs p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55}
+
+/* Состав поставки и сопровождение: список строк, не сетка плашек */
+.sc-list{list-style:none;max-width:88ch}
+.sc-list li{position:relative;padding:14px 0 14px 24px;border-bottom:1px solid var(--bd);
+  color:var(--muted);font-size:16px;line-height:1.55}
+.sc-list li::before{content:"";position:absolute;left:0;top:1.5em;
+  width:9px;height:1px;background:#22d3ee;opacity:.75}
+.sc-list li b{color:var(--ink);font-weight:500}
+.sc-list.nots li::before{width:9px;height:9px;top:1.15em;border-radius:50%;
+  background:transparent;border:1px solid rgba(240,97,109,.55);opacity:1}
+
+/* FAQ */
+.faq{max-width:88ch;border-top:1px solid var(--bd-strong)}
+.faq details{border-bottom:1px solid var(--bd)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 34px 18px 0;position:relative;
+  font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:15px;
+  color:#22d3ee;font-size:20px;line-height:1;transition:transform .25s var(--ease)}
+.faq details[open] summary::after{content:"–"}
+.faq summary:hover{color:#22d3ee}
+.faq summary:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;border-radius:6px}
+.faq details p{padding:0 0 20px;color:var(--muted);font-size:16px;line-height:1.6;max-width:76ch}
+.faq details p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+.cta-box p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+
+@media(max-width:600px){
+  .rz dl>div{grid-template-columns:1fr;gap:4px}
+  .rz dt{padding-top:0}
+  .flow-steps{grid-template-columns:1fr;gap:1rem}
+}
+
+/* Пять шагов маршрута держим одной лентой: 4+1 читается как обрыв. */
+@media(min-width:1000px){.flow-steps{grid-template-columns:repeat(5,1fr)}}
+
+/* ── Правки по ревью дизайн-критика (20.09, этап 2) ── */
+
+/* Мера строки. `ch` считался от кегля контейнера (18px), а текст набран 16px,
+   поэтому 88ch давали 117 знаков в строке. Перевёл в абсолют. */
+.sc-list{max-width:40rem}
+.faq{max-width:42rem}
+.def{max-width:42rem}
+.tier-note{max-width:34rem}
+
+/* Единственный акцент — циан. Красное кольцо в списке «чего мы не обещаем»
+   вводило второй цвет и при 55% альфы читалось грязным пятном.
+   Негацию несёт заголовок блока, цвет для этого не нужен. */
+.sc-list.nots li::before{width:9px;height:1px;top:1.5em;border-radius:0;
+  background:#22d3ee;border:0;opacity:.75}
+
+/* Плюс в FAQ стоял выше оптического центра первой строки. */
+.faq summary::after{top:18px}
+
+/* Роли: узкая колонка dd ломала «Действия» на пять строк. */
+.rolez{grid-template-columns:repeat(auto-fit,minmax(370px,1fr))}
+.rz dl>div{grid-template-columns:minmax(0,76px) minmax(0,1fr);gap:12px}
+
+/* Ритм секций как на главной: волосяная линия между блоками.
+   Без неё две страницы одного сайта разделяют контент по-разному. */
+main#content>section{border-top:1px solid var(--bd)}
+main#content>section#what{border-top:0}
+
+/* Фон-граф проходил сквозь межстрочья самых плотных текстовых блоков —
+   узлы садились прямо в строку. Локальный скрим гасит его под текстом,
+   не трогая канву на остальной странице. */
+#roles,#faq,#scope,#support,#what{position:relative;isolation:isolate}
+#roles::before,#faq::before,#scope::before,#support::before,#what::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 50%,
+    rgba(6,6,13,.94) 45%,rgba(6,6,13,.7) 78%,rgba(6,6,13,0) 100%)}
+
+/* Липкая мобильная кнопка перекрывала низ футера на 2px. */
+@media(max-width:900px){body{padding-bottom:84px}}
+
+@media(min-width:1000px){.flow-steps{gap:1.6rem}.fs p{font-size:14.8px;line-height:1.5}}
+
+/* Блок вопросов вставал по центру колонки: выравниваю по левому краю, как все секции. */
+.faq{margin-left:0;margin-right:auto}
+
+/* Мобилка: правки выше стоят в файле ПОЗЖЕ медиазапроса и перебивали его.
+   Возвращаю одноколоночные роли и чиню переполнение от minmax(370px). */
+.rolez{grid-template-columns:repeat(auto-fit,minmax(min(370px,100%),1fr))}
+@media(max-width:600px){
+  .rz dl>div{grid-template-columns:1fr;gap:4px}
+  .rz dt{padding-top:0}
+}
