@@ -426,3 +426,9 @@ nav a:hover::after{right:0}
 @media (max-width:640px){
   .pcard.feat{padding:28px 24px}
 }
+
+
+/* Липкая мобильная кнопка уезжает вниз, пока виден первый экран: там своя кнопка
+   с тем же текстом. Класс вешает nav-menu.js; без скрипта кнопка видна всегда. */
+.m-cta{transition:transform .25s var(--ease,ease),opacity .25s var(--ease,ease)}
+.m-cta.m-cta-off{opacity:0;transform:translateY(120%);pointer-events:none}

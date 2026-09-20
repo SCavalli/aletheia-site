@@ -79,3 +79,26 @@
     else if (wide.addListener) wide.addListener(onChange);
   }
 })();
+
+
+/* ---------- ЛИПКАЯ МОБИЛЬНАЯ КНОПКА И ПЕРВЫЙ ЭКРАН (20.09 вечер) ----------
+   На 390 нижняя липкая кнопка стоит ровно под кнопкой первого экрана и повторяет
+   её текст: две одинаковые кнопки вплотную читаются как ошибка вёрстки, а не как
+   выбор. Пока первый экран на виду, липкую прячем — она нужна ниже, когда кнопка
+   героя уже уехала. Скрипт не выполнится — кнопка просто останется видимой,
+   то есть поведение вернётся к нынешнему, а не сломается. */
+(function(){
+  var cta  = document.querySelector('.m-cta');
+  var hero = document.querySelector('.hero, .subhero');
+  if (!cta || !hero || !('IntersectionObserver' in window)) return;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      /* 0.3 вместо простого isIntersecting: когда от первого экрана остался
+         нижний край, кнопка героя уже не видна и липкая снова уместна. */
+      cta.classList.toggle('m-cta-off', e.isIntersecting && e.intersectionRatio > 0.3);
+    });
+  }, { threshold: [0, 0.3, 0.6, 1] });
+
+  io.observe(hero);
+})();

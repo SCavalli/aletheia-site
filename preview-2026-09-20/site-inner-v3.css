@@ -410,3 +410,8 @@ main#content>section#what{border-top:0}
    на четыре, и пара в ней читалась как обрезанный ряд. Здесь честные две колонки. */
 .bnfts.two{grid-template-columns:repeat(2,1fr)}
 @media(max-width:700px){.bnfts.two{grid-template-columns:1fr}}
+
+
+/* То же для внутренних страниц: их липкая кнопка описана здесь. */
+.m-cta{transition:transform .25s var(--ease,ease),opacity .25s var(--ease,ease)}
+.m-cta.m-cta-off{opacity:0;transform:translateY(120%);pointer-events:none}
