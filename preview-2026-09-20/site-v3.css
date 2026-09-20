@@ -204,7 +204,7 @@ h2{max-width:min(100%,22ch);
   text-wrap:balance;
 }
 .hero h1 em{font-style:normal;color:var(--accent)}
-.hero .lede{margin-top:var(--gap-m);max-width:min(48ch,52%);font-size:clamp(1.1rem,1.8vw,1.35rem);
+.hero .lede{margin-top:var(--gap-m);max-width:min(48ch,100%);font-size:clamp(1.1rem,1.8vw,1.35rem);
   color:var(--muted);line-height:1.58;font-weight:400;text-wrap:pretty}
 .hero .actions{margin-top:clamp(1.6rem,3.2vh,2.4rem);display:flex;gap:14px;flex-wrap:wrap}
 /* Панч-отстройка: тот же кегль, что у лида, но светлее по цвету — это удар,
@@ -875,4 +875,29 @@ h2{max-width:min(100%,22ch);
    Ниже 601px сетка схлопывается в одну колонку сама, правило там не нужно. */
 @media(min-width:601px){
   .tri-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ---------- ПЕРВЫЙ ЭКРАН БЕЗ КАДРА (21.09) ----------
+   Кадр с перепиской уехал в раздел AI-сотрудников: на витрине компании самый
+   крупный объект экрана был про один продукт и спорил с заголовком. Отсюда две
+   правки. Затемняющая подложка существовала только ради контраста текста НАД
+   кадром — без кадра она гасит первый экран впустую. Правила .hero-visual выше
+   не удалены намеренно: элемента нет, они инертны, и если кадр решат вернуть,
+   вся его механика на месте. */
+.hero::after{display:none}
+.hero-media{display:none}
+
+/* Кадр переписки в разделе AI-сотрудников. Снимок вертикальный (1400×2480),
+   поэтому ширину держим телефонной, а не тянем на всю колонку: растянутый
+   скриншот читается как баннер, а не как экран владельца. */
+.flag-media{margin:var(--gap-l) 0 0;padding:0;max-width:340px}
+.flag-media img{display:block;width:100%;height:auto}
+.flag-media figcaption{margin-top:14px;max-width:34ch;color:var(--muted);
+  font-size:15px;line-height:1.55;text-wrap:pretty}
+@media(min-width:901px){
+  /* На десктопе кадр и подпись встают в строку: вертикальный снимок один
+     посреди широкой колонки оставляет справа дыру в пол-экрана. */
+  .flag-media{display:grid;grid-template-columns:340px minmax(0,1fr);
+    gap:clamp(20px,3vw,40px);align-items:center;max-width:100%}
+  .flag-media figcaption{margin-top:0;font-size:16.5px;max-width:40ch}
 }
