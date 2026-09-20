@@ -66,10 +66,47 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.14em}
 .brand .mark{width:12px;height:12px;border-radius:2px;background:var(--accent);
   box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
-.nav-links{display:flex;gap:var(--gap-m);align-items:center}
-.nav-links a{font-size:15px;color:var(--muted);transition:color .25s var(--ease)}
+.nav-links{display:flex;gap:clamp(14px,1.7vw,30px);align-items:center}
+/* 20.09: пунктов стало шесть. С фиксированным gap и переносом слов «AI-сотрудники»
+   и «Как работаем» ломались на две строки и раздували шапку — держим одну строку
+   на пункт, а расстояние между ними отдаём вьюпорту. */
+.nav-links a{font-size:15px;color:var(--muted);white-space:nowrap;
+  transition:color .25s var(--ease)}
 .nav-links a:hover{color:var(--ink)}
-@media(max-width:860px){.nav-links{display:none}}
+/* ---------- мобильное меню (20.09) ----------
+   До этого дня на ≤1080px меню просто исчезало: с телефона попасть в разделы
+   было нельзя вообще. Теперь бургер на CSS-чекбоксе — без JS, потому что
+   навигация не имеет права зависеть от того, выполнился ли скрипт. */
+.nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.nav-burger{display:none}
+@media(max-width:1080px){
+  .nav-in{height:64px;gap:12px;position:relative}
+  .nav .btn{display:none}            /* кнопка переезжает внутрь меню */
+  .nav-burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    width:44px;height:44px;flex:none;border:1px solid var(--hair-strong);border-radius:12px;
+    cursor:pointer;background:transparent;margin-left:auto}
+  .nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:var(--ink);
+    transition:transform .25s var(--ease),opacity .2s var(--ease)}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    /* Фон строго непрозрачный: под меню лежит первый экран с планетой и крупным
+       заголовком, и даже пара процентов просвета читается как грязь под пунктами. */
+    background:#06060d;border-bottom:1px solid var(--hair);padding:4px 24px 14px;
+    box-shadow:0 22px 40px -28px rgba(0,0,0,.9)}
+  .nav-toggle:checked ~ .nav-links{display:flex}
+  .nav-links a{padding:15px 2px;font-size:16.5px;color:var(--ink);
+    border-bottom:1px solid rgba(255,255,255,.06);min-height:48px;display:flex;align-items:center}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-links .nav-contact{color:var(--accent);font-weight:700}
+  /* крестик вместо трёх полос, когда меню раскрыто */
+  .nav-toggle:checked ~ .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(2){opacity:0}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+@media(min-width:1081px){
+  /* На десктопе пункт связи дублировал бы кнопку в шапке. */
+  .nav-links .nav-contact{display:none}
+}
 /* nowrap нужен ТОЛЬКО кнопке в шапке. На остальных он давал вылет за экран
    на мобиле: длинная кнопка не могла перенестись и растягивала страницу. */
 .nav .btn{white-space:nowrap}

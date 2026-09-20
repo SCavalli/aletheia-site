@@ -43,15 +43,24 @@
 
 <header class="nav">
   <div class="wrap nav-in">
+    <!-- Мобильное меню на CSS-чекбоксе (20.09). Без JS: скрипт может не выполниться,
+         а направления с телефона должны открываться всегда. Чекбокс стоит ПЕРЕД
+         меню и бургером — оба находятся через ~, поэтому порядок менять нельзя. -->
+    <input type="checkbox" id="nav-t" class="nav-toggle" aria-hidden="true" tabindex="-1">
     <a class="brand" href="/"><span class="mark" aria-hidden="true"></span> ALETHEIA</a>
     <nav class="nav-links" aria-label="Основная навигация">
       <a href="#flagship">AI-сотрудники</a>
       <a href="uchti.html">Учти.Бизнес</a>
       <a href="security.html">Пентест</a>
+      <a href="rezident.html">РЕЗИДЕНТ</a>
       <a href="#pricing">Цены</a>
       <a href="#how">Как работаем</a>
+      <!-- На телефоне пункт связи живёт внутри меню: кнопка в шапке там скрыта,
+           иначе она вытесняет бургер и ломает строку. -->
+      <a class="nav-contact" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Написать нам →</a>
     </nav>
     <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Заявка на диагностику</a>
+    <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
   </div>
 </header>
 
@@ -527,6 +536,8 @@
 </script>
 <!-- Живая нейросеть: общий фон для всех страниц -->
 <script src="lead-form.js"></script>
+<script src="nav-menu.js"></script>
+<script src="analytics-events.js"></script>
 <script src="nn-bg.js"></script>
 </body>
 </html>
