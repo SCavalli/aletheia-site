@@ -14,8 +14,39 @@
   if (!toggle) return;
   var menu = document.querySelector('.nav-links');
   if (!menu) return;
+  var burger = document.querySelector('.nav-burger');
 
-  function close(){ toggle.checked = false; }
+  /* 20.09, аудит A09: кликабельная иконка без семантики — для скринридера просто
+     картинка. Размечаем label как кнопку с состоянием и связью с меню, добавляем
+     клавиатуру. Разметка остаётся label+checkbox, поэтому без JS меню по-прежнему
+     открывается — здесь мы только досыпаем доступность. */
+  if (burger){
+    if (!menu.id) menu.id = 'nav-menu';
+    burger.setAttribute('role','button');
+    burger.setAttribute('tabindex','0');
+    burger.setAttribute('aria-controls', menu.id);
+    burger.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false');
+    burger.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+        e.preventDefault();
+        toggle.checked = !toggle.checked;
+        syncState();
+      }
+    });
+  }
+
+  function syncState(){
+    if (burger) burger.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false');
+  }
+  toggle.addEventListener('change', syncState);
+
+  function close(focusBurger){
+    var wasOpen = toggle.checked;
+    toggle.checked = false;
+    syncState();
+    /* Закрыли с клавиатуры — фокус возвращаем на кнопку, иначе он улетает в начало. */
+    if (wasOpen && focusBurger && burger) burger.focus();
+  }
 
   /* 1. Выбрали пункт — меню закрывается. */
   menu.addEventListener('click', function(e){
@@ -36,7 +67,7 @@
 
   /* 3. Esc — привычный выход с клавиатуры. */
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') close(true);
   });
 
   /* 4. Вернулись на десктопную ширину с открытым меню — снимаем состояние,

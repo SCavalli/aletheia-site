@@ -1,0 +1,87 @@
+<!-- Служебная панель подбора стиля. Снята с публичной главной 20.09 по аудиту (A29).
+     Чтобы поработать со стилем: вставить этот блок обратно в index.html перед
+     подключением скриптов и открыть страницу с ?tweaks=1. -->
+<!-- ПАНЕЛЬ TWEAKS — живой подбор. Включается только ?tweaks=1, на прод не идёт. -->
+<aside id="tweaks" hidden aria-label="Панель подбора стиля">
+  <button class="tw-close" type="button" aria-label="Закрыть панель">×</button>
+  <h3>Подбор</h3>
+
+  <label>Акцент</label>
+  <div class="tw-swatches">
+    <button type="button" data-accent="#22d3ee" style="--s:#22d3ee" title="Циан (текущий)"></button>
+    <button type="button" data-accent="#7dd3fc" style="--s:#7dd3fc" title="Ледяной"></button>
+    <button type="button" data-accent="#a78bfa" style="--s:#a78bfa" title="Фиолет"></button>
+    <button type="button" data-accent="#34d399" style="--s:#34d399" title="Изумруд"></button>
+    <button type="button" data-accent="#f4f6fc" style="--s:#f4f6fc" title="Монохром"></button>
+    <button type="button" data-accent="#e8c45a" style="--s:#e8c45a" title="Тёплый"></button>
+  </div>
+
+  <label>Шрифт</label>
+  <div class="tw-fonts">
+    <button type="button" data-font="unbounded" class="on">Unbounded + Onest</button>
+    <button type="button" data-font="golos">Golos Text</button>
+    <button type="button" data-font="commissioner">Commissioner + Onest</button>
+    <button type="button" data-font="onest">Onest (один шрифт)</button>
+  </div>
+
+  <label for="tw-type">Размер шрифта <output id="tw-type-v">100%</output></label>
+  <input id="tw-type" type="range" min="88" max="118" value="100" step="2">
+
+  <label for="tw-air">Воздух <output id="tw-air-v">100%</output></label>
+  <input id="tw-air" type="range" min="70" max="150" value="100" step="5">
+
+  <label for="tw-density">Плотность сети <output id="tw-density-v">100%</output></label>
+  <input id="tw-density" type="range" min="30" max="160" value="100" step="10">
+
+  <label for="tw-glow">Яркость сети <output id="tw-glow-v">100%</output></label>
+  <input id="tw-glow" type="range" min="0" max="180" value="100" step="10">
+
+  <button class="tw-reset" type="button">Сбросить</button>
+</aside>
+
+<script>
+(function(){
+  if(new URLSearchParams(location.search).get('tweaks')!=='1') return;
+  const p=document.getElementById('tweaks'); if(!p) return;
+  p.hidden=false;
+  const root=document.documentElement.style;
+  const set=(k,v)=>root.setProperty(k,v);
+  const bind=(id,fn)=>{
+    const el=document.getElementById(id), out=document.getElementById(id+'-v');
+    el.addEventListener('input',()=>{ out.textContent=el.value+'%'; fn(+el.value); });
+  };
+  // альтернативные шрифты грузим только здесь, в режиме подбора
+  const alt=document.createElement('link'); alt.rel='stylesheet';
+  alt.href='https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&family=Commissioner:wght@400;700;800&display=swap';
+  document.head.appendChild(alt);
+  const FONTS={
+    unbounded:['"Unbounded"','"Onest"'],
+    golos:['"Golos Text"','"Golos Text"'],
+    commissioner:['"Commissioner"','"Onest"'],
+    onest:['"Onest"','"Onest"']
+  };
+  p.querySelectorAll('[data-font]').forEach(b=>b.addEventListener('click',()=>{
+    const f=FONTS[b.dataset.font]; if(!f) return;
+    set('--font-head', f[0]+',system-ui,sans-serif');
+    set('--font-body', f[1]+',system-ui,sans-serif');
+    p.querySelectorAll('[data-font]').forEach(x=>x.classList.toggle('on', x===b));
+  }));
+  p.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{
+    set('--accent', b.dataset.accent);
+    window.__nnAccent && window.__nnAccent(b.dataset.accent);
+  }));
+  bind('tw-type', v=>set('--type-scale', v/100));
+  bind('tw-air',  v=>set('--air', v/100));
+  bind('tw-density', v=>window.__nnDensity && window.__nnDensity(v/100));
+  bind('tw-glow',    v=>window.__nnGlow && window.__nnGlow(v/100));
+  p.querySelector('.tw-reset').addEventListener('click',()=>{
+    ['--accent','--type-scale','--air','--font-head','--font-body'].forEach(k=>root.removeProperty(k));
+    p.querySelectorAll('[data-font]').forEach((x,i)=>x.classList.toggle('on', i===0));
+    window.__nnAccent && window.__nnAccent('#22d3ee');
+    window.__nnDensity && window.__nnDensity(1);
+    window.__nnGlow && window.__nnGlow(1);
+    p.querySelectorAll('input[type=range]').forEach(i=>{i.value=100;document.getElementById(i.id+'-v').textContent='100%';});
+  });
+  p.querySelector('.tw-close').addEventListener('click',()=>{p.hidden=true;});
+})();
+</script>

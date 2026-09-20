@@ -85,7 +85,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
   background:transparent;border:1px solid var(--bd);border-radius:16px;
   transition:border-color .3s var(--ease)}
 .feat:hover,.step:hover,.tmini:hover,.bnft:hover,.acard:hover{border-color:var(--bd-strong)}
-.feat h4,.step h4,.acard h4{font-size:19px;font-weight:500;letter-spacing:-.01em}
+.feat h3,.feat h4,.step h3,.step h4,.acard h3,.acard h4{font-size:19px;font-weight:500;letter-spacing:-.01em}
 .feat p,.step p,.acard p{color:var(--muted);font-size:15.5px}
 /* Иконка — квадратный колодец фиксированного размера. Без размера рамка растягивалась
    на всю карточку и читалась как пустое поле ввода. */
@@ -196,3 +196,46 @@ section[id],header[id]{scroll-margin-top:96px}
 .lead-form .btn{align-self:flex-start}
 .lead-ok,.lead-fail{margin-top:14px;color:var(--muted);font-size:15.5px;text-align:left}
 .lead-ok b{color:#22d3ee}
+
+/* ---------- подписи полей формы (20.09, аудит A20) ----------
+   Плейсхолдер исчезает при вводе и не заменяет подпись: человек, заполнивший
+   половину формы, уже не видит, что где. Подпись постоянная и связана с полем
+   через обёртку <label>. */
+.fld{display:block}
+.fld + .fld{margin-top:12px}
+.fld-l{display:block;margin-bottom:6px;color:var(--muted);font-size:14.5px;line-height:1.35}
+.fld-l em{font-style:normal;color:var(--muted2)}
+.lead-form .fld input,.lead-form .fld select,.lead-form .fld textarea{margin:0}
+
+/* ссылка на политику в микротексте формы должна быть видна как ссылка */
+.micro a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+.micro a:hover{border-bottom-color:#22d3ee}
+
+/* ---------- единый порог мобильной шапки (20.09, аудит A09) ----------
+   В site.css бургер включался на ≤760px, а на главной — на ≤1080px: две разные
+   системы навигации на одном сайте. Хуже того, на 768px внутренняя шапка
+   оставалась десктопной и кнопка вылезала за экран (проверено: scrollWidth 889
+   при вьюпорте 758). Здесь расширяем то же самое поведение до 1080px,
+   чтобы порог и вид были общими для всех страниц. */
+@media(min-width:761px) and (max-width:1080px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(6,6,13,.98);border-bottom:1px solid var(--bd);padding:6px 22px 14px}
+  .nav-links a{display:flex;align-items:center;min-height:48px;padding:13px 2px;font-size:16px;
+    color:var(--ink);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    width:44px;height:44px;flex:none}
+  .nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:#dfe3f2;
+    transition:transform .25s var(--ease),opacity .2s var(--ease)}
+  .nav-toggle:checked ~ .nav-links{display:flex}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(2){opacity:0}
+  .nav-toggle:checked ~ .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav .btn{display:none}
+  .nav-in{position:relative}
+}
+/* Ниже 760px правила живут в site.css — там же липкая нижняя кнопка. */
+@media(max-width:760px){
+  .nav-links{background:rgba(6,6,13,.98);backdrop-filter:none}
+  .nav-links a{color:var(--ink);min-height:48px;display:flex;align-items:center}
+}

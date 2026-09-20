@@ -617,3 +617,15 @@ h2{max-width:min(100%,22ch);
   .hero .hero-tie{max-width:100%;font-size:16px;color:var(--muted);
     text-shadow:0 1px 14px rgba(6,6,13,.8)}
 }
+
+/* ---------- подписи полей формы (20.09, аудит A20) ----------
+   На главной форма живёт в свёрнутом блоке «не пользуетесь Telegram» — подписи
+   нужны там ровно так же, как на продуктовых страницах. */
+.fld{display:block}
+.fld + .fld{margin-top:12px}
+.fld-l{display:block;margin-bottom:6px;color:var(--muted);font-size:14.5px;line-height:1.35}
+.fld-l em{font-style:normal;color:var(--muted-dim)}
+
+/* ссылка на политику в микротексте формы должна быть видна как ссылка */
+.micro a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
+.micro a:hover{border-bottom-color:var(--accent)}

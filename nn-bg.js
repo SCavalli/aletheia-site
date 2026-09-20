@@ -29,7 +29,18 @@
   window.__nnGlow=k=>{glowK=k;};
   const rgba=(c,a)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
   const rnd=(a,b)=>a+Math.random()*(b-a);
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* 20.09, аудит: reduce только «не запускал первый кадр вручную», а сам step()
+     в конце всё равно планировал следующий — цикл крутился и у тех, кто просил
+     уменьшить движение. Теперь планирование кадра вынесено в schedule(), и оно
+     единственное место, которое смотрит на reduce и на видимость вкладки. */
+  const motionMQ=matchMedia('(prefers-reduced-motion:reduce)');
+  let reduce=motionMQ.matches;
+  let hidden=document.hidden;
+  function schedule(){
+    if(reduce||hidden) return;               // просили без движения или вкладка не видна
+    raf=requestAnimationFrame(step);
+  }
+  function stop(){ if(raf){ cancelAnimationFrame(raf); raf=0; } }
 
   function build(){
     /* Оркестраторов немного — иначе каша. У телефона площадь вчетверо меньше,
@@ -238,13 +249,30 @@
       ctx.beginPath();ctx.arc(x,y,4.6,0,7);ctx.fillStyle=rgba(p.col,.12);ctx.fill();
       diamond(x,y,3.4,rgba(p.col,.98));
     }
-    raf=requestAnimationFrame(step);
+    schedule();
   }
   addEventListener('resize',resize);
   addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=true;});
   addEventListener('mouseleave',()=>{mouse.active=false;mouse.x=mouse.y=-9999;});
   addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mouse.x=t.clientX;mouse.y=t.clientY;mouse.active=true;}},{passive:true});
   addEventListener('touchend',()=>{mouse.active=false;});
+  /* Вкладку свернули — кадры не считаем: это заметная экономия батареи на телефоне. */
+  document.addEventListener('visibilitychange',function(){
+    hidden=document.hidden;
+    if(hidden){ stop(); return; }
+    last=0;                                   // после паузы не прыгаем на огромный dt
+    schedule();
+  });
+
+  /* Настройку могут переключить прямо во время сессии. */
+  function onMotionChange(e){
+    reduce=e.matches;
+    if(reduce){ stop(); step(0); }            // один статичный кадр, дальше тишина
+    else { last=0; schedule(); }
+  }
+  if(motionMQ.addEventListener) motionMQ.addEventListener('change',onMotionChange);
+  else if(motionMQ.addListener) motionMQ.addListener(onMotionChange);
+
   resize();
-  if(reduce){ step(0); } else { raf=requestAnimationFrame(step); }
+  if(reduce){ step(0); } else { schedule(); }
 })();

@@ -121,7 +121,7 @@ section{padding:90px 0;position:relative}
 @media(max-width:560px){.steps{grid-template-columns:1fr}}
 .step{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:28px 24px}
 .step .n{font-size:15px;font-weight:700;color:var(--c1);margin-bottom:14px}
-.step h4{font-size:19px;font-weight:700;margin-bottom:8px}
+.step h3,.step h4{font-size:19px;font-weight:700;margin-bottom:8px}
 .step p{color:var(--muted);font-size:15.5px}
 
 /* ЦИФРЫ */
@@ -188,7 +188,7 @@ footer .freq{font-size:13px;color:var(--muted2);margin-top:12px}
 .feat{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px 24px}
 .feat .fi{color:var(--c1);margin-bottom:14px}
 .feat .fi svg{display:block;width:26px;height:26px}
-.feat h4{font-size:18px;font-weight:700;margin-bottom:8px}
+.feat h3,.feat h4{font-size:18px;font-weight:700;margin-bottom:8px}
 .feat p{color:var(--muted);font-size:15.5px;line-height:1.5}
 
 /* demo box (живое демо) */
@@ -234,7 +234,7 @@ details.qa p{color:var(--muted);font-size:16px;line-height:1.55;padding:0 2px 22
 .acard .ai{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--c1);
    background:linear-gradient(135deg,rgba(109,94,252,.25),rgba(34,211,238,.18));border:1px solid var(--bd);margin-bottom:16px}
 .acard .ai svg{display:block;width:24px;height:24px}
-.acard h4{font-size:18.5px;font-weight:700;margin-bottom:8px}
+.acard h3,.acard h4{font-size:18.5px;font-weight:700;margin-bottom:8px}
 .acard p{color:var(--muted);font-size:15px;line-height:1.5}
 /* «сеть под ключ» — выделенный блок с мини-схемой */
 .netbox{position:relative;border-radius:26px;padding:48px 38px;overflow:hidden;text-align:center;

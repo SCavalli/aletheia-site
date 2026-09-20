@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Дефолтная пара: Unbounded (заголовки, характер) + Onest (текст, чистый гротеск).
-     Альтернативы догружаются только в режиме подбора ?tweaks=1, чтобы не утяжелять прод. -->
+     Панель подбора стиля вынесена из прода 20.09 — лежит в _tools-tweaks-panel.html. -->
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site-v3.css">
 <!-- Постер планеты тянем первым приоритетом: он держит первый экран,
@@ -57,9 +57,9 @@
       <a href="#how">Как работаем</a>
       <!-- На телефоне пункт связи живёт внутри меню: кнопка в шапке там скрыта,
            иначе она вытесняет бургер и ломает строку. -->
-      <a class="nav-contact" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Написать нам →</a>
+      <a class="nav-contact" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Написать нам →</a>
     </nav>
-    <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Заявка на диагностику</a>
+    <a class="btn" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Заявка на диагностику</a>
     <label for="nav-t" class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></label>
   </div>
 </header>
@@ -103,8 +103,8 @@
            сценарий с заявкой продаёт флагман и его трогать не нужно. -->
       <p class="hero-kicker rise">ALETHEIA · AI-инфраструктура, автоматизация и&nbsp;кибербезопасность бизнеса</p>
       <h1 class="rise">Заявка пришла в&nbsp;23:40. Вы&nbsp;ответили <em>в&nbsp;9:15</em></h1>
-      <p class="lede rise">За эти десять часов человек написал двум вашим конкурентам.
-        AI-сотрудник ответил&nbsp;бы через минуту, вытащил задачу и&nbsp;довёл до&nbsp;сделки, пока вы&nbsp;спите.</p>
+      <p class="lede rise">Почти десять часов тишины — и&nbsp;за&nbsp;это время человек обычно пишет ещё паре компаний.
+        AI-сотрудник ответил&nbsp;бы через минуту, уточнил задачу и&nbsp;передал её&nbsp;вам готовой к&nbsp;работе.</p>
       <p class="lede lede-punch rise">И&nbsp;нет, это не&nbsp;чат-бот с&nbsp;кнопками. Он&nbsp;помнит клиента,
         знает ваш прайс и&nbsp;сам поднимает того, кто замолчал.</p>
       <!-- Связка трёх направлений: автоматизация, учёт и безопасность — одна архитектура. -->
@@ -116,7 +116,7 @@
       <p class="hero-proof rise">Этой компанией управляет команда AI-сотрудников. Та&nbsp;же самая может работать у&nbsp;вас.</p>
       <div class="actions rise">
         <a class="btn" href="#pricing">Начать с диагностики</a>
-        <a class="btn btn-ghost" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Задать вопрос в Telegram</a>
+        <a class="btn btn-ghost" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Задать вопрос в Telegram</a>
       </div>
       <p class="cta-note rise">Первый шаг — денежная диагностика за&nbsp;29 000 ₽, и&nbsp;эта сумма засчитывается в&nbsp;стоимость внедрения. Любая ниша: торговля, услуги, юристы, блогеры.</p>
       <!-- Вторая дверь для тех, кто пришёл не за автоматизацией, а за безопасностью. -->
@@ -191,7 +191,7 @@
       </dl>
 
       <div class="flag-foot">
-        <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Показать на моей задаче</a>
+        <a class="btn" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Показать на моей задаче</a>
         <!-- Второй выход — читать, а не писать в чат: не все готовы сразу в диалог. -->
         <a class="btn btn-ghost" href="agents.html">Как это работает</a>
         <p class="note">Начинаем с денежной диагностики: считаем по вашим выгрузкам, где уходят деньги.</p>
@@ -239,7 +239,7 @@
         </div>
         <div class="pe-act">
           <a class="btn" href="audit.html">Что входит в диагностику</a>
-          <a class="btn btn-ghost" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Задать вопрос</a>
+          <a class="btn btn-ghost" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Задать вопрос</a>
         </div>
       </div>
 
@@ -265,20 +265,15 @@
           <p>Считаем по вашим выгрузкам, где бизнес теряет деньги. Отчёт с источником под каждой суммой.</p>
         <span class="go">Подробнее</span>
         </a>
-        <a class="l2-item" href="agents.html">
-          <h3>Поддержка 24/7 <span class="arr" aria-hidden="true">→</span></h3>
-          <p>AI-сотрудник на входящих обращениях: отвечает ночью, в выходные и в любом часовом поясе.</p>
-        <span class="go">Подробнее</span>
-        </a>
-        <a class="l2-item" href="uchti.html">
-          <h3>Учти.Бизнес <span class="arr" aria-hidden="true">→</span></h3>
-          <p>Управленческий учёт в телефоне: прибыль по точкам, налоги, предстоящие платежи.</p>
-        <span class="go">Подробнее</span>
+        <a class="l2-item" href="agents.html#examples">
+          <h3>Роль: поддержка клиентов <span class="arr" aria-hidden="true">→</span></h3>
+          <p>Один из сценариев AI-сотрудника: входящие обращения ночью, в выходные и в другом часовом поясе.</p>
+        <span class="go">Смотреть роли</span>
         </a>
         <a class="l2-item" href="https://beyondbeautyconcierge.ru" target="_blank" rel="noopener">
           <h3>Продукт под ключ <span class="arr" aria-hidden="true">→</span></h3>
-          <p>Собираем целый AI-сервис: бот, оплата, кабинет, анализ по фото. От идеи до запуска.</p>
-        <span class="go">Подробнее</span>
+          <p>Заказная разработка AI-сервиса целиком: бот, оплата, кабинет, разбор по фото. Пример такой работы — Beyond Beauty, отдельный проект клиента.</p>
+        <span class="go">Открыть пример (внешний сайт)</span>
         </a>
         <a class="l2-item" href="rezident.html">
           <h3>РЕЗИДЕНТ <span class="arr" aria-hidden="true">→</span></h3>
@@ -362,7 +357,7 @@
         Если после отчёта вы&nbsp;решите внедрять — эта сумма войдёт в&nbsp;стоимость работ.
         Если решите, что вам это не&nbsp;нужно, отчёт всё равно остаётся у&nbsp;вас.</p>
       <div class="actions">
-        <a class="btn" href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Оставить заявку на диагностику</a>
+        <a class="btn" href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Оставить заявку на диагностику</a>
       </div>
       <p class="cta-note">Первый шаг — денежная диагностика за&nbsp;29 000 ₽. Она засчитывается в&nbsp;стоимость внедрения.</p>
       <!-- Запасная дверь для тех, у кого мессенджер закрыт корпоративной политикой. -->
@@ -374,13 +369,17 @@
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="Страница" value="Главная">
-            <input type="text" name="Имя" placeholder="Ваше имя" required>
-            <input type="text" name="Контакт" placeholder="Телефон или email" required>
+            <label class="fld"><span class="fld-l">Имя</span>
+            <input type="text" name="Имя" placeholder="Как к вам обращаться" required autocomplete="name">
+          </label>
+            <label class="fld"><span class="fld-l">Контакт для связи</span>
+            <input type="text" name="Контакт" placeholder="Телефон, email или @username" required>
+          </label>
             <button type="submit" class="btn btn-ghost">Отправить заявку</button>
-            <div class="micro">Ответим в течение дня. Данные не передаём третьим лицам.</div>
+            <div class="micro">Ответим в течение рабочего дня. Заявка приходит нам на почту через сервис доставки форм — не отправляйте через неё пароли, ключи доступа и закрытые документы. Как обрабатываем данные: <a href="privacy.html">политика конфиденциальности</a>.</div>
           </form>
-          <p class="lead-ok" hidden><b>Заявка отправлена.</b> Свяжемся с вами в течение дня.</p>
-          <p class="lead-fail" hidden>Не удалось отправить. Напишите нам в Telegram, ответим сразу.</p>
+          <p class="lead-ok" hidden><b>Заявка отправлена.</b> Свяжемся с вами в течение рабочего дня.</p>
+          <p class="lead-fail" hidden>Не удалось отправить — текст остался в полях. Попробуйте ещё раз или напишите на <a href="mailto:hello@aletheia-ai.ru">hello@aletheia-ai.ru</a> либо в <a href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Telegram</a>: ответим в течение рабочего дня.</p>
         </details>
       </div>
     </div>
@@ -388,90 +387,6 @@
 
 </main>
 
-<!-- ПАНЕЛЬ TWEAKS — живой подбор. Включается только ?tweaks=1, на прод не идёт. -->
-<aside id="tweaks" hidden aria-label="Панель подбора стиля">
-  <button class="tw-close" type="button" aria-label="Закрыть панель">×</button>
-  <h3>Подбор</h3>
-
-  <label>Акцент</label>
-  <div class="tw-swatches">
-    <button type="button" data-accent="#22d3ee" style="--s:#22d3ee" title="Циан (текущий)"></button>
-    <button type="button" data-accent="#7dd3fc" style="--s:#7dd3fc" title="Ледяной"></button>
-    <button type="button" data-accent="#a78bfa" style="--s:#a78bfa" title="Фиолет"></button>
-    <button type="button" data-accent="#34d399" style="--s:#34d399" title="Изумруд"></button>
-    <button type="button" data-accent="#f4f6fc" style="--s:#f4f6fc" title="Монохром"></button>
-    <button type="button" data-accent="#e8c45a" style="--s:#e8c45a" title="Тёплый"></button>
-  </div>
-
-  <label>Шрифт</label>
-  <div class="tw-fonts">
-    <button type="button" data-font="unbounded" class="on">Unbounded + Onest</button>
-    <button type="button" data-font="golos">Golos Text</button>
-    <button type="button" data-font="commissioner">Commissioner + Onest</button>
-    <button type="button" data-font="onest">Onest (один шрифт)</button>
-  </div>
-
-  <label for="tw-type">Размер шрифта <output id="tw-type-v">100%</output></label>
-  <input id="tw-type" type="range" min="88" max="118" value="100" step="2">
-
-  <label for="tw-air">Воздух <output id="tw-air-v">100%</output></label>
-  <input id="tw-air" type="range" min="70" max="150" value="100" step="5">
-
-  <label for="tw-density">Плотность сети <output id="tw-density-v">100%</output></label>
-  <input id="tw-density" type="range" min="30" max="160" value="100" step="10">
-
-  <label for="tw-glow">Яркость сети <output id="tw-glow-v">100%</output></label>
-  <input id="tw-glow" type="range" min="0" max="180" value="100" step="10">
-
-  <button class="tw-reset" type="button">Сбросить</button>
-</aside>
-
-<script>
-(function(){
-  if(new URLSearchParams(location.search).get('tweaks')!=='1') return;
-  const p=document.getElementById('tweaks'); if(!p) return;
-  p.hidden=false;
-  const root=document.documentElement.style;
-  const set=(k,v)=>root.setProperty(k,v);
-  const bind=(id,fn)=>{
-    const el=document.getElementById(id), out=document.getElementById(id+'-v');
-    el.addEventListener('input',()=>{ out.textContent=el.value+'%'; fn(+el.value); });
-  };
-  // альтернативные шрифты грузим только здесь, в режиме подбора
-  const alt=document.createElement('link'); alt.rel='stylesheet';
-  alt.href='https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&family=Commissioner:wght@400;700;800&display=swap';
-  document.head.appendChild(alt);
-  const FONTS={
-    unbounded:['"Unbounded"','"Onest"'],
-    golos:['"Golos Text"','"Golos Text"'],
-    commissioner:['"Commissioner"','"Onest"'],
-    onest:['"Onest"','"Onest"']
-  };
-  p.querySelectorAll('[data-font]').forEach(b=>b.addEventListener('click',()=>{
-    const f=FONTS[b.dataset.font]; if(!f) return;
-    set('--font-head', f[0]+',system-ui,sans-serif');
-    set('--font-body', f[1]+',system-ui,sans-serif');
-    p.querySelectorAll('[data-font]').forEach(x=>x.classList.toggle('on', x===b));
-  }));
-  p.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{
-    set('--accent', b.dataset.accent);
-    window.__nnAccent && window.__nnAccent(b.dataset.accent);
-  }));
-  bind('tw-type', v=>set('--type-scale', v/100));
-  bind('tw-air',  v=>set('--air', v/100));
-  bind('tw-density', v=>window.__nnDensity && window.__nnDensity(v/100));
-  bind('tw-glow',    v=>window.__nnGlow && window.__nnGlow(v/100));
-  p.querySelector('.tw-reset').addEventListener('click',()=>{
-    ['--accent','--type-scale','--air','--font-head','--font-body'].forEach(k=>root.removeProperty(k));
-    p.querySelectorAll('[data-font]').forEach((x,i)=>x.classList.toggle('on', i===0));
-    window.__nnAccent && window.__nnAccent('#22d3ee');
-    window.__nnDensity && window.__nnDensity(1);
-    window.__nnGlow && window.__nnGlow(1);
-    p.querySelectorAll('input[type=range]').forEach(i=>{i.value=100;document.getElementById(i.id+'-v').textContent='100%';});
-  });
-  p.querySelector('.tw-close').addEventListener('click',()=>{p.hidden=true;});
-})();
-</script>
 
 
 <footer class="foot">
@@ -498,7 +413,7 @@
            страницу не пропускает модерация платёжной системы, и это требование закона
            о защите прав потребителей. На внутренних страницах они уже стояли. -->
       <span>ИП Ковалев Сергей Сергеевич · ИНН 772919088506 · ALETHEIA, 2026</span>
-      <a href="https://t.me/aletheia_support_bot" target="_blank" rel="noopener">Написать нам</a>
+      <a href="https://t.me/aletheia_support_bot?start=home" target="_blank" rel="noopener">Написать нам</a>
     </div>
   </div>
 </footer>

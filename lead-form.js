@@ -33,6 +33,13 @@
           body:JSON.stringify(Object.fromEntries(new FormData(form).entries()))
         });
         if(!r.ok) throw new Error('bad status '+r.status);
+        /* 20.09, аудит: HTTP 200 и «заявка принята» — разные события. FormSubmit
+           отвечает JSON с полем success; пока оно не подтверждено, успех не
+           показываем, иначе человек уходит уверенным, что его заявку получили. */
+        var data=null;
+        try{ data=await r.json(); }catch(e){ data=null; }
+        var accepted = data && (data.success===true || String(data.success).toLowerCase()==='true');
+        if(!accepted) throw new Error('not accepted by handler');
         form.hidden=true; if(ok) ok.hidden=false;
       }catch(err){
         /* Молча терять заявку нельзя: показываем запасной контакт, а не «ошибка». */
