@@ -2,12 +2,13 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ALETHEIA · AI-сотрудники для бизнеса</title>
 <meta name="description" content="AI-сотрудник под ваши задачи и процессы: работает с данными компании, выполняет согласованные действия и передаёт результат в Telegram. Соберём под вашу задачу, три дня тестирования — счёт после того, как увидите результат.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
-<link rel="canonical" href="https://aletheia-ai.ru/">
+
 
 <!-- Соцпревью: трафик идёт из Telegram и Instagram, без этого ссылка выглядит пустой.
      В v3 я эти теги потерял при переносе, возвращаю. -->
@@ -31,12 +32,16 @@
 <!-- Дефолтная пара: Unbounded (заголовки, характер) + Onest (текст, чистый гротеск).
      Панель подбора стиля вынесена из прода 20.09 — лежит в _tools-tweaks-panel.html. -->
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site-v3.css">
+<link rel="stylesheet" href="/site-v3.css">
 <!-- Постер планеты тянем первым приоритетом: он держит первый экран,
      пока грузится видео. Пустого места быть не должно ни секунды. -->
-<link rel="preload" as="image" href="assets/globe-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/globe-poster.webp" fetchpriority="high">
 </head>
 <body>
+<div style="position:sticky;top:0;z-index:999;background:#22d3ee;color:#04121a;
+  font:600 13px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center;letter-spacing:.02em">
+  ПРЕДПРОСМОТР этапа 2 от 20.09.2026 · живой сайт не изменён · <a href="/" style="color:#04121a;text-decoration:underline">открыть текущий сайт</a>
+</div>
 
 <canvas id="nn-canvas" aria-hidden="true"></canvas>
 <div class="veil" aria-hidden="true"></div>
@@ -74,14 +79,14 @@
       <!-- Постер — кадр 0 этого же ролика, поэтому подмены глазом не видно.
            Он виден сразу и остаётся при любом сбое: нет автоплея, экономия трафика,
            отключено движение, не догрузилось видео. Пустоты не бывает никогда. -->
-      <video class="globe" poster="assets/globe-poster.webp"
+      <video class="globe" poster="/assets/globe-poster.webp"
              autoplay muted loop playsinline preload="metadata"
              width="1920" height="1080">
         <!-- 1080p, потому что на ретине первый экран показывает планету шириной
              в 1720 точек: файл должен быть КРУПНЕЕ показа, иначе мыло. Телефону
              отдаём вдвое лёгкий файл — там показ 1300 точек. -->
-        <source media="(min-width:901px)" src="assets/globe-loop.mp4" type="video/mp4">
-        <source src="assets/globe-loop-m.mp4" type="video/mp4">
+        <source media="(min-width:901px)" src="/assets/globe-loop.mp4" type="video/mp4">
+        <source src="/assets/globe-loop-m.mp4" type="video/mp4">
       </video>
     </div>
     <script>
@@ -118,7 +123,7 @@
       </div>
       <p class="cta-note rise">Соберём под вашу задачу и&nbsp;дадим три дня тестирования. Устроит результат — выставим счёт.</p>
       <!-- Вторая дверь для тех, кто пришёл не за автоматизацией, а за безопасностью. -->
-      <p class="hero-alt rise">Нужна проверка безопасности? <a href="security.html">Перейти к&nbsp;пентесту&nbsp;→</a></p>
+      <p class="hero-alt rise">Нужна проверка безопасности? <a href="/security.html">Перейти к&nbsp;пентесту&nbsp;→</a></p>
       <a class="scroll-hint rise" href="#flow">Как проходит задача</a>
     </div>
   </section>
@@ -484,7 +489,7 @@
             Зачёт применяется один раз, к первому внедрению, и не суммируется с другими скидками.</p>
         </div>
         <div class="pe-act">
-          <a class="btn" href="audit.html">Что входит в диагностику</a>
+          <a class="btn" href="/audit.html">Что входит в диагностику</a>
           <a class="btn btn-ghost" href="https://t.me/aletheia_support_bot?start=audit" target="_blank" rel="noopener">Задать вопрос о диагностике</a>
         </div>
       </div>
@@ -511,19 +516,19 @@
       <p class="tri-lede">Самостоятельные продукты со&nbsp;своими условиями. Их&nbsp;берут отдельно
         от&nbsp;внедрения AI-сотрудников — и&nbsp;вместе с&nbsp;ним, когда задача этого требует.</p>
       <div class="tri-grid">
-        <a class="tri-card" href="security.html">
+        <a class="tri-card" href="/security.html">
           <h3>ALETHEIA Security</h3>
           <p>Проверяем сайты, API, внешний контур, доступы, интеграции и AI-системы.
             Находим уязвимости, подтверждаем реальный риск и даём план устранения.</p>
           <span class="go">Пентест и безопасность →</span>
         </a>
-        <a class="tri-card" href="rezident.html">
+        <a class="tri-card" href="/rezident.html">
           <h3>РЕЗИДЕНТ</h3>
           <p>Локальная AI-среда для документов и знаний компании: обработка проходит
             в вашем контуре. Для тех, у кого данные не уезжают наружу.</p>
           <span class="go">Подробнее →</span>
         </a>
-        <a class="tri-card" href="uchti.html">
+        <a class="tri-card" href="/uchti.html">
           <h3>Учти.Бизнес</h3>
           <p>Управленческие показатели в Telegram на основе данных бизнеса: деньги,
             обязательства, прибыль по направлениям.</p>
@@ -544,7 +549,7 @@
           отдельный вход для тех, кто ищет потери, и&nbsp;заказная разработка.</p>
       </div>
       <div class="l2-grid">
-        <a class="l2-item" href="audit.html">
+        <a class="l2-item" href="/audit.html">
           <h3>Денежная диагностика <span class="arr" aria-hidden="true">→</span></h3>
           <p>Считаем по вашим выгрузкам, где бизнес теряет деньги. Отчёт с источником под каждой суммой.
             Отдельная услуга: для запуска AI-сотрудника она не обязательна.</p>
@@ -613,7 +618,7 @@
       </div>
       <p class="scope-note">Счёт приходит после трёх дней тестирования, а&nbsp;не&nbsp;на&nbsp;шаге&nbsp;01.
         Не&nbsp;знаете, с&nbsp;какого участка начать — есть отдельная услуга,
-        <a href="audit.html">денежная диагностика</a>; знаете — она не&nbsp;нужна.</p>
+        <a href="/audit.html">денежная диагностика</a>; знаете — она не&nbsp;нужна.</p>
     </div>
   </section>
 
@@ -621,7 +626,7 @@
   <section class="founder" id="founder">
     <div class="wrap">
       <div class="f-grid">
-        <img class="f-photo" src="founder.jpg" alt="Сергей Ковалев, основатель ALETHEIA" loading="lazy" width="320" height="400">
+        <img class="f-photo" src="/founder.jpg" alt="Сергей Ковалев, основатель ALETHEIA" loading="lazy" width="320" height="400">
         <div class="f-body">
           <h2>Кто за этим стоит</h2>
           <p>Меня зовут Сергей Ковалев. Я не консультант по AI со стороны: я собрал команду цифровых
@@ -650,7 +655,7 @@
       </div>
       <p class="cta-note">Без возврата, автосписания и&nbsp;обязательной покупки: не&nbsp;подошло&nbsp;—
         просто расходимся. Не&nbsp;знаете, с&nbsp;какого процесса начать — есть отдельный вход,
-        <a href="audit.html">денежная диагностика за&nbsp;29 000 ₽</a>.</p>
+        <a href="/audit.html">денежная диагностика за&nbsp;29 000 ₽</a>.</p>
       <!-- Запасная дверь для тех, у кого мессенджер закрыт корпоративной политикой. -->
       <div class="alt-lead">
         <details>
@@ -667,7 +672,7 @@
             <input type="text" name="Контакт" placeholder="Телефон, email или @username" required>
           </label>
             <button type="submit" class="btn btn-ghost">Отправить заявку</button>
-            <div class="micro">Ответим в течение рабочего дня. Заявка приходит нам на почту через сервис доставки форм — не отправляйте через неё пароли, ключи доступа и закрытые документы. Как обрабатываем данные: <a href="privacy.html">политика конфиденциальности</a>.</div>
+            <div class="micro">Ответим в течение рабочего дня. Заявка приходит нам на почту через сервис доставки форм — не отправляйте через неё пароли, ключи доступа и закрытые документы. Как обрабатываем данные: <a href="/privacy.html">политика конфиденциальности</a>.</div>
           </form>
           <p class="lead-ok" hidden><b>Заявка отправлена.</b> Свяжемся с вами в течение рабочего дня.</p>
           <p class="lead-fail" hidden>Не удалось отправить — текст остался в полях. Попробуйте ещё раз или напишите на <a href="mailto:hello@aletheia-ai.ru">hello@aletheia-ai.ru</a> либо в <a href="https://t.me/aletheia_support_bot?start=agent" target="_blank" rel="noopener">Telegram</a>: ответим в течение рабочего дня.</p>
@@ -691,12 +696,12 @@
       <nav class="foot-links" aria-label="Разделы">
         <a href="agents.html">AI-сотрудники</a>
         <a href="#pricing">Цены</a>
-        <a href="audit.html">Диагностика</a>
-        <a href="uchti.html">Учти.Бизнес</a>
-        <a href="rezident.html">РЕЗИДЕНТ</a>
-        <a href="security.html">Пентест и безопасность</a>
-        <a href="oferta.html">Оферта</a>
-        <a href="privacy.html">Данные</a>
+        <a href="/audit.html">Диагностика</a>
+        <a href="/uchti.html">Учти.Бизнес</a>
+        <a href="/rezident.html">РЕЗИДЕНТ</a>
+        <a href="/security.html">Пентест и безопасность</a>
+        <a href="/oferta.html">Оферта</a>
+        <a href="/privacy.html">Данные</a>
       </nav>
     </div>
     <div class="foot-bottom">
@@ -741,9 +746,9 @@
 
 </script>
 <!-- Живая нейросеть: общий фон для всех страниц -->
-<script src="lead-form.js"></script>
-<script src="nav-menu.js"></script>
-<script src="analytics-events.js"></script>
-<script src="nn-bg.js"></script>
+<script src="/lead-form.js"></script>
+<script src="/nav-menu.js"></script>
+<script src="/analytics-events.js"></script>
+<script src="/nn-bg.js"></script>
 </body>
 </html>
