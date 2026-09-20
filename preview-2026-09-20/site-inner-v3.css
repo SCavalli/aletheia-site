@@ -290,6 +290,27 @@ section[id],header[id]{scroll-margin-top:96px}
 .sc-list.nots li::before{width:9px;height:9px;top:1.15em;border-radius:50%;
   background:transparent;border:1px solid rgba(240,97,109,.55);opacity:1}
 
+/* ПОРЯДОК ЗАПУСКА (21.09). Те же четыре шага, что на главной: слева отметка шага,
+   справа суть. Номера считает счётчик, а не руки — поменяется порядок, числа не
+   разъедутся. Маркер списка снят, его место занял псевдоэлемент с номером. */
+.launch{list-style:none;margin:0;padding:0;max-width:88ch;
+  border-top:1px solid var(--bd-strong);counter-reset:step}
+.launch li{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);
+  gap:clamp(12px,2vw,28px);padding:clamp(16px,1.8vw,22px) 0;border-bottom:1px solid var(--bd)}
+.launch li::before{counter-increment:step;content:"Шаг " counter(step);
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);padding-top:.55em}
+.launch li div{color:var(--muted);font-size:16px;line-height:1.55;max-width:60ch;text-wrap:pretty}
+.launch li b{display:block;margin-bottom:7px;color:var(--ink);font-weight:500;
+  font-family:var(--font-head);font-size:clamp(1rem,1.6vw,1.15rem);letter-spacing:-.015em}
+/* Цена второго сотрудника — условие, а не сноска: обычный кегль, отбивка слева. */
+.launch-note{margin-top:26px;max-width:60ch;padding-left:20px;
+  border-left:2px solid rgba(34,211,238,.42);color:var(--ink);font-size:16px;line-height:1.6;
+  text-wrap:pretty}
+@media(max-width:760px){
+  .launch li{grid-template-columns:1fr;gap:5px}
+  .launch li::before{padding-top:0}
+}
+
 /* FAQ */
 .faq{max-width:88ch;border-top:1px solid var(--bd-strong)}
 .faq details{border-bottom:1px solid var(--bd)}

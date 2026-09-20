@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght 300;400;500;700;800&family=Onest:wght 400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css?v=20260920o">
 <link rel="stylesheet" href="site-inner-v3.css?v=20260920o">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
@@ -59,8 +59,9 @@
     <a class="btn" href="https://t.me/aletheia_support_bot?start=agent" data-ev="agent_pick" data-ev-place="hero">Подобрать AI-сотрудника</a>
     <a class="btn ghost" href="#scope" data-ev="agent_scope" data-ev-place="hero">Что входит во внедрение</a>
   </div>
-  <p class="tier-note" style="margin-top:18px;max-width:34rem">Настроим под вашу задачу, три дня
-    вы работаете с сотрудником, и только потом выставляем счёт.</p>
+  <p class="tier-note" style="margin-top:18px;max-width:34rem">Начинаем с разбора задачи —
+    29 000 ₽ за одного сотрудника, они идут в зачёт. Дальше сборка, три дня работы
+    на ваших данных и доплата, если результат устроил.</p>
 </div></header>
 
 <!-- ОПРЕДЕЛЕНИЕ ПРОДУКТА. Переписано 20.09 под подтверждённое позиционирование:
@@ -251,15 +252,26 @@
 <section id="test"><div class="wrap">
   <div class="sec-head reveal">
     <div class="eyebrow">Как начать</div>
-    <h2>Три дня тестирования</h2>
+    <h2>Четыре шага до работающего сотрудника</h2>
   </div>
-  <div class="defbox reveal">
-    <p class="def">Настроим AI-сотрудника под вашу задачу. Три дня тестирования начинаются,
-      когда вы приступаете к работе с ним — не с оплаты и не с анкеты. Собираем обратную связь
-      и вносим корректировки. Если результат устраивает — выставляем счёт.</p>
-  </div>
-  <p class="tier-note" style="margin-top:20px;max-width:34rem">Платите после того, как увидели
-    результат на своих данных. Не подошло — просто расходимся.</p>
+  <!-- 21.09: раньше здесь стояли только «три дня тестирования» и обещание счёта
+       в самом конце. Разбор задачи — платный вход, 29 000 ₽ под одного сотрудника,
+       и об этом честнее сказать первым шагом, а не сноской. -->
+  <ol class="launch reveal">
+    <li><div><b>Разбор задачи — 29 000 ₽ за одного сотрудника</b>
+      Собираем информацию, разбираем процесс и пишем техническое задание, чтобы не собирать
+      вслепую. Сумма идёт в зачёт внедрения.</div></li>
+    <li><div><b>Сборка сотрудника под вашу задачу</b>
+      Подключения, правила, границы полномочий. Ориентир 2–3 дня после получения материалов.</div></li>
+    <li><div><b>Три дня работы с ним</b>
+      Отсчёт идёт с момента, когда вы приступили к работе, — не с оплаты и не с анкеты.
+      Собираем обратную связь и вносим корректировки.</div></li>
+    <li><div><b>Устроило — доплата 71 000 ₽</b>
+      Внедрение от 100 000 ₽, из них 29 000 ₽ уже оплачены разбором. Если сотрудник дороже,
+      доплата считается от его цены. Не устроило — просто расходимся.</div></li>
+  </ol>
+  <p class="launch-note">Нужен второй сотрудник — он считается своей ценой, а не довеском
+    к первому: свой разбор задачи, своё внедрение, своё сопровождение.</p>
 </div></section>
 
 <!-- 20.09: было четыре пронумерованных шага, два из которых дословно повторяли
@@ -405,7 +417,7 @@
             <input type="text" name="Имя" placeholder="Как к вам обращаться" required autocomplete="name">
           </label>
           <label class="fld"><span class="fld-l">Контакт для связи</span>
-            <input type="text" name="Контакт" placeholder="Телефон, email или @username" required>
+            <input type="text" name="Контакт" placeholder="Телефон, email или  username" required>
           </label>
           <button type="submit" class="btn ghost">Отправить заявку</button>
           <div class="micro">Ответим в течение рабочего дня. Заявка приходит нам на почту через сервис доставки форм — не отправляйте через неё пароли, ключи доступа и закрытые документы. Как обрабатываем данные: <a href="privacy.html">политика конфиденциальности</a>.</div>
@@ -423,8 +435,8 @@
 <footer><div class="wrap">
   <a class="logo" href="index.html"><span class="mark"></span> ALETHEIA</a>
   <div>ALETHEIA — AI-сотрудники, управленческие системы и кибербезопасность для бизнеса.</div>
-  <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener">@aletheia_ai</a></div>
-  <div class="fl">© 2026 ALETHEIA · <a href="audit.html">Денежная диагностика</a> · <a href="security.html">Пентест и безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
+  <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener"> aletheia_ai</a></div>
+  <div class="fl">© 2026 ALETHEIA · <a href="security.html">Пентест и безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
   <div class="fl"><a href="oferta.html">Публичная оферта</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
   <div class="fl freq">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</div>
 </div></footer>
