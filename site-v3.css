@@ -70,7 +70,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
 /* 21.09: вместо ромба-заглушки в шапке стоит настоящий знак — фасеточная A.
    Картинкой, а не квадратом на CSS: у знака грани, их квадратом не нарисовать. */
 .brand .mark{width:30px;height:31px;border-radius:0;background:none;transform:none;
-  box-shadow:none;background-image:url("logo-a-64.png");background-size:contain;
+  box-shadow:none;background-image:url("logo-a-64.png?v=2");background-size:contain;
   background-repeat:no-repeat;background-position:center}
 .nav-links{display:flex;gap:clamp(14px,1.7vw,30px);align-items:center}
 /* 20.09: пунктов стало шесть. С фиксированным gap и переносом слов «AI-сотрудники»
