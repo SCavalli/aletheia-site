@@ -32,7 +32,7 @@
 <!-- Дефолтная пара: Unbounded (заголовки, характер) + Onest (текст, чистый гротеск).
      Панель подбора стиля вынесена из прода 20.09 — лежит в _tools-tweaks-panel.html. -->
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site-v3.css?v=20260921j">
+<link rel="stylesheet" href="site-v3.css?v=20260921k">
 <!-- Предзагрузка кадра снята 21.09: он больше не на первом экране, а в разделе
      AI-сотрудников, и грузится лениво. -->
 </head>
@@ -41,7 +41,9 @@
   ПРЕДПРОСМОТР будущей версии сайта · 20.09.2026 · живой сайт не изменён · <a href="https://aletheia-ai.ru/" target="_blank" rel="noopener" style="color:#04121a;text-decoration:underline">открыть текущий сайт</a>
 </div>
 
-<canvas id="nn-canvas" aria-hidden="true"></canvas>
+<!-- Сеть агентов снята 21.09 по решению Сергея: на винном градиенте
+     она читалась как частичный шум и удешевляла дизайн. Вернуть —
+     раскомментировать канву и скрипт nn-bg.js ниже. -->
 <div class="veil" aria-hidden="true"></div>
 
 <header class="nav">
@@ -377,9 +379,9 @@
 
 </script>
 <!-- Живая нейросеть: общий фон для всех страниц -->
-<script src="lead-form.js?v=20260921j"></script>
-<script src="nav-menu.js?v=20260921j"></script>
-<script src="analytics-events.js?v=20260921j"></script>
-<script src="nn-bg.js?v=20260921j"></script>
+<script src="lead-form.js?v=20260921k"></script>
+<script src="nav-menu.js?v=20260921k"></script>
+<script src="analytics-events.js?v=20260921k"></script>
+<!-- <script src="nn-bg.js"></script> сеть агентов, см. комментарий в шапке -->
 </body>
 </html>
