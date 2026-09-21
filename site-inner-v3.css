@@ -55,7 +55,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 .nav-in{height:76px;gap:2rem}
 .logo{font-weight:500;font-size:17px;letter-spacing:.14em;gap:12px}
 .logo .mark{width:30px;height:31px;border-radius:0;background:none;transform:none;
-  box-shadow:none;background-image:url("logo-a-64.png?v=2");background-size:contain;
+  box-shadow:none;background-image:url("logo-a-color.svg?v=1");background-size:contain;
   background-repeat:no-repeat;background-position:center}
 .logo .mark::after{content:none}
 .nav-links{gap:2rem;font-size:15px;color:var(--muted)}
