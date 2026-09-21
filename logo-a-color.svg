@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 906 1000" width="906" height="1000">
+<defs>
+
+  <linearGradient id="gUpL"    x1="0.9" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#eef2f5"/><stop offset="1" stop-color="#aab3bb"/></linearGradient>
+  <linearGradient id="gLowL"   x1="0.1" y1="0" x2="0.9" y2="1">
+    <stop offset="0" stop-color="#99a2aa"/><stop offset="0.55" stop-color="#6e777f"/><stop offset="1" stop-color="#4e565e"/></linearGradient>
+  <linearGradient id="gFootL"  x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#e6ebef"/><stop offset="1" stop-color="#b3bcc4"/></linearGradient>
+  <linearGradient id="gUpR"    x1="0" y1="0" x2="1" y2="0.8">
+    <stop offset="0" stop-color="#666f77"/><stop offset="1" stop-color="#363d45"/></linearGradient>
+  <linearGradient id="gBevelR" x1="0" y1="0" x2="0.7" y2="1">
+    <stop offset="0" stop-color="#f2f5f7"/><stop offset="1" stop-color="#bcc5cc"/></linearGradient>
+  <linearGradient id="gMidR"   x1="0.2" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#c3cbd2"/><stop offset="1" stop-color="#7d868e"/></linearGradient>
+  <linearGradient id="gWine"   x1="0.1" y1="0" x2="0.9" y2="1">
+    <stop offset="0" stop-color="#77404f"/><stop offset="1" stop-color="#361d27"/></linearGradient>
+  <linearGradient id="gFootR"  x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#e9eef1"/><stop offset="1" stop-color="#a7b0b8"/></linearGradient>
+  <linearGradient id="gBar"    x1="0" y1="0" x2="0.35" y2="1">
+    <stop offset="0" stop-color="#f0f3f5"/><stop offset="1" stop-color="#9fa8b0"/></linearGradient>
+
+  <clipPath id="clipMark"><path fill-rule="evenodd" d="M 453.0 0.0 L 906.0 1000.0 L 731.6 1000.0 L 629.7 748.4 L 276.3 748.4 L 174.4 1000.0 L 0.0 1000.0 Z M 453.0 348.8 L 581.2 644.1 L 324.8 644.1 Z"/></clipPath>
+</defs>
+<g clip-path="url(#clipMark)">
+  <polygon id="upL" points="453.0,0.0 453.0,224.4 242.2,465.9" fill="url(#gUpL)"/>
+  <polygon id="lowL" points="242.2,465.9 453.0,224.4 453.0,348.8 324.8,644.1 276.3,748.4 174.4,1000.0 71.8,838.1" fill="url(#gLowL)"/>
+  <polygon id="footL" points="71.8,838.1 174.4,1000.0 0.0,1000.0" fill="url(#gFootL)"/>
+  <polygon id="upR" points="453.0,0.0 519.2,139.2 607.2,529.8 453.0,224.4" fill="url(#gUpR)"/>
+  <polygon id="bevelR" points="519.2,139.2 808.9,778.0 607.2,529.8" fill="url(#gBevelR)"/>
+  <polygon id="midR" points="453.0,224.4 607.2,529.8 629.7,748.4 581.2,644.1 453.0,348.8" fill="url(#gMidR)"/>
+  <polygon id="wine" points="607.2,529.8 808.9,778.0 791.9,1000.0 731.6,1000.0 629.7,748.4" fill="url(#gWine)"/>
+  <polygon id="footR" points="808.9,778.0 906.0,1000.0 791.9,1000.0" fill="url(#gFootR)"/>
+  <polygon id="bar" points="324.8,644.1 581.2,644.1 629.7,748.4 276.3,748.4" fill="url(#gBar)"/>
+</g>
+</svg>
