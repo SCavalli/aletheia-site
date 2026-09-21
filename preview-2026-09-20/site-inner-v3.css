@@ -48,8 +48,9 @@ html.js .reveal,html.js .reveal.in,html.js .hero .reveal,html.js .pstep.reveal{
 nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
 .nav-in{height:76px;gap:2rem}
 .logo{font-weight:500;font-size:17px;letter-spacing:.14em;gap:12px}
-.logo .mark{width:12px;height:12px;border-radius:2px;background:var(--accent,#cfdcec);
-  box-shadow:0 0 20px rgba(207,220,236,.75);transform:rotate(45deg)}
+.logo .mark{width:30px;height:31px;border-radius:0;background:none;transform:none;
+  box-shadow:none;background-image:url("logo-a-64.png");background-size:contain;
+  background-repeat:no-repeat;background-position:center}
 .logo .mark::after{content:none}
 .nav-links{gap:2rem;font-size:15px;color:var(--muted)}
 .nav-burger{border:1px solid var(--bd-strong);border-radius:10px;background:transparent}
@@ -437,3 +438,7 @@ main#content>section#what{border-top:0}
 /* То же для внутренних страниц: их липкая кнопка описана здесь. */
 .m-cta{transition:transform .25s var(--ease,ease),opacity .25s var(--ease,ease)}
 .m-cta.m-cta-off{opacity:0;transform:translateY(120%);pointer-events:none}
+
+/* Вино на внутренних: линии и подложки, не текст. */
+nav{border-bottom-color:rgba(122,79,96,.4)}
+.sec-head .eyebrow{color:#c9a9b7}

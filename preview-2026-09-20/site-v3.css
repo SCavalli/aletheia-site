@@ -67,8 +67,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   border-bottom:1px solid var(--hair)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:var(--gap-m)}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.14em}
-.brand .mark{width:12px;height:12px;border-radius:2px;background:var(--accent);
-  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+/* 21.09: вместо ромба-заглушки в шапке стоит настоящий знак — фасеточная A.
+   Картинкой, а не квадратом на CSS: у знака грани, их квадратом не нарисовать. */
+.brand .mark{width:30px;height:31px;border-radius:0;background:none;transform:none;
+  box-shadow:none;background-image:url("logo-a-64.png");background-size:contain;
+  background-repeat:no-repeat;background-position:center}
 .nav-links{display:flex;gap:clamp(14px,1.7vw,30px);align-items:center}
 /* 20.09: пунктов стало шесть. С фиксированным gap и переносом слов «AI-сотрудники»
    и «Как работаем» ломались на две строки и раздували шапку — держим одну строку
@@ -118,7 +121,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   .nav-in{height:64px;gap:12px}
   .nav .btn{padding:12px 14px;font-size:13px} /* 04.09: высота ≥44px под палец */
   .brand{font-size:14px;letter-spacing:.06em;gap:8px}
-  .brand .mark{width:10px;height:10px}
+  .brand .mark{width:26px;height:27px}
 }
 
 /* якоря не должны прятаться под sticky-шапку при переходе по #hash-ссылкам */
@@ -910,3 +913,20 @@ img{max-width:100%;height:auto}
     gap:clamp(20px,3vw,40px);align-items:center;max-width:100%}
   .flag-media figcaption{margin-top:0;font-size:16.5px;max-width:40ch}
 }
+
+/* ---------- ВИНО В ИНТЕРФЕЙСЕ (21.09) ----------
+   Настоящий винный из знака — #3c2832, он очень тёмный: как цвет текста на тёмном
+   фоне он нечитаем. Поэтому вино работает плашками, линиями и подложками,
+   а светлый розово-винный (#c9a9b7) остаётся только для мелкого текста ссылок. */
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,#3c2832,#7a4f60 45%,transparent);opacity:.9}
+.tri{border-top-color:rgba(122,79,96,.45)}
+.flagship,.scope{border-top-color:rgba(122,79,96,.3)}
+.tri-card{position:relative;overflow:hidden}
+.tri-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(to right,#3c2832,#7a4f60);opacity:0;transition:opacity .3s var(--ease)}
+.tri-card:hover::after,.tri-card:focus-visible::after{opacity:1}
+.launch li::marker{color:#7a4f60}
+.proof .inner{border-left:3px solid #7a4f60}
+.close{background:linear-gradient(to bottom,transparent,rgba(60,40,50,.35))}
+.foot{border-top-color:rgba(122,79,96,.4)}
