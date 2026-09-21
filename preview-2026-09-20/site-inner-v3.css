@@ -21,6 +21,12 @@
 }
 
 body{font-family:var(--font-body);font-size:1.125rem;line-height:1.65;background:var(--bg)}
+/* Винный градиент верхнего экрана. Именно ::after, а не ::before: ::before в этом
+   файле уже занят под фон и прибит к z-index:-3, мой слой там оказывался под канвой. */
+body::after{content:"";position:fixed;left:0;right:0;top:0;height:100vh;pointer-events:none;z-index:-3;
+  background:
+    linear-gradient(to bottom,rgba(11,17,33,0) 84%,var(--bg) 100%),
+    linear-gradient(120deg,#10060C 0%,#210B16 26%,#3A1023 58%,#5B1C35 100%)}
 h1,h2,h3,h4,.logo,.btn{font-family:var(--font-head)}
 h1,h2,h3{text-wrap:balance;letter-spacing:-.032em}
 p{text-wrap:pretty}
