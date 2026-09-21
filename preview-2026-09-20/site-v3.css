@@ -142,7 +142,9 @@ section[id],[id^="tw-"]{scroll-margin-top:96px}
 
 /* ---------- HERO: один экран, одна мысль ---------- */
 .hero{position:relative;min-height:min(100svh,760px);display:flex;align-items:center;
-  padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem);overflow:hidden}
+  padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem);overflow:hidden;
+  background:linear-gradient(120deg,
+    #10060C 0%, #210B16 26%, #3A1023 58%, #5B1C35 100%)}
 .hero-wrap{position:relative;z-index:2;width:100%}
 
 /* ---------- КРИСТАЛЛ ----------
@@ -918,8 +920,11 @@ img{max-width:100%;height:auto}
    Настоящий винный из знака — #3c2832, он очень тёмный: как цвет текста на тёмном
    фоне он нечитаем. Поэтому вино работает плашками, линиями и подложками,
    а светлый розово-винный (#c9a9b7) остаётся только для мелкого текста ссылок. */
-.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(to bottom,#3c2832,#7a4f60 45%,transparent);opacity:.9}
+/* Полоса слева убрана: с винным градиентом на весь экран она стала лишней. */
+/* Низ первого экрана гасим в фон страницы, чтобы светлый конец градиента
+   не упирался в стык с витриной. */
+.hero::before{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;
+  background:linear-gradient(to bottom,rgba(11,17,33,0),var(--bg));pointer-events:none;z-index:1}
 .tri{border-top-color:rgba(122,79,96,.45)}
 .flagship,.scope{border-top-color:rgba(122,79,96,.3)}
 .tri-card{position:relative;overflow:hidden}
