@@ -31,7 +31,7 @@
   var PRODUCT_BY_FILE = {
     '': 'home', 'index.html': 'home', 'agents.html': 'agent',
     'security.html': 'security', 'rezident.html': 'resident',
-    'uchti.html': 'uchti', 'audit.html': 'audit'
+    'uchti.html': 'uchti'
   };
   var file = location.pathname.split('/').pop();
   var PRODUCT = (document.body && document.body.getAttribute('data-product')) ||
