@@ -1,7 +1,7 @@
 :root{
   --bg:#070710; --bg2:#0b0b18;
   --ink:#f2f4fb; --muted:#aab1c9; --muted2:#7a829c;
-  --v1:#6d5efc; --v2:#a855f7; --c1:#22d3ee; --gold:#e8c45a;
+  --v1:#6d5efc; --v2:#a855f7; --c1:#cfdcec; --gold:#e8c45a;
   --card:rgba(255,255,255,0.04); --bd:rgba(255,255,255,0.10);
   --maxw:1140px;
 }

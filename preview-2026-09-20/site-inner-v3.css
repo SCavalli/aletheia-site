@@ -6,11 +6,12 @@
    Источник правды по токенам: DESIGN.md и site-v3.css. */
 
 :root{
-  --bg:#06060d; --bg2:#0a0a14;
-  --ink:#f4f6fc; --muted:#a7aec6; --muted2:#828aa6;
+  /* Та же палитра знака, что и на главной. */
+  --bg:#0b1121; --bg2:#0e1526;
+  --ink:#e9eefb; --muted:#9db0cc; --muted2:#7d8ea9;
   /* Фиолетовый убит в корне: обе переменные теперь циан, поэтому все градиенты
      старого стиля, замешанные на v1/v2, автоматически становятся акцентом. */
-  --v1:#22d3ee; --v2:#22d3ee; --c1:#22d3ee; --gold:#22d3ee;
+  --v1:#cfdcec; --v2:#cfdcec; --c1:#cfdcec; --gold:#cfdcec; --wine:#a06e82;
   --card:transparent; --bd:rgba(255,255,255,.09);
   --bd-strong:rgba(255,255,255,.16);
   --maxw:1180px;
@@ -47,23 +48,23 @@ html.js .reveal,html.js .reveal.in,html.js .hero .reveal,html.js .pstep.reveal{
 nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
 .nav-in{height:76px;gap:2rem}
 .logo{font-weight:500;font-size:17px;letter-spacing:.14em;gap:12px}
-.logo .mark{width:12px;height:12px;border-radius:2px;background:var(--accent,#22d3ee);
-  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+.logo .mark{width:12px;height:12px;border-radius:2px;background:var(--accent,#cfdcec);
+  box-shadow:0 0 20px rgba(207,220,236,.75);transform:rotate(45deg)}
 .logo .mark::after{content:none}
 .nav-links{gap:2rem;font-size:15px;color:var(--muted)}
 .nav-burger{border:1px solid var(--bd-strong);border-radius:10px;background:transparent}
 
 /* ---------- кнопки: одна форма на весь сайт ---------- */
-.btn{background:#22d3ee;color:#04121a;font-weight:700;font-size:16px;letter-spacing:.01em;
+.btn{background:#cfdcec;color:#04121a;font-weight:700;font-size:16px;letter-spacing:.01em;
   padding:16px 30px;border-radius:999px;box-shadow:none;
   transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(207,220,236,.28)}
 .btn.ghost,.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--bd-strong);
   font-weight:700;box-shadow:none}
-.btn.ghost:hover,.btn-ghost:hover{background:transparent;border-color:#22d3ee;color:#22d3ee}
+.btn.ghost:hover,.btn-ghost:hover{background:transparent;border-color:#cfdcec;color:#cfdcec}
 .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .btn.ghost:focus-visible,.btn-ghost:focus-visible,.nav-links a:focus-visible,
-.logo:focus-visible,.backlink:focus-visible{outline:2px solid #22d3ee;outline-offset:4px;border-radius:6px}
+.logo:focus-visible,.backlink:focus-visible{outline:2px solid #cfdcec;outline-offset:4px;border-radius:6px}
 
 /* ---------- заголовки страниц ---------- */
 .subhero{padding:clamp(3rem,7vw,5rem) 0 clamp(1.5rem,3vw,2.5rem)}
@@ -78,7 +79,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 .sec-head h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:300;line-height:1.1}
 .sec-head p{color:var(--muted)}
 .backlink{color:var(--muted2);font-size:15px}
-.backlink:hover{color:#22d3ee}
+.backlink:hover{color:#cfdcec}
 
 /* ---------- карточки: волосяная линия вместо стекла ---------- */
 .feat,.step,.tmini,.rcard,.panel,.bnft,.acard,.netbox,.qa,.contact-card,.founder-box,.demo-box{
@@ -90,22 +91,22 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 /* Иконка — квадратный колодец фиксированного размера. Без размера рамка растягивалась
    на всю карточку и читалась как пустое поле ввода. */
 .feat .fi,.step-ico,.acard .ai,.panel h3 .e{background:transparent;border:1px solid var(--bd);
-  color:#22d3ee;width:46px;height:46px;border-radius:12px;
+  color:#cfdcec;width:46px;height:46px;border-radius:12px;
   display:inline-flex;align-items:center;justify-content:center;flex:0 0 46px}
 .panel h3 .e{width:38px;height:38px;flex-basis:38px;border-radius:10px}
 /* Нумерация шагов оставлена: это настоящая последовательность, а не «01/02/03»
    ради красоты. Но подана тихо — акцент на самом шаге. */
-.step .n,.step-num,.num{color:#22d3ee;font-weight:700;font-size:14px;letter-spacing:.06em}
-.step-dot{background:#22d3ee}
+.step .n,.step-num,.num{color:#cfdcec;font-weight:700;font-size:14px;letter-spacing:.06em}
+.step-dot{background:#cfdcec}
 
 /* тарифы */
-.tmini.hot,.tmini.flag,.rcard.good{border-color:rgba(34,211,238,.42);
-  background:linear-gradient(160deg,rgba(34,211,238,.07),transparent 62%)}
+.tmini.hot,.tmini.flag,.rcard.good{border-color:rgba(207,220,236,.42);
+  background:linear-gradient(160deg,rgba(207,220,236,.07),transparent 62%)}
 .tmini .tn,.tmini.flag .tn,.tmini.hot .tn{color:var(--ink);font-weight:700}
 .tmini .tp{font-family:var(--font-head);font-weight:500;letter-spacing:-.02em}
-.tmini .tsub{color:#22d3ee;font-weight:600}
+.tmini .tsub{color:#cfdcec;font-weight:600}
 .tmini .td,.tmini .td2{color:var(--muted)}
-.tmini .badge,.badge{background:#22d3ee;color:#04121a;font-weight:800;font-size:11px;
+.tmini .badge,.badge{background:#cfdcec;color:#04121a;font-weight:800;font-size:11px;
   letter-spacing:.02em;border-radius:0 16px 0 12px}
 .tier-note,.audit-note,.rnote,.micro,.hint{color:var(--muted2);font-size:14.5px}
 /* Оговорка под тарифами стала абзацем, а не строкой: центрированный текст в четыре
@@ -115,7 +116,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 /* Блоки с фиолетовой заливкой в старом стиле: тот же приём, что и у карточек —
    волосяная линия и лёгкий цианистый подсвет вместо сиреневого градиента. */
 .roi,.proofbox{border:1px solid var(--bd);border-radius:20px;
-  background:linear-gradient(160deg,rgba(34,211,238,.06),transparent 60%)}
+  background:linear-gradient(160deg,rgba(207,220,236,.06),transparent 60%)}
 .proofbox .eyebrow{display:none}
 .roi h3,.proofbox h2{font-weight:400;letter-spacing:-.02em}
 .roi .rsub,.proofbox p{color:var(--muted)}
@@ -123,7 +124,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 /* «в цифрах» */
 .rcard .rh{color:var(--muted2);text-transform:none;letter-spacing:.01em;font-size:14.5px}
 .rcard .rv{font-family:var(--font-head);font-weight:500;letter-spacing:-.02em}
-.rcard.good .rv{color:#22d3ee}
+.rcard.good .rv{color:#cfdcec}
 .rcard .rd{color:var(--muted)}
 
 /* метки, списки */
@@ -133,8 +134,8 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 .checklist li b{color:var(--ink)}
 /* Градиентный текст — запрещённый приём и главный признак старого сайта.
    Сбрасываем и подложку, и text-fill: иначе буквы остаются прозрачными. */
-.grad-text,.acc{color:#22d3ee;background:none;-webkit-background-clip:border-box;
-  background-clip:border-box;-webkit-text-fill-color:#22d3ee}
+.grad-text,.acc{color:#cfdcec;background:none;-webkit-background-clip:border-box;
+  background-clip:border-box;-webkit-text-fill-color:#cfdcec}
 
 /* финальный блок и подвал */
 .cta-box{background:transparent;border:1px solid var(--bd);border-radius:22px;
@@ -143,7 +144,7 @@ nav{background:rgba(6,6,13,.72);backdrop-filter:blur(16px);border-bottom:1px sol
 .cta-box p{color:var(--muted)}
 footer{border-top:1px solid var(--bd);color:var(--muted2);padding:clamp(2.5rem,5vw,3.5rem) 0}
 footer .fl{color:var(--muted2)}
-footer a:hover{color:#22d3ee}
+footer a:hover{color:#cfdcec}
 
 @media(max-width:760px){
   .nav-in{height:64px;gap:12px}
@@ -184,18 +185,18 @@ section[id],header[id]{scroll-margin-top:96px}
 .alt-lead summary{cursor:pointer;color:var(--muted2);font-size:15px;list-style:none;
   display:inline-flex;align-items:center;gap:8px;transition:color .25s var(--ease)}
 .alt-lead summary::-webkit-details-marker{display:none}
-.alt-lead summary::before{content:"+";color:#22d3ee;font-size:17px;line-height:1}
+.alt-lead summary::before{content:"+";color:#cfdcec;font-size:17px;line-height:1}
 .alt-lead details[open] summary::before{content:"–"}
 .alt-lead summary:hover{color:var(--ink)}
 .lead-form{display:flex;flex-direction:column;gap:12px;margin-top:16px;text-align:left}
 .lead-form input{width:100%;padding:14px 16px;border-radius:12px;background:transparent;
   border:1px solid var(--bd);color:var(--ink);font:inherit;font-size:16px}
 .lead-form input::placeholder{color:var(--muted2)}
-.lead-form input:focus{outline:none;border-color:#22d3ee}
+.lead-form input:focus{outline:none;border-color:#cfdcec}
 .lead-form input.err{border-color:#f0616d}
 .lead-form .btn{align-self:flex-start}
 .lead-ok,.lead-fail{margin-top:14px;color:var(--muted);font-size:15.5px;text-align:left}
-.lead-ok b{color:#22d3ee}
+.lead-ok b{color:#cfdcec}
 
 /* ---------- подписи полей формы (20.09, аудит A20) ----------
    Плейсхолдер исчезает при вводе и не заменяет подпись: человек, заполнивший
@@ -208,8 +209,8 @@ section[id],header[id]{scroll-margin-top:96px}
 .lead-form .fld input,.lead-form .fld select,.lead-form .fld textarea{margin:0}
 
 /* ссылка на политику в микротексте формы должна быть видна как ссылка */
-.micro a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
-.micro a:hover{border-bottom-color:#22d3ee}
+.micro a{color:#cfdcec;border-bottom:1px solid rgba(207,220,236,.35)}
+.micro a:hover{border-bottom-color:#cfdcec}
 
 /* ---------- единый порог мобильной шапки (20.09, аудит A09) ----------
    В site.css бургер включался на ≤760px, а на главной — на ≤1080px: две разные
@@ -251,7 +252,7 @@ section[id],header[id]{scroll-margin-top:96px}
 .defbox{display:grid;gap:clamp(1.6rem,3vw,2.4rem)}
 .def{font-family:var(--font-head);font-weight:300;letter-spacing:-.02em;
   font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.45;color:var(--ink);
-  max-width:60ch;padding-left:clamp(16px,2vw,24px);border-left:2px solid rgba(34,211,238,.45)}
+  max-width:60ch;padding-left:clamp(16px,2vw,24px);border-left:2px solid rgba(207,220,236,.45)}
 .deflist{display:grid;gap:clamp(1.2rem,2.4vw,2rem);
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 .dl-i h3{font-size:17px;font-weight:500;letter-spacing:-.01em;
@@ -269,7 +270,7 @@ section[id],header[id]{scroll-margin-top:96px}
 .rz dl>div:last-child{border-bottom:0}
 .rz dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--muted2);padding-top:3px}
-.rz dl>div:last-child dt{color:#22d3ee}
+.rz dl>div:last-child dt{color:#cfdcec}
 .rz dd{color:var(--muted);font-size:15.5px;line-height:1.5}
 
 /* Маршрут задачи */
@@ -277,7 +278,7 @@ section[id],header[id]{scroll-margin-top:96px}
   grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .fs{padding-top:16px;border-top:1px solid var(--bd-strong)}
 .fs-k{display:block;font-size:12.5px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:#22d3ee}
+  text-transform:uppercase;color:#cfdcec}
 .fs p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55}
 
 /* Состав поставки и сопровождение: список строк, не сетка плашек */
@@ -285,7 +286,7 @@ section[id],header[id]{scroll-margin-top:96px}
 .sc-list li{position:relative;padding:14px 0 14px 24px;border-bottom:1px solid var(--bd);
   color:var(--muted);font-size:16px;line-height:1.55}
 .sc-list li::before{content:"";position:absolute;left:0;top:1.5em;
-  width:9px;height:1px;background:#22d3ee;opacity:.75}
+  width:9px;height:1px;background:#cfdcec;opacity:.75}
 .sc-list li b{color:var(--ink);font-weight:500}
 .sc-list.nots li::before{width:9px;height:9px;top:1.15em;border-radius:50%;
   background:transparent;border:1px solid rgba(240,97,109,.55);opacity:1}
@@ -304,7 +305,7 @@ section[id],header[id]{scroll-margin-top:96px}
   font-family:var(--font-head);font-size:clamp(1rem,1.6vw,1.15rem);letter-spacing:-.015em}
 /* Цена второго сотрудника — условие, а не сноска: обычный кегль, отбивка слева. */
 .launch-note{margin-top:26px;max-width:60ch;padding-left:20px;
-  border-left:2px solid rgba(34,211,238,.42);color:var(--ink);font-size:16px;line-height:1.6;
+  border-left:2px solid rgba(207,220,236,.42);color:var(--ink);font-size:16px;line-height:1.6;
   text-wrap:pretty}
 @media(max-width:760px){
   .launch li{grid-template-columns:1fr;gap:5px}
@@ -318,13 +319,13 @@ section[id],header[id]{scroll-margin-top:96px}
   font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";position:absolute;right:6px;top:15px;
-  color:#22d3ee;font-size:20px;line-height:1;transition:transform .25s var(--ease)}
+  color:#cfdcec;font-size:20px;line-height:1;transition:transform .25s var(--ease)}
 .faq details[open] summary::after{content:"–"}
-.faq summary:hover{color:#22d3ee}
-.faq summary:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;border-radius:6px}
+.faq summary:hover{color:#cfdcec}
+.faq summary:focus-visible{outline:2px solid #cfdcec;outline-offset:3px;border-radius:6px}
 .faq details p{padding:0 0 20px;color:var(--muted);font-size:16px;line-height:1.6;max-width:76ch}
-.faq details p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
-.cta-box p a{color:#22d3ee;border-bottom:1px solid rgba(34,211,238,.35)}
+.faq details p a{color:#cfdcec;border-bottom:1px solid rgba(207,220,236,.35)}
+.cta-box p a{color:#cfdcec;border-bottom:1px solid rgba(207,220,236,.35)}
 
 @media(max-width:600px){
   .rz dl>div{grid-template-columns:1fr;gap:4px}
@@ -348,7 +349,7 @@ section[id],header[id]{scroll-margin-top:96px}
    вводило второй цвет и при 55% альфы читалось грязным пятном.
    Негацию несёт заголовок блока, цвет для этого не нужен. */
 .sc-list.nots li::before{width:9px;height:1px;top:1.5em;border-radius:0;
-  background:#22d3ee;border:0;opacity:.75}
+  background:#cfdcec;border:0;opacity:.75}
 
 /* Плюс в FAQ стоял выше оптического центра первой строки. */
 .faq summary::after{top:18px}
@@ -398,10 +399,10 @@ main#content>section#what{border-top:0}
 .case{display:flex;flex-direction:column;padding-top:18px;border-top:1px solid var(--bd-strong)}
 .case h3{font-family:var(--font-head);font-size:1.2rem;font-weight:400;letter-spacing:-.02em}
 .case p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55}
-.case .go{margin-top:auto;padding-top:18px;color:#22d3ee;font-size:14px;font-weight:700}
+.case .go{margin-top:auto;padding-top:18px;color:#cfdcec;font-size:14px;font-weight:700}
 .case-tag{display:inline-block;align-self:flex-start;margin-top:12px;padding:5px 11px;border-radius:999px;
   border:1px solid var(--bd-strong);color:var(--muted2);font-size:12.5px;line-height:1.3}
-.case-tag.own{border-color:rgba(34,211,238,.4);color:#22d3ee}
+.case-tag.own{border-color:rgba(207,220,236,.4);color:#cfdcec}
 
 /* Подробный кейс: та же грамматика, что у ролей — подпись слева, факт справа. */
 .casefull{max-width:56rem}
@@ -414,7 +415,7 @@ main#content>section#what{border-top:0}
   gap:16px;padding:13px 0;border-bottom:1px solid var(--bd)}
 .casefull dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--muted2);padding-top:3px}
-.casefull dl>div.limit dt{color:#22d3ee}
+.casefull dl>div.limit dt{color:#cfdcec}
 .casefull dd{color:var(--muted);font-size:16px;line-height:1.55}
 @media(max-width:640px){
   .casefull dl>div{grid-template-columns:1fr;gap:4px}

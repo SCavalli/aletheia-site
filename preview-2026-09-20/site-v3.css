@@ -4,13 +4,16 @@
    reveal на всём подряд. Премиум здесь делает пустое место, а не эффекты. */
 
 :root{
-  --bg:#06060d;
-  --ink:#f4f6fc;
-  --muted:#a7aec6;          /* 7.1:1 на --bg, проходит по контрасту для body */
-  --muted-dim:#828aa6;      /* только для крупного/второстепенного, ≥4.6:1 */
-  --accent:#22d3ee;         /* единственный акцент */
-  --hair:rgba(255,255,255,.09);
-  --hair-strong:rgba(255,255,255,.16);
+  /* Палитра знака (21.09): глубокая синяя ночь, серебро, винный акцент.
+     Циан снят: он спорил с логотипом, в котором серебро и вино. */
+  --bg:#0b1121;             /* deep navy */
+  --ink:#e9eefb;
+  --muted:#9db0cc;          /* серебро приглушённое, ≥7:1 на --bg */
+  --muted-dim:#7d8ea9;      /* только для крупного/второстепенного */
+  --accent:#cfdcec;         /* серебро — основной акцент */
+  --wine:#a06e82;           /* вино — второй акцент, только окантовки и мелкие детали */
+  --hair:rgba(207,220,236,.11);
+  --hair-strong:rgba(207,220,236,.2);
   --maxw:1180px;
 
   /* ручки панели Tweaks: по умолчанию 1, панель их переопределяет */
@@ -129,10 +132,10 @@ section[id],[id^="tw-"]{scroll-margin-top:96px}
   font-weight:700;font-size:16px;letter-spacing:.01em;
   transition:transform .3s var(--ease),box-shadow .3s var(--ease);
   box-shadow:0 0 0 rgba(34,211,238,0)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(207,220,236,.22)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hair-strong);
   box-shadow:none;font-weight:700}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:none}
+.btn-ghost:hover{border-color:var(--wine);color:#e9c9d5;transform:translateY(-2px);box-shadow:none}
 
 /* ---------- HERO: один экран, одна мысль ---------- */
 .hero{position:relative;min-height:min(100svh,760px);display:flex;align-items:center;
@@ -565,7 +568,7 @@ h2{max-width:min(100%,22ch);
   font-size:clamp(1.05rem,1.7vw,1.25rem);letter-spacing:-.015em;text-wrap:balance}
 /* Цена второго сотрудника — не сноска мелким шрифтом: это условие, а не оговорка. */
 .launch-note{margin-top:var(--gap-m);max-width:62ch;padding-left:clamp(16px,2vw,24px);
-  border-left:2px solid rgba(34,211,238,.42);color:var(--ink);text-wrap:pretty}
+  border-left:2px solid rgba(160,110,130,.6);color:var(--ink);text-wrap:pretty}
 @media(max-width:760px){
   .launch li{grid-template-columns:1fr;gap:6px}
   .launch li::before{padding-top:0}
@@ -573,7 +576,7 @@ h2{max-width:min(100%,22ch);
 
 .price-note{margin-top:var(--gap-m);color:var(--muted);font-size:15px;max-width:70ch;
   text-wrap:pretty}
-.price-note a{color:var(--accent);text-decoration:none;white-space:nowrap}
+.price-note a{color:#c9a9b7;text-decoration:none;white-space:nowrap}
 /* На узких экранах длинная ссылка с nowrap не помещалась в 350px и давала
    горизонтальную прокрутку в один пиксель. Ниже 600px даём ей переноситься. */
 @media(max-width:600px){.price-note a{white-space:normal}}
@@ -627,10 +630,10 @@ h2{max-width:min(100%,22ch);
 .tri-card{display:flex;flex-direction:column;padding:clamp(24px,2.6vw,32px);
   border:1px solid var(--hair);border-radius:18px;
   transition:border-color .3s var(--ease),background .3s var(--ease)}
-.tri-card:hover,.tri-card:focus-visible{border-color:rgba(34,211,238,.42);background:rgba(34,211,238,.05)}
+.tri-card:hover,.tri-card:focus-visible{border-color:rgba(160,110,130,.5);background:rgba(160,110,130,.07)}
 .tri-card h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;letter-spacing:-.02em}
 .tri-card p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55;text-wrap:pretty}
-.tri-card .go{margin-top:auto;padding-top:18px;color:var(--accent);font-size:14px;font-weight:700}
+.tri-card .go{margin-top:auto;padding-top:18px;color:#c9a9b7;font-size:14px;font-weight:700}
 
 @media(max-width:900px){
   /* На телефоне планета уезжает под текст и её светлая часть оказывается ровно
@@ -705,7 +708,7 @@ h2{max-width:min(100%,22ch);
 .sc-list li b{color:var(--ink);font-weight:500}
 .scope-note{margin-top:var(--gap-m);max-width:72ch;color:var(--muted-dim);
   font-size:15px;line-height:1.55;text-wrap:pretty}
-.scope-note a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
+.scope-note a{color:#c9a9b7;border-bottom:1px solid rgba(34,211,238,.35)}
 .scope-note a:hover{border-bottom-color:var(--accent)}
 .price-lede a,.step p a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
 .price-lede a:hover,.step p a:hover{border-bottom-color:var(--accent)}
@@ -868,7 +871,7 @@ h2{max-width:min(100%,22ch);
   color:var(--muted);margin-bottom:10px}
 .tri-card .flag-mark{display:inline-block;margin-left:10px;padding:3px 9px;border-radius:999px;
   font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;vertical-align:middle;
-  color:#04121a;background:var(--accent)}
+  color:#f6e9ee;background:#7a4f60}
 
 /* Витрина из ЧЕТЫРЁХ направлений (21.09, пятая карточка снята). Автосетка на 1100px
    рабочей ширины даёт три колонки — четвёртая карточка повисла бы одна. Явные две

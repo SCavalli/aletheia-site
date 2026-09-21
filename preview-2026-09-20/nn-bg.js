@@ -20,7 +20,7 @@
   }
   const ctx=cv.getContext('2d'); if(!ctx) return;
   let W,H,DPR,hubs=[],packets=[],mouse={x:-9999,y:-9999,active:false},raf,last=0;
-  let ACC=[34,211,238]; const DIM=[109,94,252];
+  let ACC=[207,220,236]; const DIM=[160,110,130];
   let densityK=1, glowK=1;                  // ручки панели Tweaks
   const hex2rgb=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');
     return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
