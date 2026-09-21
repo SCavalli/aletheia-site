@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
-<link rel="stylesheet" href="site-inner-v3.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%2322d3ee%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
+<link rel="stylesheet" href="site.css?v=prod-20260921-0700">
+<link rel="stylesheet" href="site-inner-v3.css?v=prod-20260921-0700">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306060d%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22%23cfdcec%22%20transform%3D%22rotate%2845%2016%2016%29%22%2F%3E%3C%2Fsvg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="РЕЗИДЕНТ: локальный AI для документов и знаний компании">
 <meta property="og:description" content="Локальная установка в вашем контуре: поиск по документам, сравнение и сводки без обращения к внешним AI-сервисам. Режим работы и обслуживания фиксируем до внедрения.">
@@ -20,16 +20,18 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-<canvas id="nn-canvas" aria-hidden="true"></canvas>
+<!-- Сеть агентов снята 21.09 по решению Сергея: на винном градиенте
+     она читалась как частичный шум и удешевляла дизайн. Вернуть —
+     раскомментировать канву и скрипт nn-bg.js ниже. -->
 
 <div class="bg-fx"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 <div class="grain"></div>
 
 <nav><div class="wrap nav-in">
   <input type="checkbox" id="nav-t" class="nav-toggle">
-  <a class="logo" href="index.html"><span class="mark"></span> ALETHEIA</a>
+  <a class="logo" href="/"><span class="mark"></span> ALETHEIA</a>
   <div class="nav-links">
-    <a href="index.html#directions">Все продукты</a>
+    <a href="/#directions">Все продукты</a>
     <a href="#how">Как работает</a>
     <a href="#tariffs">Тарифы</a>
   </div>
@@ -39,7 +41,7 @@
 
 <main id="content">
 <header class="subhero"><div class="wrap">
-  <a href="index.html" class="backlink">← Все продукты ALETHEIA</a>
+  <a href="/" class="backlink">← Все продукты ALETHEIA</a>
   <div class="eyebrow">РЕЗИДЕНТ · локальный AI для документов компании</div>
   <h1>Локальный AI для документов и знаний <span class="grad-text">вашей компании</span></h1>
   <p class="lead">РЕЗИДЕНТ разворачивается на оборудовании в вашем контуре. Помогает искать информацию, сравнивать документы и готовить сводки без обращения к внешним AI-сервисам в согласованной локальной конфигурации.</p>
@@ -88,28 +90,9 @@
   </div>
 </div></section>
 
-<section style="padding-top:0"><div class="wrap">
-  <div class="twocol">
-    <div class="panel reveal">
-      <h3>Что вы контролируете в облаке</h3>
-      <ul class="checklist">
-        <li><b>Условия обработки</b> задаёт провайдер, вы принимаете их целиком</li>
-        <li><b>Проверить исполнение</b> можно по документам и настройкам, не на своём сервере</li>
-        <li><b>Удаление</b> идёт по регламенту сервиса, со своими сроками и исключениями</li>
-        <li><b>Счёт</b> зависит от числа людей и объёма запросов</li>
-      </ul>
-    </div>
-    <div class="panel reveal">
-      <h3>Мы показываем то, что можно проверить</h3>
-      <ul class="checklist">
-        <li><b>Привезём устройство</b> к вам в офис</li>
-        <li><b>Покажем на тестовом документе</b> — для первого показа берём обезличенный или демонстрационный файл</li>
-        <li><b>Отключим внешнюю сеть</b> при вас и повторим тот же запрос</li>
-        <li><b>Бесплатно</b>: работу с реальными конфиденциальными документами начинаем после согласования режима обработки</li>
-      </ul>
-    </div>
-  </div>
-</div></section>
+<!-- 20.09: блок «Что вы контролируете в облаке» снят — он пересказывал секцию выше
+     про обработку на стороне провайдера. -->
+
 
 <section style="padding-top:0"><div class="wrap">
   <div class="roi reveal">
@@ -135,33 +118,9 @@
   </div>
 </div></section>
 
-<section style="padding-top:0"><div class="wrap">
-  <div class="sec-head reveal">
-    <div class="eyebrow">Для кого</div>
-    <h2>Если утечка документа стоит вам клиента, штрафа или репутации</h2>
-    <p><b>Работают с чувствительными документами</b> и хотят, чтобы обработка оставалась внутри их контура.</p>
-  </div>
-  <div class="tags" style="display:flex;flex-wrap:wrap;gap:13px">
-    <span class="tag hot">Юридические и консалтинговые компании</span>
-    <span class="tag hot">Финансовые организации</span>
-    <span class="tag hot">Медицина и клиники</span>
-    <span class="tag hot">Промышленность и R&amp;D</span>
-    <span class="tag hot">Компании с большим договорным архивом</span>
-  </div>
-  <div class="sec-head reveal" style="margin-top:44px">
-    <p><b>Критично по риску</b>: утечка означает потерю клиента, претензии и репутационный ущерб.</p>
-  </div>
-  <div class="tags" style="display:flex;flex-wrap:wrap;gap:13px">
-    <span class="tag">Юристы и адвокаты</span>
-    <span class="tag">Нотариусы</span>
-    <span class="tag">Бухгалтеры и аудиторы</span>
-    <span class="tag">Психологи и психотерапевты</span>
-    <span class="tag">Страховые компании</span>
-    <span class="tag">Патентные поверенные и R&amp;D</span>
-    <span class="tag">M&amp;A, due diligence, инвестфонды</span>
-    <span class="tag">HR и кадровые агентства</span>
-  </div>
-</div></section>
+<!-- 20.09: перечень индустрий снят по тому же принципу, что на странице пентеста:
+     «для кого» через список отраслей — это «для всех», решение оно не двигает. -->
+
 
 <section style="padding-top:0"><div class="wrap">
   <div class="sec-head reveal">
@@ -195,20 +154,20 @@
   <div class="tiers t3">
     <div class="tmini reveal">
       <div class="tn">РЕЗИДЕНТ Базовый</div>
-      <div class="tp">от 290 000 ₽</div>
-      <div class="tsub">+ от 15 000 ₽/мес сопровождение</div>
+      <div class="tp">от 290 000 ₽</div>
+      <div class="tsub">+ от 15 000 ₽/мес сопровождение</div>
       <div class="td2">До 10 сотрудников. Анализ документов, своя база знаний, мультидоступ.</div>
     </div>
     <div class="tmini hot reveal">
       <div class="badge">Популярное</div>
       <div class="tn">РЕЗИДЕНТ Бизнес</div>
-      <div class="tp">от 590 000 ₽</div>
-      <div class="tsub">+ от 30 000 ₽/мес сопровождение</div>
+      <div class="tp">от 590 000 ₽</div>
+      <div class="tsub">+ от 30 000 ₽/мес сопровождение</div>
       <div class="td2">Большой архив, интеграции, приоритетная поддержка, расширенная модель.</div>
     </div>
     <div class="tmini reveal">
       <div class="tn">РЕЗИДЕНТ Сейф</div>
-      <div class="tp">от 800 000 ₽</div>
+      <div class="tp">от 800 000 ₽</div>
       <div class="tsub">+ сопровождение индивидуально</div>
       <div class="td2">Полностью изолированный контур: выезд инженера, офлайн-порядок обновлений и переноса данных. Для случаев, где внешние подключения исключены полностью.</div>
     </div>
@@ -284,10 +243,10 @@
 </main>
 
 <footer><div class="wrap">
-  <a class="logo" href="index.html"><span class="mark"></span> ALETHEIA</a>
+  <a class="logo" href="/"><span class="mark"></span> ALETHEIA</a>
   <div>ALETHEIA — AI-сотрудники, управленческие системы и кибербезопасность для бизнеса.</div>
   <div class="fl">Instagram: <a href="https://www.instagram.com/aletheia_ai" target="_blank" rel="noopener">@aletheia_ai</a></div>
-  <div class="fl">© 2026 ALETHEIA · <a href="audit.html">Денежная диагностика</a> · <a href="security.html">Пентест и безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
+  <div class="fl">© 2026 ALETHEIA · <a href="security.html">Пентест и безопасность</a> · <a href="uchti.html">Учти.Бизнес</a> · <a href="rezident.html">Резидент</a> · <a href="agents.html">AI-сотрудники</a></div>
   <div class="fl"><a href="oferta.html">Публичная оферта</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
   <div class="fl freq">ИП Ковалев Сергей Сергеевич · ИНН 772919088506</div>
 </div></footer>
@@ -297,9 +256,9 @@
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
 </script>
 <div class="m-cta"><a href="https://t.me/aletheia_support_bot?start=resident" class="btn">Записаться на демо</a></div>
-<script src="lead-form.js"></script>
-<script src="nav-menu.js"></script>
-<script src="analytics-events.js"></script>
-<script src="nn-bg.js"></script>
+<script src="lead-form.js?v=prod-20260921-0700"></script>
+<script src="nav-menu.js?v=prod-20260921-0700"></script>
+<script src="analytics-events.js?v=prod-20260921-0700"></script>
+<!-- <script src="nn-bg.js"></script> сеть агентов, см. комментарий в шапке -->
 </body>
 </html>

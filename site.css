@@ -1,7 +1,7 @@
 :root{
   --bg:#070710; --bg2:#0b0b18;
   --ink:#f2f4fb; --muted:#aab1c9; --muted2:#7a829c;
-  --v1:#6d5efc; --v2:#a855f7; --c1:#22d3ee; --gold:#e8c45a;
+  --v1:#6d5efc; --v2:#a855f7; --c1:#cfdcec; --gold:#e8c45a;
   --card:rgba(255,255,255,0.04); --bd:rgba(255,255,255,0.10);
   --maxw:1140px;
 }
@@ -426,3 +426,9 @@ nav a:hover::after{right:0}
 @media (max-width:640px){
   .pcard.feat{padding:28px 24px}
 }
+
+
+/* Липкая мобильная кнопка уезжает вниз, пока виден первый экран: там своя кнопка
+   с тем же текстом. Класс вешает nav-menu.js; без скрипта кнопка видна всегда. */
+.m-cta{transition:transform .25s var(--ease,ease),opacity .25s var(--ease,ease)}
+.m-cta.m-cta-off{opacity:0;transform:translateY(120%);pointer-events:none}

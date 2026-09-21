@@ -4,13 +4,16 @@
    reveal на всём подряд. Премиум здесь делает пустое место, а не эффекты. */
 
 :root{
-  --bg:#06060d;
-  --ink:#f4f6fc;
-  --muted:#a7aec6;          /* 7.1:1 на --bg, проходит по контрасту для body */
-  --muted-dim:#828aa6;      /* только для крупного/второстепенного, ≥4.6:1 */
-  --accent:#22d3ee;         /* единственный акцент */
-  --hair:rgba(255,255,255,.09);
-  --hair-strong:rgba(255,255,255,.16);
+  /* Палитра знака (21.09): глубокая синяя ночь, серебро, винный акцент.
+     Циан снят: он спорил с логотипом, в котором серебро и вино. */
+  --bg:#0b1121;             /* deep navy */
+  --ink:#e9eefb;
+  --muted:#9db0cc;          /* серебро приглушённое, ≥7:1 на --bg */
+  --muted-dim:#7d8ea9;      /* только для крупного/второстепенного */
+  --accent:#cfdcec;         /* серебро — основной акцент */
+  --wine:#a06e82;           /* вино — второй акцент, только окантовки и мелкие детали */
+  --hair:rgba(207,220,236,.11);
+  --hair-strong:rgba(207,220,236,.2);
   --maxw:1180px;
 
   /* ручки панели Tweaks: по умолчанию 1, панель их переопределяет */
@@ -64,8 +67,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   border-bottom:1px solid var(--hair)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:var(--gap-m)}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.14em}
-.brand .mark{width:12px;height:12px;border-radius:2px;background:var(--accent);
-  box-shadow:0 0 20px rgba(34,211,238,.75);transform:rotate(45deg)}
+/* 21.09: вместо ромба-заглушки в шапке стоит настоящий знак — фасеточная A.
+   Картинкой, а не квадратом на CSS: у знака грани, их квадратом не нарисовать. */
+.brand .mark{width:30px;height:31px;border-radius:0;background:none;transform:none;
+  box-shadow:none;background-image:url("logo-a-64.png");background-size:contain;
+  background-repeat:no-repeat;background-position:center}
 .nav-links{display:flex;gap:clamp(14px,1.7vw,30px);align-items:center}
 /* 20.09: пунктов стало шесть. С фиксированным gap и переносом слов «AI-сотрудники»
    и «Как работаем» ломались на две строки и раздували шапку — держим одну строку
@@ -115,7 +121,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   .nav-in{height:64px;gap:12px}
   .nav .btn{padding:12px 14px;font-size:13px} /* 04.09: высота ≥44px под палец */
   .brand{font-size:14px;letter-spacing:.06em;gap:8px}
-  .brand .mark{width:10px;height:10px}
+  .brand .mark{width:26px;height:27px}
 }
 
 /* якоря не должны прятаться под sticky-шапку при переходе по #hash-ссылкам */
@@ -129,14 +135,16 @@ section[id],[id^="tw-"]{scroll-margin-top:96px}
   font-weight:700;font-size:16px;letter-spacing:.01em;
   transition:transform .3s var(--ease),box-shadow .3s var(--ease);
   box-shadow:0 0 0 rgba(34,211,238,0)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.28)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(207,220,236,.22)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hair-strong);
   box-shadow:none;font-weight:700}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:none}
+.btn-ghost:hover{border-color:var(--wine);color:#e9c9d5;transform:translateY(-2px);box-shadow:none}
 
 /* ---------- HERO: один экран, одна мысль ---------- */
 .hero{position:relative;min-height:min(100svh,760px);display:flex;align-items:center;
-  padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem);overflow:hidden}
+  padding:clamp(4rem,9vh,7rem) 0 clamp(3rem,7vh,5rem);overflow:hidden;
+  background:linear-gradient(120deg,
+    #10060C 0%, #210B16 26%, #3A1023 58%, #5B1C35 100%)}
 .hero-wrap{position:relative;z-index:2;width:100%}
 
 /* ---------- КРИСТАЛЛ ----------
@@ -193,7 +201,7 @@ h2{max-width:min(100%,22ch);
 .hero h1{
   /* ch считается по СОБСТВЕННОМУ размеру шрифта заголовка, а не по 18px родителя.
      Ограничение на родителе давало 19ch ≈ 178px и ломало заголовок на шесть строк. */
-  max-width:min(100%,15ch);
+  max-width:100%;
   font-size:clamp(2.05rem,4.4vw,3.5rem);  /* Unbounded шире, размер подрезан под неё */
   line-height:1.04;
   letter-spacing:-.028em;                /* выше пола -.04em, буквы не слипаются */
@@ -203,8 +211,9 @@ h2{max-width:min(100%,22ch);
   font-weight:300;
   text-wrap:balance;
 }
+.hero h1 span{display:block}
 .hero h1 em{font-style:normal;color:var(--accent)}
-.hero .lede{margin-top:var(--gap-m);max-width:min(48ch,52%);font-size:clamp(1.1rem,1.8vw,1.35rem);
+.hero .lede{margin-top:var(--gap-m);max-width:min(48ch,100%);font-size:clamp(1.1rem,1.8vw,1.35rem);
   color:var(--muted);line-height:1.58;font-weight:400;text-wrap:pretty}
 .hero .actions{margin-top:clamp(1.6rem,3.2vh,2.4rem);display:flex;gap:14px;flex-wrap:wrap}
 /* Панч-отстройка: тот же кегль, что у лида, но светлее по цвету — это удар,
@@ -550,9 +559,32 @@ h2{max-width:min(100%,22ch);
 .pe-desc{margin-top:10px;color:var(--muted);max-width:56ch;font-size:16px;text-wrap:pretty}
 .pe-act{display:flex;flex-direction:column;gap:12px}
 
+/* ПОРЯДОК ЗАПУСКА (21.09). Сетка повторяет .tier и .role: слева отметка шага,
+   справа суть. Шаги нумеруются счётчиком, а не вручную — если порядок поменяется,
+   числа не разъедутся. Номер в псевдоэлементе, поэтому маркер списка снят. */
+.launch{list-style:none;margin-top:var(--gap-l);padding:0;
+  border-top:1px solid var(--hair);counter-reset:step}
+.launch li{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr);
+  gap:clamp(12px,2vw,32px);padding:clamp(18px,1.8vw,24px) 0;border-bottom:1px solid var(--hair)}
+.launch li::before{counter-increment:step;content:"Шаг " counter(step);
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:.5em}
+.launch li div{color:var(--muted);max-width:60ch;text-wrap:pretty}
+.launch li b{display:block;margin-bottom:8px;color:var(--ink);font-weight:500;
+  font-size:clamp(1.05rem,1.7vw,1.25rem);letter-spacing:-.015em;text-wrap:balance}
+/* Цена второго сотрудника — не сноска мелким шрифтом: это условие, а не оговорка. */
+.launch-note{margin-top:var(--gap-m);max-width:62ch;padding-left:clamp(16px,2vw,24px);
+  border-left:2px solid rgba(160,110,130,.6);color:var(--ink);text-wrap:pretty}
+@media(max-width:760px){
+  .launch li{grid-template-columns:1fr;gap:6px}
+  .launch li::before{padding-top:0}
+}
+
 .price-note{margin-top:var(--gap-m);color:var(--muted);font-size:15px;max-width:70ch;
   text-wrap:pretty}
-.price-note a{color:var(--accent);text-decoration:none;white-space:nowrap}
+.price-note a{color:#c9a9b7;text-decoration:none;white-space:nowrap}
+/* На узких экранах длинная ссылка с nowrap не помещалась в 350px и давала
+   горизонтальную прокрутку в один пиксель. Ниже 600px даём ей переноситься. */
+@media(max-width:600px){.price-note a{white-space:normal}}
 .price-note a:hover{text-decoration:underline}
 
 @media(max-width:900px){
@@ -603,10 +635,10 @@ h2{max-width:min(100%,22ch);
 .tri-card{display:flex;flex-direction:column;padding:clamp(24px,2.6vw,32px);
   border:1px solid var(--hair);border-radius:18px;
   transition:border-color .3s var(--ease),background .3s var(--ease)}
-.tri-card:hover,.tri-card:focus-visible{border-color:rgba(34,211,238,.42);background:rgba(34,211,238,.05)}
+.tri-card:hover,.tri-card:focus-visible{border-color:rgba(160,110,130,.5);background:rgba(160,110,130,.07)}
 .tri-card h3{font-family:var(--font-head);font-size:1.25rem;font-weight:400;letter-spacing:-.02em}
 .tri-card p{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.55;text-wrap:pretty}
-.tri-card .go{margin-top:auto;padding-top:18px;color:var(--accent);font-size:14px;font-weight:700}
+.tri-card .go{margin-top:auto;padding-top:18px;color:#c9a9b7;font-size:14px;font-weight:700}
 
 @media(max-width:900px){
   /* На телефоне планета уезжает под текст и её светлая часть оказывается ровно
@@ -681,7 +713,7 @@ h2{max-width:min(100%,22ch);
 .sc-list li b{color:var(--ink);font-weight:500}
 .scope-note{margin-top:var(--gap-m);max-width:72ch;color:var(--muted-dim);
   font-size:15px;line-height:1.55;text-wrap:pretty}
-.scope-note a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
+.scope-note a{color:#c9a9b7;border-bottom:1px solid rgba(34,211,238,.35)}
 .scope-note a:hover{border-bottom-color:var(--accent)}
 .price-lede a,.step p a{color:var(--accent);border-bottom:1px solid rgba(34,211,238,.35)}
 .price-lede a:hover,.step p a:hover{border-bottom-color:var(--accent)}
@@ -723,3 +755,183 @@ h2{max-width:min(100%,22ch);
   font-family:var(--font-head);font-size:1.2rem;font-weight:400;letter-spacing:-.02em}
 /* Роли теперь описывают работу тремя связками — выделяем «получает/делает/выдаёт». */
 .role dd b{color:var(--ink);font-weight:500}
+
+
+/* ---------- ПЕРВЫЙ ЭКРАН НА ТЕЛЕФОНЕ: текст без картинки под ним (20.09 вечер) ----------
+   Фоновый кадр уходил ПОД заголовок, и его светящиеся линии шли сквозь буквы.
+   Затемнять подложку — полумера: кадр движется, на светлых кадрах текст всё равно
+   тонет. Поэтому на узких экранах визуал из первого экрана убран совсем, а сам кадр
+   показан отдельным блоком ниже — там он ничего не перекрывает.
+   Десктоп не трогаем: там визуал стоит справа от текста и не мешает. */
+.hero-media{display:none}
+.hero-media-frame{position:relative;aspect-ratio:16/9;overflow:hidden;
+  border-radius:14px;border:1px solid var(--hair);background:#06060d}
+.hero-media-frame video{width:100%;height:100%;object-fit:cover;display:block}
+
+@media(max-width:900px){
+  .hero .hero-visual{display:none}
+  /* Подложка существовала только ради контраста текста над кадром. Кадра под
+     текстом больше нет — вместе с ним уходит и она, иначе низ героя темнеет зря. */
+  .hero::after{display:none}
+  .hero{align-items:flex-start;min-height:auto;
+    padding-top:clamp(3.2rem,9vh,4.4rem);padding-bottom:clamp(1.4rem,4vh,2.2rem)}
+  .hero-media{display:block;margin-bottom:clamp(2rem,7vh,3.4rem)}
+  /* Воздух между абзацами первого экрана: режем его, а не смысл. Картинки под
+     текстом больше нет, поэтому запас на «дыхание кадра» здесь не нужен. */
+  .hero .lede{margin-top:.62rem}
+  .hero .lede-punch{margin-top:.55rem}
+  /* Абзац про три других направления на телефоне уходит с первого экрана: ровно
+     то же самое ниже развёрнуто карточками в секции «Другие направления ALETHEIA»,
+     то есть режется повтор, а не содержание. Без него кнопка возвращается в первый
+     экран (900px → 770px при высоте вьюпорта 844). Откат — удалить эту строку. */
+  .hero .hero-tie{display:none}
+  .hero .actions{margin-top:.9rem}
+  .hero .cta-note{margin-top:.6rem}
+  .hero .hero-alt{margin-top:.5rem}
+}
+
+
+/* ---------- КАДР ПЕРЕПИСКИ ВМЕСТО ПЛАНЕТЫ (20.09 вечер) ----------
+   Кадр вертикальный (1400×2480), поэтому прежние правила визуала под 16/9 здесь
+   переопределяются целиком: своя ширина, своя пропорция, свой масштаб.
+   Маска мягкая и только по низу: у кадра собственный тёмный фон почти в цвет сайта,
+   растворять все четыре края как планету не нужно — это съело бы рамку телефона. */
+.hero-visual:has(.hero-phone){
+  /* 20.09 вечер, правка после проверки: кадр целиком при ширине 352px читался как
+     «телефон, в нём какой-то чат» — ровно та же декорация, что и планета до него.
+     Кадр меняли ради того, чтобы человек УВИДЕЛ результат, поэтому здесь тот же
+     приём, что и на мобильном: показываем не весь диалог, а его низ, крупно.
+     Рамку устройства при этом срезаем — узнаётся переписка, а не модель телефона. */
+  width:min(38vw,430px);aspect-ratio:9/10;right:clamp(0px,3vw,44px);
+  overflow:hidden;border-radius:18px;border:1px solid var(--hair);background:#05070a}
+.hero-visual .hero-phone{
+  /* 600px ширины кадра = масштаб 0.43 от оригинала: текст в пузырях выходит
+     примерно в 13px — читается. Крупнее нельзя: пузыри начинают срезаться боками. */
+  /* top:auto обязателен: базовое правило визуала ставит картинке inset:0, и без
+     сброса верха она остаётся прибитой к верхнему краю — в кадр попадает пустое
+     поле чата вместо результата. */
+  /* Сдвиг в ПИКСЕЛЯХ, а не в процентах: ширина кадра фиксирована (600px), поэтому
+     окно показа должно быть привязано к самому снимку, а не к высоте рамки.
+     -88px срезает снизу рамку телефона и пустое поле под вводом, оставляя в кадре
+     ровно то, что должно читаться: голосовое, ответ с выручкой и плашку xlsx. */
+  /* Ширина и сдвиг — в процентах ОТ РАМКИ, а не в пикселях: рамка ужимается вместе
+     с вьюпортом (34vw), и на 1100–1280 фиксированный кадр срезал пузыри боками.
+     140% — тот же зум, что подобран на 1440 (430 → 600), только масштабируемый;
+     -18.4% по низу = те же 88px при полной ширине. */
+  position:absolute;top:auto;right:auto;left:50%;bottom:-18.4%;
+  width:140%;max-width:none;height:auto;
+  transform:translateX(-50%);
+  -webkit-mask-image:none;mask-image:none}
+/* Свечение планеты било в центр кадра и подсвечивало переписку изнутри. Оставляем
+   только мягкий ореол ЗА рамкой, внутрь он больше не попадает. */
+.hero-visual:has(.hero-phone)::after{inset:-8% -10%;z-index:-1;
+  background:radial-gradient(50% 42% at 50% 50%,rgba(34,211,238,.16),transparent 72%);
+  filter:blur(52px)}
+
+@media(max-width:900px){
+  /* На телефоне кадр идёт отдельным блоком под первым экраном. Показываем не весь
+     снимок: при ширине экрана 390 текст в пузырях ужимается до нечитаемых 8px.
+     Поэтому кадрируем нижнюю часть диалога — ту, ради которой он и нужен:
+     голосовое, ответ с цифрами и приложенный файл. */
+  .hero-media-frame{aspect-ratio:4/5;border-radius:16px}
+  /* 132% — компромисс, найденный замером: при 100% текст в пузырях ужимается до
+     нечитаемых ~8px, при 170% пузыри срезаются боками. Здесь текст читается,
+     а сообщения целиком остаются в кадре. Прижимаем к низу: сверху в снимке
+     пустое поле чата, снизу — то, ради чего кадр и нужен. */
+  .hero-media-frame img{position:absolute;left:50%;bottom:-6%;
+    width:132%;max-width:none;height:auto;transform:translateX(-50%)}
+  /* Низ снимка — рамка телефона и пустое поле под вводом: прижимаем её за край
+     кадра, иначе внизу блока висит тёмная полоса ни о чём. */
+  .hero-media-cap{margin:12px 2px 0;color:var(--muted);font-size:14px;line-height:1.45}
+}
+
+/* На средних десктопах (901–1300) кадр переписки заходил на правый край строк:
+   колонка текста считается по ch и не знает про соседа. Ограничиваем её явно —
+   ширина кадра плюс зазор. Замер: было -15…-29px наложения, стало ≥32px воздуха. */
+@media(min-width:1201px) and (max-width:1300px){
+  .hero h1,.hero .lede,.hero .cta-note,.hero .hero-alt{max-width:calc(100% - 470px)}
+}
+
+/* ---------- СРЕДНИЕ ЭКРАНЫ 901–1200: кадр уходит вниз, а не жмётся сбоку ----------
+   Замер показал, что здесь правая колонка перестаёт помещаться: при 1100 кадр
+   наезжал на кнопки первого экрана на 64px, при 960 — на 147px. Ужимать кадр
+   дальше нельзя — он и нужен ради читаемости переписки, поэтому тот же приём,
+   что и на телефоне: кадр становится отдельным блоком под первым экраном.
+   Ширину блока держим 620px — при ней кроп даёт тот же масштаб, что на 1440. */
+@media(min-width:901px) and (max-width:1200px){
+  .hero .hero-visual{display:none}
+  .hero-media{display:block;margin-bottom:clamp(2rem,6vh,3.2rem)}
+  .hero-media-frame{max-width:620px;margin-inline:auto;aspect-ratio:9/10;
+    border-radius:18px;border:1px solid var(--hair);background:#05070a;
+    position:relative;overflow:hidden}
+  .hero-media-frame img{position:absolute;top:auto;right:auto;left:50%;bottom:-18.4%;
+    width:140%;max-width:none;height:auto;transform:translateX(-50%)}
+  .hero-media-cap{max-width:620px;margin:12px auto 0;color:var(--muted);
+    font-size:15px;line-height:1.45;text-align:center}
+}
+
+/* Подпись направления над заголовком раздела на главной-витрине: нумерация помогает
+   понять, что разделов четыре и они равноправны, а не один продукт с приложениями. */
+.eyebrow-line{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px}
+.tri-card .flag-mark{display:inline-block;margin-left:10px;padding:3px 9px;border-radius:999px;
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;vertical-align:middle;
+  color:#f6e9ee;background:#7a4f60}
+
+/* Витрина из ЧЕТЫРЁХ направлений (21.09, пятая карточка снята). Автосетка на 1100px
+   рабочей ширины даёт три колонки — четвёртая карточка повисла бы одна. Явные две
+   колонки: ряды 2+2 закрываются целиком и на десктопе, и на средних экранах.
+   Ниже 601px сетка схлопывается в одну колонку сама, правило там не нужно. */
+@media(min-width:601px){
+  .tri-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ---------- ПЕРВЫЙ ЭКРАН БЕЗ КАДРА (21.09) ----------
+   Кадр с перепиской уехал в раздел AI-сотрудников: на витрине компании самый
+   крупный объект экрана был про один продукт и спорил с заголовком. Отсюда две
+   правки. Затемняющая подложка существовала только ради контраста текста НАД
+   кадром — без кадра она гасит первый экран впустую. Правила .hero-visual выше
+   не удалены намеренно: элемента нет, они инертны, и если кадр решат вернуть,
+   вся его механика на месте. */
+.hero::after{display:none}
+.hero-media{display:none}
+
+/* Кадр переписки в разделе AI-сотрудников. Снимок вертикальный (1400×2480),
+   поэтому ширину держим телефонной, а не тянем на всю колонку: растянутый
+   скриншот читается как баннер, а не как экран владельца. */
+/* Предохранитель на все картинки: своего базового правила у сайта не было,
+   и любой <img> без явной ширины тянулся в натуральные 1400px, ломая раскладку.
+   Держим его здесь, чтобы ошибка одной секции не выносила всю страницу. */
+img{max-width:100%;height:auto}
+
+.flag-media{margin:var(--gap-l) 0 0;padding:0;max-width:340px}
+.flag-media img{display:block;width:100%;height:auto}
+.flag-media figcaption{margin-top:14px;max-width:34ch;color:var(--muted);
+  font-size:15px;line-height:1.55;text-wrap:pretty}
+@media(min-width:901px){
+  /* На десктопе кадр и подпись встают в строку: вертикальный снимок один
+     посреди широкой колонки оставляет справа дыру в пол-экрана. */
+  .flag-media{display:grid;grid-template-columns:340px minmax(0,1fr);
+    gap:clamp(20px,3vw,40px);align-items:center;max-width:100%}
+  .flag-media figcaption{margin-top:0;font-size:16.5px;max-width:40ch}
+}
+
+/* ---------- ВИНО В ИНТЕРФЕЙСЕ (21.09) ----------
+   Настоящий винный из знака — #3c2832, он очень тёмный: как цвет текста на тёмном
+   фоне он нечитаем. Поэтому вино работает плашками, линиями и подложками,
+   а светлый розово-винный (#c9a9b7) остаётся только для мелкого текста ссылок. */
+/* Полоса слева убрана: с винным градиентом на весь экран она стала лишней. */
+/* Низ первого экрана гасим в фон страницы, чтобы светлый конец градиента
+   не упирался в стык с витриной. */
+.hero::before{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;
+  background:linear-gradient(to bottom,rgba(11,17,33,0),var(--bg));pointer-events:none;z-index:1}
+.tri{border-top-color:rgba(122,79,96,.45)}
+.flagship,.scope{border-top-color:rgba(122,79,96,.3)}
+.tri-card{position:relative;overflow:hidden}
+.tri-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(to right,#3c2832,#7a4f60);opacity:0;transition:opacity .3s var(--ease)}
+.tri-card:hover::after,.tri-card:focus-visible::after{opacity:1}
+.launch li::marker{color:#7a4f60}
+.proof .inner{border-left:3px solid #7a4f60}
+.close{background:linear-gradient(to bottom,transparent,rgba(60,40,50,.35))}
+.foot{border-top-color:rgba(122,79,96,.4)}
